@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mToDoItemsArrayList = new ArrayList<>();
-//        makeUpItems(mToDoItemsArrayList, 50);
+        makeUpItems(mToDoItemsArrayList, 50);
 
 
         if(getSupportActionBar()!=null){
