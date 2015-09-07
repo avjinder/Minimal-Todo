@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,28 +18,34 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView mRecyclerView;
+    private RecyclerViewEmptySupport mRecyclerView;
     private FloatingActionButton mAddToDoItemFAB;
     private ArrayList<ToDoItem> mToDoItemsArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
         mToDoItemsArrayList = new ArrayList<>();
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mToDoItemsArrayList = new ArrayList<>();
-        makeUpItems(mToDoItemsArrayList, 50);
+//        makeUpItems(mToDoItemsArrayList, 50);
 
 
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);
         }
         mAddToDoItemFAB = (FloatingActionButton)findViewById(R.id.addToDoItemFAB);
-        mRecyclerView = (RecyclerView)findViewById(R.id.toDoRecyclerView);
+//        mRecyclerView = (RecyclerView)findViewById(R.id.toDoRecyclerView);
+        mRecyclerView = (RecyclerViewEmptySupport)findViewById(R.id.toDoRecyclerView);
+        mRecyclerView.setEmptyView(findViewById(R.id.toDoEmptyView));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new BasicListAdapter(mToDoItemsArrayList));
+        BasicListAdapter basicListAdapter = new BasicListAdapter(mToDoItemsArrayList);
+        mRecyclerView.setAdapter(basicListAdapter);
 
     }
 
@@ -60,21 +68,23 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(BasicListAdapter.ViewHolder holder, final int position) {
+            Log.d("OskarSchindler", "Holder Bound for "+position);
             ToDoItem item = items.get(position);
             holder.mCheckBox.setChecked(item.HasReminder());
             holder.mTextview.setText(item.getToDoText());
 
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(v, "Clicked"+position, Snackbar.LENGTH_SHORT);
-                }
-            });
+//            holder.mView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Snackbar.make(v, "Clicked"+position, Snackbar.LENGTH_SHORT);
+//                }
+//            });
 
         }
 
         @Override
         public int getItemCount() {
+            Log.d("OskarSchindler", "Count "+items.size());
             return items.size();
         }
 
@@ -91,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
             public ViewHolder(View v){
                 super(v);
                 mView = v;
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Snackbar.make(v, "Clicked on"+getAdapterPosition(), Snackbar.LENGTH_SHORT).show();
+                    }
+                });
                 mCheckBox = (CheckBox)v.findViewById(R.id.toDoListItemCheckBox);
                 mTextview = (TextView)v.findViewById(R.id.toDoListItemTextview);
             }

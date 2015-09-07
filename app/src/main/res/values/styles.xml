@@ -8,7 +8,8 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="colorAccent">@color/amber</item>
-        <item name="colorPrimary">@color/red_primary</item>
+        <item name="colorPrimary">@color/red_secondary</item>
+        <item name="colorPrimaryDark">@color/red_primary</item>
 
     </style>
 
