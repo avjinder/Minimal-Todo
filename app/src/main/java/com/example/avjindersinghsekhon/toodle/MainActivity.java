@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mToDoItemsArrayList = new ArrayList<>();
+        makeUpItems(mToDoItemsArrayList, 50);
+
 
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);
@@ -35,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView)findViewById(R.id.toDoRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new BasicListAdapter(mToDoItemsArrayList));
+
+    }
+
+    public void makeUpItems(ArrayList<ToDoItem> items, int len){
+        for(int i=0; i<len; i++){
+            ToDoItem item = new ToDoItem(""+i, false, new Date());
+            items.add(item);
+        }
+
     }
 
     public static class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder>{
@@ -47,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(BasicListAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(BasicListAdapter.ViewHolder holder, final int position) {
             ToDoItem item = items.get(position);
             holder.mCheckBox.setChecked(item.HasReminder());
             holder.mTextview.setText(item.getToDoText());
@@ -55,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Snackbar.make(v, "Clicked", Snackbar.LENGTH_SHORT);
+                    Snackbar.make(v, "Clicked"+position, Snackbar.LENGTH_SHORT);
                 }
             });
 
