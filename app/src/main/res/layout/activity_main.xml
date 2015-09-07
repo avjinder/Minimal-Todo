@@ -57,6 +57,7 @@
         android:layout_margin="16dp"
         app:layout_anchor="@id/mylayout"
         app:layout_anchorGravity="bottom|right"
+        app:layout_behavior="com.example.avjindersinghsekhon.toodle.ScrollingFABBehaviour"
         />
 
 
