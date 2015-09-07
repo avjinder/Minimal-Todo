@@ -1,0 +1,61 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/base_toolbar"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/mylayout"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:background="@android:color/white"
+
+        android:layout_height="match_parent"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/toDoRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/toDoEmptyView"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@drawable/check"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="@string/no_to_dos"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingTop="4dp"
+                android:paddingBottom="8dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/ic_add_white_24dp"
+        android:id="@+id/addToDoItemFAB"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/mylayout"
+        app:layout_anchorGravity="bottom|right"
+        />
+
+
+      
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
