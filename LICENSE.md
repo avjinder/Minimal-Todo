@@ -1,10 +1,3 @@
-# Toodle
-Material To-Do App
-
-A Material To-Do App that has Material Elements on not only Lollipop and above, 
-but also JellyBean and Kitkat.
-
-#License:
 The MIT License (MIT)
 
 Copyright (c) 2015 Avjinder
@@ -26,4 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
