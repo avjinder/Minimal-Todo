@@ -1,6 +1,7 @@
 package com.example.avjindersinghsekhon.toodle;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -38,22 +39,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
         mToDoItemsArrayList = new ArrayList<>();
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mToDoItemsArrayList = new ArrayList<>();
-        makeUpItems(mToDoItemsArrayList, 50);
+//        makeUpItems(mToDoItemsArrayList, 50);
 
 
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
+//            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
 
 
         mCoordLayout = (CoordinatorLayout)findViewById(R.id.myCoordinatorLayout);
         mAddToDoItemFAB = (FloatingActionButton)findViewById(R.id.addToDoItemFAB);
+
+        mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
+                startActivity(newTodo);
+            }
+        });
 
 
 //        mRecyclerView = (RecyclerView)findViewById(R.id.toDoRecyclerView);
