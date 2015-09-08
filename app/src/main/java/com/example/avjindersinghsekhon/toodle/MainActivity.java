@@ -1,6 +1,9 @@
 package com.example.avjindersinghsekhon.toodle;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,23 +15,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class MainActivity extends AppCompatActivity {
     private RecyclerViewEmptySupport mRecyclerView;
     private FloatingActionButton mAddToDoItemFAB;
     private ArrayList<ToDoItem> mToDoItemsArrayList;
+    private CoordinatorLayout mCoordLayout;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Aller_Regular.tff").setFontAttrId(R.attr.fontPath).build());
         setContentView(R.layout.activity_main);
+
+
         mToDoItemsArrayList = new ArrayList<>();
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,10 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
 
+
+        mCoordLayout = (CoordinatorLayout)findViewById(R.id.myCoordinatorLayout);
         mAddToDoItemFAB = (FloatingActionButton)findViewById(R.id.addToDoItemFAB);
+
+
 //        mRecyclerView = (RecyclerView)findViewById(R.id.toDoRecyclerView);
         mRecyclerView = (RecyclerViewEmptySupport)findViewById(R.id.toDoRecyclerView);
         mRecyclerView.setEmptyView(findViewById(R.id.toDoEmptyView));
@@ -61,13 +75,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void makeUpItems(ArrayList<ToDoItem> items, int len){
         for(int i=0; i<len; i++){
-            ToDoItem item = new ToDoItem(""+i, false, new Date());
+            ToDoItem item = new ToDoItem("List Item "+i, false, new Date());
+            //noinspection ResourceType
+            item.setTodoColor(getResources().getString(R.color.amber));
             items.add(item);
         }
 
     }
 
-    public static class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter{
+    public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter{
         private ArrayList<ToDoItem> items;
 
         @Override
@@ -99,10 +115,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(BasicListAdapter.ViewHolder holder, final int position) {
-            Log.d("OskarSchindler", "Holder Bound for "+position);
+            Log.d("OskarSchindler", "Holder Bound for " + position);
             ToDoItem item = items.get(position);
-            holder.mCheckBox.setChecked(item.HasReminder());
-            holder.mTextview.setText(item.getToDoText());
+            holder.mToDoTextview.setText(item.getToDoText());
+            holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
 
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -124,26 +140,41 @@ public class MainActivity extends AppCompatActivity {
             this.items = items;
         }
 
-        public static class ViewHolder extends RecyclerView.ViewHolder{
+
+        @SuppressWarnings("deprecation")
+        public class ViewHolder extends RecyclerView.ViewHolder{
 
             View mView;
-            CheckBox mCheckBox;
-            TextView mTextview;
+            TextView mToDoTextview;
+            TextView mColorTextView;
             public ViewHolder(View v){
                 super(v);
                 mView = v;
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar.make(v, "Clicked on"+getAdapterPosition(), Snackbar.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(v, "Item clicked "+getAdapterPosition(), Snackbar.LENGTH_SHORT);
+                        snackbar.setAction("UNDO", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+
+                            }
+                        });
+                        snackbar.setActionTextColor(getResources().getColor(R.color.amber));
+                        snackbar.show();
                     }
                 });
-                mCheckBox = (CheckBox)v.findViewById(R.id.toDoListItemCheckBox);
-                mTextview = (TextView)v.findViewById(R.id.toDoListItemTextview);
+                mToDoTextview = (TextView)v.findViewById(R.id.toDoListItemTextview);
+                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
             }
 
 
         }
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }

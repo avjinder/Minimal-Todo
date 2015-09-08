@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-        <TextView
-            android:id="@+id/toDoListItemTextview"
-            android:layout_marginLeft="8dp"
-            android:padding="8dp"
-            android:textStyle="bold"
-            android:ellipsize="end"
-            android:textSize="16sp"
-            android:layout_weight="5"
-            android:text="Clean your room"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-
-
-    <CheckBox
-        android:id="@+id/toDoListItemCheckBox"
-        android:gravity="center"
-        android:layout_marginRight="4dp"
-        android:layout_weight="1"
+    <TextView
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:id="@+id/toDoColorTextView"
+        android:layout_gravity="left"
+        android:background="@color/red_secondary"
+        android:layout_alignParentLeft="true"
+        android:layout_weight=".1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="?android:attr/listPreferredItemHeight" />
+
+
+    <TextView
+        android:layout_alignParentRight="true"
+        tools:ignore="MissingPrefix"
+        fontPath="fonts/Aller_Regular.ttf"
+        android:id="@+id/toDoListItemTextview"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:gravity="center|left"
+        android:textColor="@android:color/black"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        android:text="Clean your room"
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        />
 
 </LinearLayout>

@@ -15,4 +15,9 @@
 
     <style name="NoActionBarStyle" parent="Theme.AppCompat.Light.NoActionBar"/>
 
+    <style name="RobotoTextViewStyle"
+        parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-bold</item>
+    </style>
+
 </resources>

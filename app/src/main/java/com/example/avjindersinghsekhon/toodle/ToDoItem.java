@@ -2,18 +2,17 @@ package com.example.avjindersinghsekhon.toodle;
 
 import java.util.Date;
 
-/**
- * Created by avjindersinghsekhon on 9/7/15.
- */
 public class ToDoItem {
     private String mToDoText;
     private boolean mHasReminder;
+    private String mTodoColor;
     private Date mToDoDate;
 
     public ToDoItem(String todoBody, boolean hasReminder, Date toDoDate){
         mToDoText = todoBody;
         mHasReminder = hasReminder;
         mToDoDate = toDoDate;
+        mTodoColor = "#fff";
     }
 
     public ToDoItem(){
@@ -38,6 +37,14 @@ public class ToDoItem {
 
     public Date getToDoDate() {
         return mToDoDate;
+    }
+
+    public String getTodoColor() {
+        return mTodoColor;
+    }
+
+    public void setTodoColor(String mTodoColor) {
+        this.mTodoColor = mTodoColor;
     }
 
     public void setToDoDate(Date mToDoDate) {

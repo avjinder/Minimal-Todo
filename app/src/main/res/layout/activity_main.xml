@@ -1,12 +1,9 @@
-
-
-    <android.support.design.widget.CoordinatorLayout
+<android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/mylayout"
+        android:id="@+id/myCoordinatorLayout"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:background="@android:color/black"
         android:layout_height="match_parent"
         >
         <android.support.design.widget.AppBarLayout
@@ -20,6 +17,7 @@
 
         <com.example.avjindersinghsekhon.toodle.RecyclerViewEmptySupport
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:background="@android:color/white"
             android:id="@+id/toDoRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -28,6 +26,7 @@
             android:id="@+id/toDoEmptyView"
             android:orientation="vertical"
             android:gravity="center"
+            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -37,7 +36,7 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:text="@string/no_to_dos"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:paddingTop="4dp"
@@ -51,15 +50,14 @@
     <android.support.design.widget.FloatingActionButton
         android:src="@drawable/ic_add_white_24dp"
         android:id="@+id/addToDoItemFAB"
-        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:layout_anchor="@id/mylayout"
-        app:layout_anchorGravity="bottom|right"
+        app:layout_anchor="@id/myCoordinatorLayout"
+        app:layout_anchorGravity="bottom|right|end"
         app:layout_behavior="com.example.avjindersinghsekhon.toodle.ScrollingFABBehaviour"
         />
 
 
       
-    </android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>
