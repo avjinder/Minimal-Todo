@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);
         }
+
+
         mAddToDoItemFAB = (FloatingActionButton)findViewById(R.id.addToDoItemFAB);
 //        mRecyclerView = (RecyclerView)findViewById(R.id.toDoRecyclerView);
         mRecyclerView = (RecyclerViewEmptySupport)findViewById(R.id.toDoRecyclerView);
@@ -45,7 +49,13 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         BasicListAdapter basicListAdapter = new BasicListAdapter(mToDoItemsArrayList);
+
+        ItemTouchHelper.Callback callback = new ItemTouchHelperClass(basicListAdapter);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(mRecyclerView);
+
         mRecyclerView.setAdapter(basicListAdapter);
+
 
     }
 
@@ -57,8 +67,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder>{
+    public static class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter{
         private ArrayList<ToDoItem> items;
+
+        @Override
+        public void onItemMoved(int fromPosition, int toPosition) {
+           if(fromPosition<toPosition){
+               for(int i=fromPosition; i<toPosition; i++){
+                   Collections.swap(items, i, i+1);
+               }
+           }
+            else{
+               for(int i=fromPosition; i > toPosition; i--){
+                   Collections.swap(items, i, i-1);
+               }
+           }
+            notifyItemMoved(fromPosition, toPosition);
+        }
+
+        @Override
+        public void onItemRemoved(int position) {
+            items.remove(position);
+            notifyItemRemoved(position);
+        }
 
         @Override
         public BasicListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

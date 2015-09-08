@@ -17,6 +17,7 @@ public class ScrollingFABBehaviour extends CoordinatorLayout.Behavior<FloatingAc
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
         return dependency instanceof AppBarLayout;
+
     }
 
     @Override
