@@ -8,4 +8,21 @@
     <string name="title">Title</string>
     <string name="remind_me">Remind Me</string>
     <string name="last_edited"><i>Last Edited %1$d</i></string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+
+    <string-array name="date_options">
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>Next %1$s</item>
+        <item>Pick a date</item>
+    </string-array>
+
+    <string-array name="time_options">
+        <item>Morning  &#160; &#160; &#160;<i>9:00 AM</i></item>
+        <item>Afternoon &#160; <i>12:00 PM</i></item>
+        <item>Evening &#160;&#160;&#160;&#160; <i>5:00 PM</i></item>
+        <item>Night &#160;&#160;&#160;&#160;&#160;&#160; &#160;   <i>9:00 PM</i></item>
+        <item>Pick a time</item>
+    </string-array>
 </resources>

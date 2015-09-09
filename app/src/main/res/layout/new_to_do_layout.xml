@@ -1,6 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -55,8 +56,9 @@
 
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_weight="1.2"
+                    android:layout_weight=".7"
                     android:gravity="center"
+                    android:layout_marginTop="32dp"
                     android:layout_marginLeft="32dp"
                     android:layout_marginRight="32dp"
                     android:layout_width="match_parent"
@@ -96,25 +98,39 @@
 
                 <LinearLayout
                     android:id="@+id/toDoEnterDateLinearLayout"
+                    android:animateLayoutChanges="true"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginRight="48dp"
                     android:orientation="horizontal"
                     android:layout_height="0dp">
 
-
-                    <android.support.v7.widget.AppCompatSpinner
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_width="0dp"
                         android:id="@+id/toDoDateSpinner"
+                        app:ms_floatingLabelText="Date"
+                        app:ms_floatingLabelColor="@color/accent"
+                        app:ms_baseColor="@color/accent"
+                        android:layout_weight=".7"
+                        app:ms_multiline="false"
+                        android:layout_marginRight="4dp"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:layout_marginLeft="4dp"
+                        app:ms_floatingLabelText="Time"
+                        app:ms_floatingLabelColor="@color/accent"
+                        app:ms_multiline="false"
+                        android:id="@+id/toDoTimeSpinner"
+                        app:ms_baseColor="@color/accent"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
 
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/toDoTimeSpinner"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
+
+
 
 
                 </LinearLayout>
@@ -122,6 +138,7 @@
 
 
                     <TextView
+                        android:id="@+id/toDoLastEditedTextView"
                         android:layout_marginLeft="36dp"
                         android:layout_marginRight="32dp"
                         android:layout_marginEnd="32dp"

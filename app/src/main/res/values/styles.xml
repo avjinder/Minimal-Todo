@@ -24,4 +24,9 @@
         <item name="android:textColor">@color/icons</item>
     </style>
 
+    <style name="UnderlineSpinner" parent="Base.Widget.AppCompat.Spinner.Underlined">
+        <item name="android:spinnerStyle">?android:attr/spinnerItemStyle</item>
+
+    </style>
+
 </resources>

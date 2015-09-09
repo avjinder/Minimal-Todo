@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:ellipsize="marquee"
+    android:text="Gender"
+    android:textSize="14sp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:textColor="@drawable/dropdown_text_color"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dropdown_text_background_color"
+    android:layout_width="match_parent"
+    style="?android:attr/spinnerDropDownItemStyle"
+    >
+
+
+</TextView>

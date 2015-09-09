@@ -9,6 +9,7 @@
         android:theme="@style/CustomStyle" >
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTop"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddToDoActivity"
+            android:parentActivityName=".MainActivity"
             />
     </application>
 
