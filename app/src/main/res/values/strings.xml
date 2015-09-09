@@ -7,7 +7,7 @@
     <string name="no_to_dos">You don\'t have any to-do\'s</string>
     <string name="title">Title</string>
     <string name="remind_me">Remind Me</string>
-    <string name="last_edited"><i>Last Edited %1$d</i></string>
+    <string name="last_edited"><i>Last Edited %1$s</i></string>
     <string name="date">Date</string>
     <string name="time">Time</string>
 

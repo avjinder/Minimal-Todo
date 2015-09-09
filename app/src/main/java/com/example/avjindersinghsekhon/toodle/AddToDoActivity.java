@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -22,6 +23,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 public class AddToDoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private MaterialSpinner mDateSpinner;
     private Date mUserReminderDate;
+    private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private SwitchCompat mToDoDateSwitch;
     private TextView mLastSeenTextView;
@@ -29,16 +31,23 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     private MaterialSpinner mTimeSpinner;
     private ArrayAdapter<CharSequence> mDateAdaper;
     private ArrayAdapter<CharSequence> mTimeAdapter;
+    public static final String DATE_FORMAT = "MMM d, yyyy";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_to_do_layout);
 
+        mLastEdited = new Date();
+
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
         mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
+
+        String lastSeen = formatDate(DATE_FORMAT, mLastEdited);
+        mLastSeenTextView.setText(String.format(getResources().getString(R.string.last_edited), lastSeen));
+
         setEnterDateLayoutVisible(mToDoDateSwitch.isChecked());
 
         mToDoDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -93,6 +102,11 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public static String formatDate(String formatString, Date dateToFormat){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatString);
+        return simpleDateFormat.format(dateToFormat);
     }
 
     @Override
