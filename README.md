@@ -4,6 +4,12 @@ Material To-Do App
 A Material To-Do App that has Material Elements on not only Lollipop and above, 
 but also JellyBean and Kitkat.
 
+#Screenshots:
+
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshot_list_to_do_sep_9_2015.png" height="800" width="400"/>
+
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshot_new_to_do_sep_9_2015.png" height="800" width="400"/>
+
 #License:
 The MIT License (MIT)
 
