@@ -128,14 +128,7 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
-
-
-
-
-
                 </LinearLayout>
-
-
 
                     <TextView
                         android:id="@+id/toDoLastEditedTextView"
@@ -152,9 +145,7 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
-
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/makeToDoFloatingActionButton"

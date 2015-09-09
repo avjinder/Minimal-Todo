@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton mAddToDoItemFAB;
     private ArrayList<ToDoItem> mToDoItemsArrayList;
     private CoordinatorLayout mCoordLayout;
+    public static final String TODOITEM = "com.avjindersinghsekhon.toodle.MainActivity";
+    private BasicListAdapter adapter;
+    private static final int REQUEST_ID_TODO_ITEM = 100;
+//    public static final int REQUEST_ID_EDIT_TODO_ITEM = "request id for editing to do item".hashCode();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +63,13 @@ public class MainActivity extends AppCompatActivity {
         mAddToDoItemFAB = (FloatingActionButton)findViewById(R.id.addToDoItemFAB);
 
         mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
-                startActivity(newTodo);
+                ToDoItem item = new ToDoItem("", false, new Date());
+                newTodo.putExtra(TODOITEM, item);
+                startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
             }
         });
 
@@ -72,16 +80,37 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        BasicListAdapter basicListAdapter = new BasicListAdapter(mToDoItemsArrayList);
+        adapter = new BasicListAdapter(mToDoItemsArrayList);
 
-        ItemTouchHelper.Callback callback = new ItemTouchHelperClass(basicListAdapter);
+        ItemTouchHelper.Callback callback = new ItemTouchHelperClass(adapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(mRecyclerView);
 
-        mRecyclerView.setAdapter(basicListAdapter);
+        mRecyclerView.setAdapter(adapter);
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode!= RESULT_CANCELED && requestCode == REQUEST_ID_TODO_ITEM){
+            ToDoItem item =(ToDoItem) data.getSerializableExtra(TODOITEM);
+            if(item.getToDoText().length()<=0){
+                Toast.makeText(this, "Todo discarded due to empty body", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                addToDataStore(item);
+            }
+
+        }
+    }
+
+    private void addToDataStore(ToDoItem item){
+        mToDoItemsArrayList.add(item);
+        adapter.notifyItemInserted(mToDoItemsArrayList.size() - 1);
+
+    }
+
 
     public void makeUpItems(ArrayList<ToDoItem> items, int len){
         for(int i=0; i<len; i++){
@@ -128,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("OskarSchindler", "Holder Bound for " + position);
             ToDoItem item = items.get(position);
             holder.mToDoTextview.setText(item.getToDoText());
+            Log.d("OskarSchindler", item.getTodoColor());
             holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
 
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -186,5 +216,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Snackbar.make(mCoordLayout, "Length of Array "+(mToDoItemsArrayList.size()), Snackbar.LENGTH_SHORT).show();
     }
 }

@@ -1,11 +1,15 @@
 package com.example.avjindersinghsekhon.toodle;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +26,6 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class AddToDoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private MaterialSpinner mDateSpinner;
-    private Date mUserReminderDate;
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private SwitchCompat mToDoDateSwitch;
@@ -31,25 +34,68 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     private MaterialSpinner mTimeSpinner;
     private ArrayAdapter<CharSequence> mDateAdaper;
     private ArrayAdapter<CharSequence> mTimeAdapter;
+    private ToDoItem mUserToDoItem;
+    private FloatingActionButton mToDoSendFloatingActionButton;
     public static final String DATE_FORMAT = "MMM d, yyyy";
+    public static final String DATE_FORMAT_MONTH_DAY = "MMM d";
+    public static final String DATE_FORMAT_TIME = "H:m";
+
+    private String mUserEnteredText;
+    private boolean mUserHasReminder;
+    private Toolbar mToolbar;
+    private Date mUserReminderDate;
+    private String mUserColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_to_do_layout);
 
-        mLastEdited = new Date();
+        mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
+        mUserEnteredText = mUserToDoItem.getToDoText();
+        mUserHasReminder = mUserToDoItem.hasReminder();
+        mUserReminderDate = mUserToDoItem.getToDoDate();
+        mUserColor = mUserToDoItem.getTodoColor();
+
+
+        if(mUserToDoItem.getLastEdited()==null) {
+            mLastEdited = new Date();
+        }
+        else{
+            mLastEdited = mUserToDoItem.getLastEdited();
+        }
 
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
         mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
+        mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
+
+
+        mToDoTextBodyEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mUserEnteredText = s.toString();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         String lastSeen = formatDate(DATE_FORMAT, mLastEdited);
         mLastSeenTextView.setText(String.format(getResources().getString(R.string.last_edited), lastSeen));
 
         setEnterDateLayoutVisible(mToDoDateSwitch.isChecked());
 
+        mToDoDateSwitch.setChecked(mUserHasReminder);
         mToDoDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -58,8 +104,22 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         });
 
 
+        mToDoSendFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeResult();
+                finish();
+            }
+        });
+
+
+
+
         mDateAdaper = ArrayAdapter.createFromResource(this, R.array.date_options,R.layout.date_spinner_item);
         mTimeAdapter = ArrayAdapter.createFromResource(this, R.array.time_options,R.layout.date_spinner_item);
+
+//        String[] date = getResources().getStringArray(R.array.date_options);
+//        String[] time = getResources().getStringArray(R.array.time_options);
 
         mDateAdaper.setDropDownViewResource(R.layout.date_dropdown_item);
         mTimeAdapter.setDropDownViewResource(R.layout.date_dropdown_item);
@@ -80,7 +140,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
 
 
 
-        Toolbar mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         if(getSupportActionBar()!=null){
@@ -88,6 +148,16 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         }
+    }
+
+    public void makeResult(){
+        Intent i = new Intent();
+        mUserToDoItem.setToDoText(mUserEnteredText);
+        mUserToDoItem.setHasReminder(mUserHasReminder);
+        mUserToDoItem.setToDoDate(mUserReminderDate);
+        mUserToDoItem.setTodoColor(mUserColor);
+        i.putExtra(MainActivity.TODOITEM, mUserToDoItem);
+        setResult(RESULT_OK, i);
     }
 
     @Override

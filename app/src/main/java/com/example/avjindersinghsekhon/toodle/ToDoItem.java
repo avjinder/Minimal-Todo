@@ -1,10 +1,12 @@
 package com.example.avjindersinghsekhon.toodle;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ToDoItem {
+public class ToDoItem implements Serializable{
     private String mToDoText;
     private boolean mHasReminder;
+    private Date mLastEdited;
     private String mTodoColor;
     private Date mToDoDate;
 
@@ -12,7 +14,7 @@ public class ToDoItem {
         mToDoText = todoBody;
         mHasReminder = hasReminder;
         mToDoDate = toDoDate;
-        mTodoColor = "#fff";
+        mTodoColor = "#ffffff";
     }
 
     public ToDoItem(){
@@ -27,7 +29,7 @@ public class ToDoItem {
         this.mToDoText = mToDoText;
     }
 
-    public boolean HasReminder() {
+    public boolean hasReminder() {
         return mHasReminder;
     }
 
@@ -49,5 +51,13 @@ public class ToDoItem {
 
     public void setToDoDate(Date mToDoDate) {
         this.mToDoDate = mToDoDate;
+    }
+
+    public Date getLastEdited() {
+        return mLastEdited;
+    }
+
+    public void setLastEdited(Date mLastEdited) {
+        this.mLastEdited = mLastEdited;
     }
 }
