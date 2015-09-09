@@ -218,9 +218,5 @@ public class MainActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Snackbar.make(mCoordLayout, "Length of Array "+(mToDoItemsArrayList.size()), Snackbar.LENGTH_SHORT).show();
-    }
+
 }
