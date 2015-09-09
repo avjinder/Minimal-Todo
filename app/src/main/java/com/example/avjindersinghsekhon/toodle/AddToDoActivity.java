@@ -2,6 +2,8 @@ package com.example.avjindersinghsekhon.toodle;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
@@ -10,6 +12,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,6 +53,23 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_to_do_layout);
+
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        //Get Default Drawable for up arrow, and apply custom color
+
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        if(upArrow!=null){
+            upArrow.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
+        }
+
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setElevation(0);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
+        }
 
         mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
         mUserEnteredText = mUserToDoItem.getToDoText();
@@ -140,14 +160,6 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
 
 
 
-        mToolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
-        if(getSupportActionBar()!=null){
-            getSupportActionBar().setElevation(0);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        }
     }
 
     public void makeResult(){
@@ -161,6 +173,12 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
@@ -169,6 +187,9 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
                 }
 //                finish();
                 return true;
+            case R.id.toDoSetColorMenuItem:
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

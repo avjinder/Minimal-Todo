@@ -10,6 +10,7 @@
     <string name="last_edited"><i>Last Edited %1$s</i></string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="set_color">Set Color</string>
 
     <string-array name="date_options">
         <item>Today</item>

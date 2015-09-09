@@ -10,23 +10,27 @@
         <item name="colorAccent">@color/accent</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="toolbarStyle">@style/myToolBarStyle</item>
 
     </style>
 
-    <style name="NoActionBarStyle" parent="Theme.AppCompat.Light.NoActionBar"/>
 
-    <style name="RobotoTextViewStyle"
-        parent="android:Widget.TextView">
-        <item name="android:fontFamily">sans-serif-bold</item>
+    <style name="myToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:paddingRight">32dp</item>
+
     </style>
+    <!--<style name="RobotoTextViewStyle"-->
+        <!--parent="android:Widget.TextView">-->
+        <!--<item name="android:fontFamily">sans-serif-bold</item>-->
+    <!--</style>-->
     
     <style name="FloatingLabelTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/icons</item>
     </style>
 
-    <style name="UnderlineSpinner" parent="Base.Widget.AppCompat.Spinner.Underlined">
-        <item name="android:spinnerStyle">?android:attr/spinnerItemStyle</item>
+    <!--<style name="UnderlineSpinner" parent="@style/ThemeOverlay.AppCompat.ActionBar">-->
+        <!--<item name="android:spinnerStyle">?android:attr/spinnerItemStyle</item>-->
 
-    </style>
+    <!--</style>-->
 
 </resources>

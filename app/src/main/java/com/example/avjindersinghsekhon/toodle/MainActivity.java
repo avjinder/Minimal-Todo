@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String TODOITEM = "com.avjindersinghsekhon.toodle.MainActivity";
     private BasicListAdapter adapter;
     private static final int REQUEST_ID_TODO_ITEM = 100;
+    private ToDoItem mJustDeletedToDoItem;
+    private int mIndexOfDeletedToDoItem;
+
 //    public static final int REQUEST_ID_EDIT_TODO_ITEM = "request id for editing to do item".hashCode();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
                 ToDoItem item = new ToDoItem("", false, new Date());
+                item.setTodoColor("#"+getResources().getColor(R.color.secondary_text));
                 newTodo.putExtra(TODOITEM, item);
                 startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
             }
@@ -141,9 +145,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onItemRemoved(int position) {
-            items.remove(position);
+        public void onItemRemoved(final int position) {
+            mJustDeletedToDoItem =  items.remove(position);
+            mIndexOfDeletedToDoItem = position;
             notifyItemRemoved(position);
+
+            String toShow = (mJustDeletedToDoItem.getToDoText().length()>10)?mJustDeletedToDoItem.getToDoText().substring(0, 10):mJustDeletedToDoItem.getToDoText();
+            Snackbar.make(mCoordLayout, "Deleted "+toShow,Snackbar.LENGTH_SHORT)
+                    .setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
+                            notifyItemInserted(mIndexOfDeletedToDoItem);
+                        }
+                    }).show();
         }
 
         @Override
