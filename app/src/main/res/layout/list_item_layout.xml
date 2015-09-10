@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@android:color/white"
+    android:layout_marginBottom="1dp"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -18,11 +19,9 @@
     <TextView
         android:layout_alignParentRight="true"
         tools:ignore="MissingPrefix"
-        fontPath="fonts/Aller_Regular.ttf"
         android:id="@+id/toDoListItemTextview"
         android:padding="8dp"
-        android:maxLines="1"
-        android:textStyle="bold"
+        android:maxLines="2"
         android:gravity="center|left"
         android:textColor="@android:color/black"
         android:ellipsize="end"

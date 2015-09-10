@@ -12,7 +12,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ID_TODO_ITEM = 100;
     private ToDoItem mJustDeletedToDoItem;
     private int mIndexOfDeletedToDoItem;
+    private String[] testStrings = {"The snake had not eaten for days so it snuck into the hens henhouse and ate all her children",
+            "Oswald found a resting place atop the mountain and he stopped for breath but found to his dimsay that it was fake",
+            "Slimy the three-legged dog had a nasty habit of peeing on the tyres of cars it found outside it's master's house",
+            "Slime oozed out of the ceiling as the house shook and haunting noises came and rumblings were heard"
+    };
 
 //    public static final int REQUEST_ID_EDIT_TODO_ITEM = "request id for editing to do item".hashCode();
 
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mToDoItemsArrayList = new ArrayList<>();
-//        makeUpItems(mToDoItemsArrayList, 50);
+        makeUpItems(mToDoItemsArrayList, 50);
 
 
         if(getSupportActionBar()!=null){
@@ -67,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
@@ -90,7 +95,9 @@ public class MainActivity extends AppCompatActivity {
         ItemTouchHelper helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(mRecyclerView);
 
+
         mRecyclerView.setAdapter(adapter);
+
 
 
     }
@@ -117,10 +124,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void makeUpItems(ArrayList<ToDoItem> items, int len){
-        for(int i=0; i<len; i++){
-            ToDoItem item = new ToDoItem("List Item "+i, false, new Date());
+        for (String testString : testStrings) {
+            ToDoItem item = new ToDoItem(testString, false, new Date());
             //noinspection ResourceType
-            item.setTodoColor(getResources().getString(R.color.amber));
+            item.setTodoColor(getResources().getString(R.color.red_secondary));
             items.add(item);
         }
 
@@ -163,16 +170,17 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public BasicListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
             return new ViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(BasicListAdapter.ViewHolder holder, final int position) {
-            Log.d("OskarSchindler", "Holder Bound for " + position);
+//            Log.d("OskarSchindler", "Holder Bound for " + position);
             ToDoItem item = items.get(position);
             holder.mToDoTextview.setText(item.getToDoText());
-            Log.d("OskarSchindler", item.getTodoColor());
+//            Log.d("OskarSchindler", item.getTodoColor());
             holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
 
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            Log.d("OskarSchindler", "Count "+items.size());
+//            Log.d("OskarSchindler", "Count "+items.size());
             return items.size();
         }
 
