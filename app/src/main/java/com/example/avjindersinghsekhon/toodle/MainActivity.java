@@ -76,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
                 ToDoItem item = new ToDoItem("", false, new Date());
-                item.setTodoColor("#"+getResources().getColor(R.color.secondary_text));
+                //noinspection ResourceType
+                String color = getResources().getString(R.color.primary_lightest);
+                item.setTodoColor(color);
                 newTodo.putExtra(TODOITEM, item);
                 startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
             }
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BasicListAdapter(mToDoItemsArrayList);
 
+
         ItemTouchHelper.Callback callback = new ItemTouchHelperClass(adapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(mRecyclerView);
@@ -102,11 +105,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode!= RESULT_CANCELED && requestCode == REQUEST_ID_TODO_ITEM){
             ToDoItem item =(ToDoItem) data.getSerializableExtra(TODOITEM);
-            if(item.getToDoText().length()<=0){
+            boolean existed = false;
+
+            for(int i = 0; i<mToDoItemsArrayList.size();i++){
+                if(item.getIdentifier().equals(mToDoItemsArrayList.get(i).getIdentifier())){
+                    mToDoItemsArrayList.set(i, item);
+                    existed = true;
+                    adapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+            if(existed){
+                //do nothing
+
+            }
+            else if(item.getToDoText().length()<=0){
                 Toast.makeText(this, "Todo discarded due to empty body", Toast.LENGTH_SHORT).show();
             }
             else{
@@ -127,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         for (String testString : testStrings) {
             ToDoItem item = new ToDoItem(testString, false, new Date());
             //noinspection ResourceType
-            item.setTodoColor(getResources().getString(R.color.red_secondary));
+//            item.setTodoColor(getResources().getString(R.color.red_secondary));
             items.add(item);
         }
 
@@ -171,17 +189,26 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public BasicListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_alt_try, parent, false);
             return new ViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(BasicListAdapter.ViewHolder holder, final int position) {
-//            Log.d("OskarSchindler", "Holder Bound for " + position);
             ToDoItem item = items.get(position);
+
+            if(item.hasReminder()){
+                holder.mToDoTextview.setMaxLines(1);
+                holder.mTimeTextView.setVisibility(View.VISIBLE);
+//                holder.mToDoTextview.setVisibility(View.GONE);
+            }
+            else{
+                holder.mTimeTextView.setVisibility(View.GONE);
+                holder.mToDoTextview.setMaxLines(2);
+            }
             holder.mToDoTextview.setText(item.getToDoText());
-//            Log.d("OskarSchindler", item.getTodoColor());
             holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
+            holder.mTimeTextView.setText(AddToDoActivity.formatDate(AddToDoActivity.DATE_FORMAT, item.getToDoDate()));
 
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -194,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-//            Log.d("OskarSchindler", "Count "+items.size());
             return items.size();
         }
 
@@ -210,25 +236,21 @@ public class MainActivity extends AppCompatActivity {
             View mView;
             TextView mToDoTextview;
             TextView mColorTextView;
+            TextView mTimeTextView;
             public ViewHolder(View v){
                 super(v);
                 mView = v;
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Snackbar snackbar = Snackbar.make(v, "Item clicked "+getAdapterPosition(), Snackbar.LENGTH_SHORT);
-                        snackbar.setAction("UNDO", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-
-                            }
-                        });
-                        snackbar.setActionTextColor(getResources().getColor(R.color.amber));
-                        snackbar.show();
+                        ToDoItem item = items.get(ViewHolder.this.getAdapterPosition());
+                        Intent i = new Intent(MainActivity.this, AddToDoActivity.class);
+                        i.putExtra(TODOITEM, item);
+                        startActivityForResult(i, REQUEST_ID_TODO_ITEM);
                     }
                 });
                 mToDoTextview = (TextView)v.findViewById(R.id.toDoListItemTextview);
+                mTimeTextView = (TextView)v.findViewById(R.id.todoListItemTimeTextView);
                 mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
             }
 

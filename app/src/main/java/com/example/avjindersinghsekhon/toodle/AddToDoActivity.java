@@ -49,6 +49,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     private Date mUserReminderDate;
     private String mUserColor;
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +73,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         }
 
         mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
+
         mUserEnteredText = mUserToDoItem.getToDoText();
         mUserHasReminder = mUserToDoItem.hasReminder();
         mUserReminderDate = mUserToDoItem.getToDoDate();
@@ -110,6 +112,8 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
             }
         });
 
+        mToDoTextBodyEditText.setText(mUserEnteredText);
+
         String lastSeen = formatDate(DATE_FORMAT, mLastEdited);
         mLastSeenTextView.setText(String.format(getResources().getString(R.string.last_edited), lastSeen));
 
@@ -119,6 +123,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         mToDoDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mUserHasReminder = isChecked;
                 setEnterDateLayoutVisibleWithAnimations(isChecked);
             }
         });
@@ -183,6 +188,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         switch (item.getItemId()){
             case android.R.id.home:
                 if(NavUtils.getParentActivityName(this)!=null){
+                    makeResult();
                     NavUtils.navigateUpFromSameTask(this);
                 }
 //                finish();

@@ -2,6 +2,7 @@ package com.example.avjindersinghsekhon.toodle;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 public class ToDoItem implements Serializable{
     private String mToDoText;
@@ -9,12 +10,14 @@ public class ToDoItem implements Serializable{
     private Date mLastEdited;
     private String mTodoColor;
     private Date mToDoDate;
+    private UUID mTodoIdentifier;
 
     public ToDoItem(String todoBody, boolean hasReminder, Date toDoDate){
         mToDoText = todoBody;
         mHasReminder = hasReminder;
         mToDoDate = toDoDate;
         mTodoColor = "#ffffff";
+        mTodoIdentifier = UUID.randomUUID();
     }
 
     public ToDoItem(){
@@ -60,4 +63,8 @@ public class ToDoItem implements Serializable{
     public void setLastEdited(Date mLastEdited) {
         this.mLastEdited = mLastEdited;
     }
+    public UUID getIdentifier(){
+        return mTodoIdentifier;
+    }
 }
+

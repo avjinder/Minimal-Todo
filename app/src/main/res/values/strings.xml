@@ -11,7 +11,7 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="set_color">Set Color</string>
-    <string name="fake_time_list"><i>Sept 10</i></string>
+    <string name="fake_time_list"><i>11 Sept, 12:30 PM</i></string>
 
     <string-array name="date_options">
         <item>Today</item>
