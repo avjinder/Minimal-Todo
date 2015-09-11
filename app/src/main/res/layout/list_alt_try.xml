@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/primary_lightest"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="1dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/toDoColorTextView"
+        android:layout_gravity="left"
+        android:background="@color/red_secondary"
+        android:layout_alignParentLeft="true"
+        android:layout_weight=".1"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/listPreferredItemHeight" />
+
+    <LinearLayout
+        android:layout_weight="10"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/listPreferredItemHeight">
+
+        <TextView
+            android:layout_alignParentRight="true"
+            tools:ignore="MissingPrefix"
+            fontPath="fonts/Aller_Regular.ttf"
+            android:id="@+id/toDoListItemTextview"
+            android:padding="8dp"
+            android:maxLines="2"
+            android:lines="2"
+            android:textStyle="bold"
+            android:gravity="start|center"
+            android:textColor="@android:color/black"
+            android:ellipsize="none"
+            android:textSize="16sp"
+            android:text="Clean your room"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            />
+
+        <TextView
+            android:id="@+id/todoListItemTimeTextView"
+            android:padding="8dp"
+            android:text="@string/fake_time_list"
+            android:textColor="?attr/colorAccent"
+            android:textSize="12sp"
+            android:gravity="start|bottom"
+            android:layout_weight=".8"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+    </LinearLayout>
+
+</LinearLayout>
