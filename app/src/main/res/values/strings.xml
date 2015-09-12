@@ -12,6 +12,10 @@
     <string name="time">Time</string>
     <string name="set_color">Set Color</string>
     <string name="fake_time_list"><i>11 Sept, 12:30 PM</i></string>
+    <string name="choose_date">Date</string>
+    <string name="choose_time">Time</string>
+    <string name="remind_date">You will be reminded on</string>
+    <string name="remind_time">at </string>
 
     <string-array name="date_options">
         <item>Today</item>

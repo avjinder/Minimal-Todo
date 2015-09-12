@@ -14,11 +14,14 @@
 
     </style>
 
+    <style name="CustomDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/primary</item>
+    </style>
 
     <style name="myToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:paddingRight">32dp</item>
-
     </style>
+
     <!--<style name="RobotoTextViewStyle"-->
         <!--parent="android:Widget.TextView">-->
         <!--<item name="android:fontFamily">sans-serif-bold</item>-->

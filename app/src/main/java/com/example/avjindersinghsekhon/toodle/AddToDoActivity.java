@@ -1,9 +1,12 @@
 package com.example.avjindersinghsekhon.toodle;
 
 import android.animation.Animator;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
@@ -12,31 +15,37 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
+import com.android.datetimepicker.time.RadialPickerLayout;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-import fr.ganfra.materialspinner.MaterialSpinner;
-
-public class AddToDoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    private MaterialSpinner mDateSpinner;
+public class AddToDoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, com.android.datetimepicker.date.DatePickerDialog.OnDateSetListener, com.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private SwitchCompat mToDoDateSwitch;
     private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
-    private MaterialSpinner mTimeSpinner;
-    private ArrayAdapter<CharSequence> mDateAdaper;
-    private ArrayAdapter<CharSequence> mTimeAdapter;
+//    private MaterialSpinner mDateSpinner;
+//    private MaterialSpinner mTimeSpinner;
+//    private ArrayAdapter<CharSequence> mDateAdaper;
+//    private ArrayAdapter<CharSequence> mTimeAdapter;
+    private Button mChooseDateButton;
+    private Button mChooseTimeButton;
     private ToDoItem mUserToDoItem;
     private FloatingActionButton mToDoSendFloatingActionButton;
     public static final String DATE_FORMAT = "MMM d, yyyy";
@@ -53,7 +62,8 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_to_do_layout);
+//        setContentView(R.layout.new_to_do_layout);
+        setContentView(R.layout.new_to_do_test);
 
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -139,28 +149,76 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
 
 
 
+        mChooseDateButton = (Button)findViewById(R.id.newToDoChooseDateButton);
+        mChooseTimeButton = (Button)findViewById(R.id.newToDoChooseTimeButton);
 
-        mDateAdaper = ArrayAdapter.createFromResource(this, R.array.date_options,R.layout.date_spinner_item);
-        mTimeAdapter = ArrayAdapter.createFromResource(this, R.array.time_options,R.layout.date_spinner_item);
+        mChooseDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date date = mUserToDoItem.getToDoDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+                if(Build.VERSION.SDK_INT< Build.VERSION_CODES.LOLLIPOP){
+                    com.android.datetimepicker.date.DatePickerDialog datePickerDialog = com.android.datetimepicker.date.DatePickerDialog.newInstance(AddToDoActivity.this, year, month, day);
+                    datePickerDialog.show(getFragmentManager(), "DateFragment");
+                }
+                else{
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddToDoActivity.this, R.style.CustomDialog, AddToDoActivity.this, year, month, day);
+                datePickerDialog.show();
+
+                }
+
+
+            }
+        });
+
+        mChooseTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date date = mUserToDoItem.getToDoDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                boolean is24Hour = false;
+                if(Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP){
+                    com.android.datetimepicker.time.TimePickerDialog timePickerDialog = com.android.datetimepicker.time.TimePickerDialog.newInstance(AddToDoActivity.this, hour, minute, is24Hour);
+                    timePickerDialog.show(getFragmentManager(), "TimeFragment");
+
+                }
+                else {
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(AddToDoActivity.this, R.style.CustomDialog, AddToDoActivity.this, hour, minute, is24Hour);
+                    timePickerDialog.show();
+                }
+            }
+        });
+
+//        mDateAdaper = ArrayAdapter.createFromResource(this, R.array.date_options,R.layout.date_spinner_item);
+//        mTimeAdapter = ArrayAdapter.createFromResource(this, R.array.time_options,R.layout.date_spinner_item);
 
 //        String[] date = getResources().getStringArray(R.array.date_options);
 //        String[] time = getResources().getStringArray(R.array.time_options);
 
-        mDateAdaper.setDropDownViewResource(R.layout.date_dropdown_item);
-        mTimeAdapter.setDropDownViewResource(R.layout.date_dropdown_item);
-
-        mDateSpinner = (MaterialSpinner)findViewById(R.id.toDoDateSpinner);
-        mTimeSpinner = (MaterialSpinner)findViewById(R.id.toDoTimeSpinner);
-
+//        mDateAdaper.setDropDownViewResource(R.layout.date_dropdown_item);
+//        mTimeAdapter.setDropDownViewResource(R.layout.date_dropdown_item);
 //
-        mDateSpinner.setAdapter(mDateAdaper);
-        mTimeSpinner.setAdapter(mTimeAdapter);
-
-        mDateSpinner.setSelection(0);
-        mTimeSpinner.setSelection(0);
-
-        mDateSpinner.setOnItemSelectedListener(this);
-        mTimeSpinner.setOnItemSelectedListener(this);
+//        mDateSpinner = (MaterialSpinner)findViewById(R.id.toDoDateSpinner);
+//        mTimeSpinner = (MaterialSpinner)findViewById(R.id.toDoTimeSpinner);
+//
+////
+//        mDateSpinner.setAdapter(mDateAdaper);
+//        mTimeSpinner.setAdapter(mTimeAdapter);
+//
+//        mDateSpinner.setSelection(0);
+//        mTimeSpinner.setSelection(0);
+//
+//        mDateSpinner.setOnItemSelectedListener(this);
+//        mTimeSpinner.setOnItemSelectedListener(this);
 
 
 
@@ -213,6 +271,30 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    //Internal DatePicker
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        //call some method
+    }
+
+    //Internal TimePicker
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        Log.d("OskarSchindler", "Time: "+hourOfDay+" "+minute);
+    }
+
+    //External Library DatePicker
+    @Override
+    public void onDateSet(com.android.datetimepicker.date.DatePickerDialog datePickerDialog, int i, int i1, int i2) {
+        Log.d("OskarSchindler", "Date: "+i+" "+i1+" "+i2);
+    }
+
+    //External Library TimePicker
+    @Override
+    public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i1) {
 
     }
 

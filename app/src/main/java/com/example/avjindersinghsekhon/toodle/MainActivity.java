@@ -3,6 +3,7 @@ package com.example.avjindersinghsekhon.toodle;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -15,8 +16,12 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ID_TODO_ITEM = 100;
     private ToDoItem mJustDeletedToDoItem;
     private int mIndexOfDeletedToDoItem;
+    public static final String DATE_TIME_FORMAT = "MMM d, yyyy  h:ma";
     private String[] testStrings = {"The snake had not eaten for days so it snuck into the hens henhouse and ate all her children",
             "Oswald found a resting place atop the mountain and he stopped for breath but found to his dimsay that it was fake",
             "Slimy the three-legged dog had a nasty habit of peeing on the tyres of cars it found outside it's master's house",
@@ -77,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
                 ToDoItem item = new ToDoItem("", false, new Date());
                 //noinspection ResourceType
-                String color = getResources().getString(R.color.primary_lightest);
+                String color = getResources().getString(R.color.primary_ligher);
                 item.setTodoColor(color);
                 newTodo.putExtra(TODOITEM, item);
                 startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
@@ -175,7 +181,8 @@ public class MainActivity extends AppCompatActivity {
             mIndexOfDeletedToDoItem = position;
             notifyItemRemoved(position);
 
-            String toShow = (mJustDeletedToDoItem.getToDoText().length()>10)?mJustDeletedToDoItem.getToDoText().substring(0, 10):mJustDeletedToDoItem.getToDoText();
+//            String toShow = (mJustDeletedToDoItem.getToDoText().length()>20)?mJustDeletedToDoItem.getToDoText().substring(0, 20)+"...":mJustDeletedToDoItem.getToDoText();
+            String toShow = "Todo";
             Snackbar.make(mCoordLayout, "Deleted "+toShow,Snackbar.LENGTH_SHORT)
                     .setAction("UNDO", new View.OnClickListener() {
                         @Override
@@ -189,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public BasicListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_alt_try, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_circle_try, parent, false);
             return new ViewHolder(v);
         }
 
@@ -207,8 +214,24 @@ public class MainActivity extends AppCompatActivity {
                 holder.mToDoTextview.setMaxLines(2);
             }
             holder.mToDoTextview.setText(item.getToDoText());
-            holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
-            holder.mTimeTextView.setText(AddToDoActivity.formatDate(AddToDoActivity.DATE_FORMAT, item.getToDoDate()));
+//            holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
+
+//            TextDrawable myDrawable = TextDrawable.builder().buildRoundRect(item.getToDoText().substring(0,1),Color.RED, 10);
+            //We check if holder.color is set or not
+            if(holder.color == -1){
+                ColorGenerator colorgen = ColorGenerator.MATERIAL;
+                holder.color = colorgen.getRandomColor();
+            }
+            TextDrawable myDrawable = TextDrawable.builder().beginConfig()
+                    .textColor(Color.WHITE)
+                    .useFont(Typeface.DEFAULT)
+                    .toUpperCase()
+                    .endConfig()
+                    .buildRound(item.getToDoText().substring(0,1),holder.color);
+
+//            TextDrawable myDrawable = TextDrawable.builder().buildRound(item.getToDoText().substring(0,1),holder.color);
+            holder.mColorImageView.setImageDrawable(myDrawable);
+            holder.mTimeTextView.setText(AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT, item.getToDoDate()));
 
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -235,8 +258,10 @@ public class MainActivity extends AppCompatActivity {
 
             View mView;
             TextView mToDoTextview;
-            TextView mColorTextView;
+//            TextView mColorTextView;
+            ImageView mColorImageView;
             TextView mTimeTextView;
+            int color = -1;
             public ViewHolder(View v){
                 super(v);
                 mView = v;
@@ -251,7 +276,8 @@ public class MainActivity extends AppCompatActivity {
                 });
                 mToDoTextview = (TextView)v.findViewById(R.id.toDoListItemTextview);
                 mTimeTextView = (TextView)v.findViewById(R.id.todoListItemTimeTextView);
-                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
+//                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
+                mColorImageView = (ImageView)v.findViewById(R.id.toDoListItemColorImageView);
             }
 
 

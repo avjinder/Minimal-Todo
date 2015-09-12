@@ -1,0 +1,162 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    >
+    <include layout="@layout/base_toolbar"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="?attr/colorPrimary"
+                android:id="@+id/editTextParentLinearLayout"
+                android:layout_weight=".7"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+
+                <com.example.avjindersinghsekhon.toodle.CustomTextInputLayout
+                    app:hintTextAppearance="@style/FloatingLabelTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <EditText
+                        android:id="@+id/userToDoEditText"
+                        android:hint="@string/title"
+                        android:maxLines="2"
+                        android:textColor="@color/icons"
+                        android:gravity="top|start"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.example.avjindersinghsekhon.toodle.CustomTextInputLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:background="@color/icons"
+                android:layout_weight="1.5"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="0dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_weight=".7"
+                    android:gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <ImageButton
+                        android:layout_weight=".4"
+                        android:background="@android:color/transparent"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_add_alarm_grey_200_24dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:gravity="start"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="@string/remind_me"
+                        android:textSize="16sp"
+                        android:textColor="@color/secondary_text"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/toDoHasDateSwitchCompat"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/toDoEnterDateLinearLayout"
+                    android:animateLayoutChanges="true"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginRight="48dp"
+                    android:orientation="horizontal"
+                    android:layout_height="0dp">
+
+                        <Button
+                            android:id="@+id/newToDoChooseDateButton"
+                            android:text="@string/choose_date"
+                            android:background="@color/primary_lightest"
+                            android:textColor="@color/secondary_text"
+                            android:layout_weight="1"
+                            android:layout_marginRight="4dp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content" />
+
+
+                        <Button
+                            android:layout_marginLeft="4dp"
+                            android:id="@+id/newToDoChooseTimeButton"
+                            android:background="@color/primary_lightest"
+                            android:textColor="@color/secondary_text"
+                            android:text="@string/choose_time"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/toDoLastEditedTextView"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginRight="48dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginStart="36dp"
+                    android:textSize="12sp"
+                    android:layout_weight="1"
+                    android:text="@string/last_edited"
+                    android:textColor="@color/secondary_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/makeToDoFloatingActionButton"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_send_white_18dp"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@id/editTextParentLinearLayout"
+            app:layout_anchorGravity="bottom|right"
+            app:fabSize="normal"
+            android:layout_width="wrap_content"
+            />
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
