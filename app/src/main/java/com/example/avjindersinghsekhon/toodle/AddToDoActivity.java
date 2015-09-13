@@ -15,6 +15,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.android.datetimepicker.time.RadialPickerLayout;
 
@@ -57,6 +59,8 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     private Toolbar mToolbar;
     private Date mUserReminderDate;
     private String mUserColor;
+    private boolean setDateButtonClickedOnce = false;
+    private boolean setTimeButtonClickedOnce = false;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -105,13 +109,14 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
         mReminderTextView = (TextView)findViewById(R.id.newToDoDateTimeReminderTextView);
 
-        if(mUserHasReminder){
-            setReminderTextView();
-        }
 
         if(mUserHasReminder){
 //            mUserDateSpinnerContainingLinearLayout.setVisibility(View.VISIBLE);
+            setReminderTextView();
             setEnterDateLayoutVisibleWithAnimations(true);
+        }
+        if(mUserReminderDate==null){
+            mReminderTextView.setVisibility(View.INVISIBLE);
         }
 
 
@@ -166,7 +171,13 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         mChooseDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Date date = mUserToDoItem.getToDoDate();
+                Date date;
+                if(mUserToDoItem.getToDoDate()!=null){
+                    date = mUserToDoItem.getToDoDate();
+                }
+                else{
+                    date = new Date();
+                }
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 int year = calendar.get(Calendar.YEAR);
@@ -191,7 +202,13 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         mChooseTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Date date = mUserToDoItem.getToDoDate();
+                Date date;
+                if(mUserToDoItem.getToDoDate()!=null){
+                    date = mUserToDoItem.getToDoDate();
+                }
+                else{
+                    date = new Date();
+                }
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -236,13 +253,63 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
+    public void setDate(int year, int month, int day){
+        Calendar calendar = Calendar.getInstance();
+        int hour, minute;
+
+
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        if(currentYear>year || currentMonth > month || currentDay>day){
+            Toast.makeText(this, "My time-machine is a bit rusty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(mUserReminderDate!=null){
+            Log.d("OskarSchindler", "Old Date: "+(mUserReminderDate.toString()));
+            calendar.setTime(mUserReminderDate);
+        }
+
+        hour = calendar.get(Calendar.HOUR);
+        minute = calendar.get(Calendar.MINUTE);
+
+        calendar.set(year, month, day, hour, minute);
+        mUserReminderDate = calendar.getTime();
+        Log.d("OskarSchindler", "Set Date: "+mUserReminderDate.toString());
+        setReminderTextView();
+    }
+
+    public void setTime(int hour, int minute){
+        Calendar calendar = Calendar.getInstance();
+        if(mUserReminderDate!=null){
+            calendar.setTime(mUserReminderDate);
+        }
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.set(year, month, day, hour, minute);
+        mUserReminderDate = calendar.getTime();
+
+        Log.d("OskarSchindler", "SetTime: "+mUserReminderDate.toString());
+        setReminderTextView();
+    }
+
     public void setReminderTextView(){
-        Date date = mUserReminderDate;
-        String dateString = formatDate("d MMM", date);
-        String timeString = formatDate("h:m", date);
-        String amPmString = formatDate("a", date);
-        String finalString = String.format(getResources().getString(R.string.remind_date_and_time), dateString, timeString, amPmString);
-        mReminderTextView.setText(finalString);
+        if(mUserReminderDate!=null){
+            mReminderTextView.setVisibility(View.VISIBLE);
+            Date date = mUserReminderDate;
+            String dateString = formatDate("d MMM, yyyy", date);
+            String timeString = formatDate("h:mm", date);
+            String amPmString = formatDate("a", date);
+            String finalString = String.format(getResources().getString(R.string.remind_date_and_time), dateString, timeString, amPmString);
+            mReminderTextView.setText(finalString);
+        }
+        else{
+            mReminderTextView.setVisibility(View.INVISIBLE);
+
+        }
     }
 
     public void makeResult(){
@@ -312,21 +379,25 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         //call some method
+        setDate(year, monthOfYear, dayOfMonth);
     }
 
     //Internal TimePicker
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        setTime(hourOfDay, minute);
     }
 
     //External Library DatePicker
     @Override
     public void onDateSet(com.android.datetimepicker.date.DatePickerDialog datePickerDialog, int i, int i1, int i2) {
+        setDate(i, i1, i2);
     }
 
     //External Library TimePicker
     @Override
     public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i1) {
+        setTime(i, i1);
 
     }
 

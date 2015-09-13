@@ -16,7 +16,7 @@
     <string name="choose_time">Time</string>
     <string name="remind_date">You will be reminded on</string>
     <string name="remind_time">at </string>
-    <string name="remind_date_and_time">You will be reminded on %1$s at %2$s %3$s</string>
+    <string name="remind_date_and_time">Reminder set for %1$s, %2$s %3$s</string>
 
     <string-array name="date_options">
         <item>Today</item>

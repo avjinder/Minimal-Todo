@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
-                ToDoItem item = new ToDoItem("", false, new Date());
+                ToDoItem item = new ToDoItem("", false, null);
                 //noinspection ResourceType
                 String color = getResources().getString(R.color.primary_ligher);
                 item.setTodoColor(color);
@@ -252,7 +252,9 @@ public class MainActivity extends AppCompatActivity {
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRound(item.getToDoText().substring(0,1),holder.color);
             holder.mColorImageView.setImageDrawable(myDrawable);
-            holder.mTimeTextView.setText(AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT, item.getToDoDate()));
+            if(item.getToDoDate()!=null){
+                holder.mTimeTextView.setText(AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT, item.getToDoDate()));
+            }
 
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
 //                @Override

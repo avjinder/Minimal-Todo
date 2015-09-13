@@ -49,7 +49,9 @@ public class ToDoItem implements Serializable{
         jsonObject.put(TODOTEXT, mToDoText);
         jsonObject.put(TODOREMINDER, mHasReminder);
         jsonObject.put(TODOLASTEDITED, mLastEdited.getTime());
-        jsonObject.put(TODODATE, mToDoDate.getTime());
+        if(mToDoDate!=null){
+            jsonObject.put(TODODATE, mToDoDate.getTime());
+        }
         jsonObject.put(TODOCOLOR, mTodoColor);
         jsonObject.put(TODOIDENTIFIER, mTodoIdentifier.toString());
 
