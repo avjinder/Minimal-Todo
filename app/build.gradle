@@ -30,4 +30,5 @@ dependencies {
     compile 'com.github.ganfra:material-spinner:1.1.0'
     compile 'com.github.citux:datetimepicker:0.1.2'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    compile 'com.squareup.moshi:moshi:0.9.0'
 }

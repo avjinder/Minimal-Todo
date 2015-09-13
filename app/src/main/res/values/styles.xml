@@ -28,7 +28,7 @@
     <!--</style>-->
     
     <style name="FloatingLabelTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/icons</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <!--<style name="UnderlineSpinner" parent="@style/ThemeOverlay.AppCompat.ActionBar">-->

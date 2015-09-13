@@ -15,7 +15,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +39,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     private SwitchCompat mToDoDateSwitch;
     private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
+    private TextView mReminderTextView;
 //    private MaterialSpinner mDateSpinner;
 //    private MaterialSpinner mTimeSpinner;
 //    private ArrayAdapter<CharSequence> mDateAdaper;
@@ -97,11 +97,22 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
             mLastEdited = mUserToDoItem.getLastEdited();
         }
 
+
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
         mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
+        mReminderTextView = (TextView)findViewById(R.id.newToDoDateTimeReminderTextView);
+
+        if(mUserHasReminder){
+            setReminderTextView();
+        }
+
+        if(mUserHasReminder){
+//            mUserDateSpinnerContainingLinearLayout.setVisibility(View.VISIBLE);
+            setEnterDateLayoutVisibleWithAnimations(true);
+        }
 
 
         mToDoTextBodyEditText.addTextChangedListener(new TextWatcher() {
@@ -225,14 +236,37 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
+    public void setReminderTextView(){
+        Date date = mUserReminderDate;
+        String dateString = formatDate("d MMM", date);
+        String timeString = formatDate("h:m", date);
+        String amPmString = formatDate("a", date);
+        String finalString = String.format(getResources().getString(R.string.remind_date_and_time), dateString, timeString, amPmString);
+        mReminderTextView.setText(finalString);
+    }
+
     public void makeResult(){
         Intent i = new Intent();
-        mUserToDoItem.setToDoText(mUserEnteredText);
+        if(mUserEnteredText.length()>0){
+
+            String capitalizedString = Character.toUpperCase(mUserEnteredText.charAt(0))+mUserEnteredText.substring(1);
+            mUserToDoItem.setToDoText(capitalizedString);
+        }
+        else{
+            mUserToDoItem.setToDoText(mUserEnteredText);
+        }
+        mUserToDoItem.setLastEdited(mLastEdited);
         mUserToDoItem.setHasReminder(mUserHasReminder);
         mUserToDoItem.setToDoDate(mUserReminderDate);
         mUserToDoItem.setTodoColor(mUserColor);
         i.putExtra(MainActivity.TODOITEM, mUserToDoItem);
         setResult(RESULT_OK, i);
+    }
+
+    @Override
+    public void onBackPressed() {
+        makeResult();
+        super.onBackPressed();
     }
 
     @Override
@@ -283,13 +317,11 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     //Internal TimePicker
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Log.d("OskarSchindler", "Time: "+hourOfDay+" "+minute);
     }
 
     //External Library DatePicker
     @Override
     public void onDateSet(com.android.datetimepicker.date.DatePickerDialog datePickerDialog, int i, int i1, int i2) {
-        Log.d("OskarSchindler", "Date: "+i+" "+i1+" "+i2);
     }
 
     //External Library TimePicker
@@ -309,6 +341,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
 
     public void setEnterDateLayoutVisibleWithAnimations(boolean checked){
         if(checked){
+            setReminderTextView();
             mUserDateSpinnerContainingLinearLayout.animate().alpha(1.0f).setDuration(500).setListener(
                     new Animator.AnimatorListener() {
                         @Override

@@ -20,9 +20,9 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:gravity="center"
                 android:background="?attr/colorPrimary"
                 android:id="@+id/editTextParentLinearLayout"
+                android:gravity="center"
                 android:layout_weight=".7"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
@@ -30,13 +30,16 @@
 
                 <com.example.avjindersinghsekhon.toodle.CustomTextInputLayout
                     app:hintTextAppearance="@style/FloatingLabelTextAppearance"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
                     <EditText
                         android:id="@+id/userToDoEditText"
                         android:hint="@string/title"
-                        android:maxLines="2"
+                        android:lines="3"
+                        android:maxLines="3"
+                        android:inputType="textCapSentences"
                         android:textColor="@color/icons"
                         android:gravity="top|start"
                         android:layout_marginRight="32dp"
@@ -48,7 +51,7 @@
 
             </LinearLayout>
             <LinearLayout
-                android:background="@color/icons"
+                android:background="@android:color/white"
                 android:layout_weight="1.5"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
@@ -103,13 +106,21 @@
                     android:layout_width="match_parent"
                     android:layout_marginLeft="48dp"
                     android:layout_marginRight="48dp"
-                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     android:layout_height="0dp">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_height="0dp">
 
                         <Button
                             android:id="@+id/newToDoChooseDateButton"
                             android:text="@string/choose_date"
-                            android:background="@color/primary_lightest"
+                            android:background="@color/primary_ligher"
                             android:textColor="@color/secondary_text"
                             android:layout_weight="1"
                             android:layout_marginRight="4dp"
@@ -120,18 +131,30 @@
                         <Button
                             android:layout_marginLeft="4dp"
                             android:id="@+id/newToDoChooseTimeButton"
-                            android:background="@color/primary_lightest"
+                            android:background="@color/primary_ligher"
                             android:textColor="@color/secondary_text"
                             android:text="@string/choose_time"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content" />
+                    </LinearLayout>
 
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/newToDoDateTimeReminderTextView"
+                        android:textSize="12sp"
+                        android:gravity="start|center"
+                        android:text="@string/remind_date_and_time"
+                        android:textColor="@color/secondary_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/toDoLastEditedTextView"
+                    android:paddingTop="12dp"
+                    android:paddingLeft="8dp"
                     android:layout_marginLeft="48dp"
                     android:layout_marginRight="48dp"
                     android:layout_marginEnd="32dp"
@@ -139,7 +162,7 @@
                     android:textSize="12sp"
                     android:layout_weight="1"
                     android:text="@string/last_edited"
-                    android:textColor="@color/secondary_text"
+                    android:textColor="@color/divider"
                     android:layout_width="match_parent"
                     android:layout_height="0dp" />
 

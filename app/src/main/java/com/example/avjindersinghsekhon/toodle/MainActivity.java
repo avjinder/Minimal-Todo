@@ -1,6 +1,5 @@
 package com.example.avjindersinghsekhon.toodle;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -13,6 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +23,12 @@ import android.widget.Toast;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerViewEmptySupport mRecyclerView;
@@ -40,11 +40,19 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ID_TODO_ITEM = 100;
     private ToDoItem mJustDeletedToDoItem;
     private int mIndexOfDeletedToDoItem;
-    public static final String DATE_TIME_FORMAT = "MMM d, yyyy  h:ma";
-    private String[] testStrings = {"The snake had not eaten for days so it snuck into the hens henhouse and ate all her children",
-            "Oswald found a resting place atop the mountain and he stopped for breath but found to his dimsay that it was fake",
-            "Slimy the three-legged dog had a nasty habit of peeing on the tyres of cars it found outside it's master's house",
-            "Slime oozed out of the ceiling as the house shook and haunting noises came and rumblings were heard"
+    public static final String DATE_TIME_FORMAT = "MMM d, yyyy  h:m a";
+    public static final String FILENAME = "todoitems.json";
+    private StoreRetrieveData storeRetrieveData;
+//    private String[] testStrings = {"The snake had not eaten for days so it snuck into the hens henhouse and ate all her children",
+//            "Oswald found a resting place atop the mountain and he stopped for breath but found to his dimsay that it was fake",
+//            "Slimy the three-legged dog had a nasty habit of peeing on the tyres of cars it found outside it's master's house",
+//            "Slime oozed out of the ceiling as the house shook and haunting noises came and rumblings were heard"
+//    };
+
+    private String[] testStrings = {"Clean my room",
+            "Water the plants",
+            "Get car washed",
+            "Get my dry cleaning"
     };
 
 //    public static final int REQUEST_ID_EDIT_TODO_ITEM = "request id for editing to do item".hashCode();
@@ -52,19 +60,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Aller_Regular.tff").setFontAttrId(R.attr.fontPath).build());
+//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+//                .setDefaultFontPath("fonts/Aller_Regular.tff").setFontAttrId(R.attr.fontPath).build());
         setContentView(R.layout.activity_main);
 
+        storeRetrieveData = new StoreRetrieveData(this, FILENAME);
+
+        try {
+            mToDoItemsArrayList = storeRetrieveData.loadFromFile();
+            Log.d("OskarSchindler", "Arraylist Length: "+mToDoItemsArrayList.size());
+        } catch (IOException e) {
+            Log.d("OskarSchindler", "IOException received");
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if(mToDoItemsArrayList==null){
+            mToDoItemsArrayList = new ArrayList<>();
+        }
 
 
-        mToDoItemsArrayList = new ArrayList<>();
+//        mToDoItemsArrayList = new ArrayList<>();
+//        makeUpItems(mToDoItemsArrayList, testStrings.length);
+
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mToDoItemsArrayList = new ArrayList<>();
-        makeUpItems(mToDoItemsArrayList, 50);
-
-
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);
 //            getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -284,10 +305,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Used when using custom fonts
+//    @Override
+//    protected void attachBaseContext(Context newBase) {
+//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+//    }
+
+
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    protected void onPause() {
+        super.onPause();
+        try {
+            storeRetrieveData.saveToFile(mToDoItemsArrayList);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-
 }
