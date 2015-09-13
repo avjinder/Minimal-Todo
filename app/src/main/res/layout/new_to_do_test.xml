@@ -30,6 +30,7 @@
 
                 <com.example.avjindersinghsekhon.toodle.CustomTextInputLayout
                     app:hintTextAppearance="@style/FloatingLabelTextAppearance"
+                    android:id="@+id/toDoCustomTextInput"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,6 +53,7 @@
             </LinearLayout>
             <LinearLayout
                 android:background="@android:color/white"
+                android:id="@+id/todoReminderAndDateContainerLayout"
                 android:layout_weight="1.5"
                 android:layout_width="match_parent"
                 android:orientation="vertical"

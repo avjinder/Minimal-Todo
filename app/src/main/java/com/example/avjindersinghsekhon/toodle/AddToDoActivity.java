@@ -16,10 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -35,7 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddToDoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, com.android.datetimepicker.date.DatePickerDialog.OnDateSetListener, com.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+public class AddToDoActivity extends AppCompatActivity implements  com.android.datetimepicker.date.DatePickerDialog.OnDateSetListener, com.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private SwitchCompat mToDoDateSwitch;
@@ -61,6 +60,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
     private String mUserColor;
     private boolean setDateButtonClickedOnce = false;
     private boolean setTimeButtonClickedOnce = false;
+    private LinearLayout mContainerLayout;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -102,12 +102,20 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         }
 
 
+        mContainerLayout = (LinearLayout)findViewById(R.id.todoReminderAndDateContainerLayout);
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
         mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
         mReminderTextView = (TextView)findViewById(R.id.newToDoDateTimeReminderTextView);
+
+        mContainerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard(mToDoTextBodyEditText);
+            }
+        });
 
 
         if(mUserHasReminder){
@@ -119,6 +127,12 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
             mReminderTextView.setVisibility(View.INVISIBLE);
         }
 
+//        TextInputLayout til = (TextInputLayout)findViewById(R.id.toDoCustomTextInput);
+//        til.requestFocus();
+        mToDoTextBodyEditText.requestFocus();
+        InputMethodManager imm = (InputMethodManager)this.getSystemService(INPUT_METHOD_SERVICE);
+//        imm.showSoftInput(mToDoTextBodyEditText, InputMethodManager.SHOW_IMPLICIT);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         mToDoTextBodyEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -151,6 +165,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mUserHasReminder = isChecked;
                 setEnterDateLayoutVisibleWithAnimations(isChecked);
+                hideKeyboard(mToDoTextBodyEditText);
             }
         });
 
@@ -159,6 +174,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 makeResult();
+                hideKeyboard(mToDoTextBodyEditText);
                 finish();
             }
         });
@@ -172,6 +188,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 Date date;
+                hideKeyboard(mToDoTextBodyEditText);
                 if(mUserToDoItem.getToDoDate()!=null){
                     date = mUserToDoItem.getToDoDate();
                 }
@@ -203,6 +220,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 Date date;
+                hideKeyboard(mToDoTextBodyEditText);
                 if(mUserToDoItem.getToDoDate()!=null){
                     date = mUserToDoItem.getToDoDate();
                 }
@@ -213,46 +231,24 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
                 calendar.setTime(date);
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                 int minute = calendar.get(Calendar.MINUTE);
-                boolean is24Hour = false;
                 if(Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP){
-                    com.android.datetimepicker.time.TimePickerDialog timePickerDialog = com.android.datetimepicker.time.TimePickerDialog.newInstance(AddToDoActivity.this, hour, minute, is24Hour);
+                    com.android.datetimepicker.time.TimePickerDialog timePickerDialog = com.android.datetimepicker.time.TimePickerDialog.newInstance(AddToDoActivity.this, hour, minute, false);
                     timePickerDialog.show(getFragmentManager(), "TimeFragment");
 
                 }
                 else {
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(AddToDoActivity.this, R.style.CustomDialog, AddToDoActivity.this, hour, minute, is24Hour);
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(AddToDoActivity.this, R.style.CustomDialog, AddToDoActivity.this, hour, minute, false);
                     timePickerDialog.show();
                 }
             }
         });
 
-//        mDateAdaper = ArrayAdapter.createFromResource(this, R.array.date_options,R.layout.date_spinner_item);
-//        mTimeAdapter = ArrayAdapter.createFromResource(this, R.array.time_options,R.layout.date_spinner_item);
-
-//        String[] date = getResources().getStringArray(R.array.date_options);
-//        String[] time = getResources().getStringArray(R.array.time_options);
-
-//        mDateAdaper.setDropDownViewResource(R.layout.date_dropdown_item);
-//        mTimeAdapter.setDropDownViewResource(R.layout.date_dropdown_item);
-//
-//        mDateSpinner = (MaterialSpinner)findViewById(R.id.toDoDateSpinner);
-//        mTimeSpinner = (MaterialSpinner)findViewById(R.id.toDoTimeSpinner);
-//
-////
-//        mDateSpinner.setAdapter(mDateAdaper);
-//        mTimeSpinner.setAdapter(mTimeAdapter);
-//
-//        mDateSpinner.setSelection(0);
-//        mTimeSpinner.setSelection(0);
-//
-//        mDateSpinner.setOnItemSelectedListener(this);
-//        mTimeSpinner.setOnItemSelectedListener(this);
-
-
-
-
     }
 
+    public void hideKeyboard(EditText et){
+        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
+    }
     public void setDate(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();
         int hour, minute;
@@ -336,11 +332,6 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         super.onBackPressed();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -350,9 +341,7 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
                     makeResult();
                     NavUtils.navigateUpFromSameTask(this);
                 }
-//                finish();
-                return true;
-            case R.id.toDoSetColorMenuItem:
+                hideKeyboard(mToDoTextBodyEditText);
                 return true;
 
             default:
@@ -365,15 +354,6 @@ public class AddToDoActivity extends AppCompatActivity implements AdapterView.On
         return simpleDateFormat.format(dateToFormat);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     //Internal DatePicker
     @Override
