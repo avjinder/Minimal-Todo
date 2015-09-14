@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String DATE_TIME_FORMAT = "MMM d, yyyy  h:m a";
     public static final String FILENAME = "todoitems.json";
     private StoreRetrieveData storeRetrieveData;
+    public ItemTouchHelper itemTouchHelper;
 //    private String[] testStrings = {"The snake had not eaten for days so it snuck into the hens henhouse and ate all her children",
 //            "Oswald found a resting place atop the mountain and he stopped for breath but found to his dimsay that it was fake",
 //            "Slimy the three-legged dog had a nasty habit of peeing on the tyres of cars it found outside it's master's house",
@@ -122,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         ItemTouchHelper.Callback callback = new ItemTouchHelperClass(adapter);
-        ItemTouchHelper helper = new ItemTouchHelper(callback);
-        helper.attachToRecyclerView(mRecyclerView);
+        itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
 
         mRecyclerView.setAdapter(adapter);
@@ -222,10 +223,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(BasicListAdapter.ViewHolder holder, final int position) {
+        public void onBindViewHolder(final BasicListAdapter.ViewHolder holder, final int position) {
             ToDoItem item = items.get(position);
 
-            if(item.hasReminder()){
+            if(item.hasReminder() && item.getToDoDate()!=null){
                 holder.mToDoTextview.setMaxLines(1);
                 holder.mTimeTextView.setVisibility(View.VISIBLE);
 //                holder.mToDoTextview.setVisibility(View.GONE);
@@ -256,12 +257,6 @@ public class MainActivity extends AppCompatActivity {
                 holder.mTimeTextView.setText(AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT, item.getToDoDate()));
             }
 
-//            holder.mView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Snackbar.make(v, "Clicked"+position, Snackbar.LENGTH_SHORT);
-//                }
-//            });
 
         }
 
@@ -285,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
             ImageView mColorImageView;
             TextView mTimeTextView;
             int color = -1;
+
             public ViewHolder(View v){
                 super(v);
                 mView = v;
@@ -319,9 +315,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         try {
             storeRetrieveData.saveToFile(mToDoItemsArrayList);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
     }

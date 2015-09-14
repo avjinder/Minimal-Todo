@@ -11,11 +11,25 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="toolbarStyle">@style/myToolBarStyle</item>
+        <!--color of thumb when inactive-->
+        <item name="colorSwitchThumbNormal">@color/grey300</item>
+        <!--Inactive track color-->
+        <item name="android:colorForeground">@color/grey600</item>
 
     </style>
 
+
     <style name="CustomDialog" parent="Base.Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/primary</item>
+    </style>
+
+    <style name="CustomSwitch" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--color of thumb when inactive-->
+        <item name="colorSwitchThumbNormal">@color/amber</item>
+        <!--Inactive track color-->
+        <item name="android:colorForeground">@color/secondary_text</item>
+
+
     </style>
 
     <style name="myToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">

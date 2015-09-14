@@ -23,14 +23,13 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:src="@drawable/check"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:src="@drawable/empty_view_bg"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
             <TextView
                 android:text="@string/no_to_dos"
-                android:textColor="@android:color/black"
+                android:textColor="@color/secondary_text"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 android:paddingTop="4dp"
                 android:paddingBottom="8dp"
                 android:gravity="center"
@@ -42,6 +41,8 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:elevation="0dp"
+            android:elevation="0dp"
             >
 
             <include layout="@layout/base_toolbar"/>

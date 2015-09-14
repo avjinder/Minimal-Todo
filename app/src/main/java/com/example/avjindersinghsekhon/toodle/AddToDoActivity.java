@@ -38,7 +38,7 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private SwitchCompat mToDoDateSwitch;
-    private TextView mLastSeenTextView;
+//    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
 //    private MaterialSpinner mDateSpinner;
@@ -94,19 +94,19 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
         mUserColor = mUserToDoItem.getTodoColor();
 
 
-        if(mUserToDoItem.getLastEdited()==null) {
-            mLastEdited = new Date();
-        }
-        else{
-            mLastEdited = mUserToDoItem.getLastEdited();
-        }
+//        if(mUserToDoItem.getLastEdited()==null) {
+//            mLastEdited = new Date();
+//        }
+//        else{
+//            mLastEdited = mUserToDoItem.getLastEdited();
+//        }
 
 
         mContainerLayout = (LinearLayout)findViewById(R.id.todoReminderAndDateContainerLayout);
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
-        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
+//        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
         mReminderTextView = (TextView)findViewById(R.id.newToDoDateTimeReminderTextView);
 
@@ -118,12 +118,14 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
         });
 
 
-        if(mUserHasReminder){
+        if(mUserHasReminder && (mUserReminderDate!=null)){
 //            mUserDateSpinnerContainingLinearLayout.setVisibility(View.VISIBLE);
             setReminderTextView();
             setEnterDateLayoutVisibleWithAnimations(true);
         }
         if(mUserReminderDate==null){
+            Log.d("OskarSchindler", "Date is null");
+            mToDoDateSwitch.setChecked(false);
             mReminderTextView.setVisibility(View.INVISIBLE);
         }
 
@@ -154,15 +156,18 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
 
         mToDoTextBodyEditText.setText(mUserEnteredText);
 
-        String lastSeen = formatDate(DATE_FORMAT, mLastEdited);
-        mLastSeenTextView.setText(String.format(getResources().getString(R.string.last_edited), lastSeen));
+//        String lastSeen = formatDate(DATE_FORMAT, mLastEdited);
+//        mLastSeenTextView.setText(String.format(getResources().getString(R.string.last_edited), lastSeen));
 
         setEnterDateLayoutVisible(mToDoDateSwitch.isChecked());
 
-        mToDoDateSwitch.setChecked(mUserHasReminder);
+        mToDoDateSwitch.setChecked(mUserHasReminder && (mUserReminderDate!=null));
         mToDoDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    mUserReminderDate = null;
+                }
                 mUserHasReminder = isChecked;
                 setEnterDateLayoutVisibleWithAnimations(isChecked);
                 hideKeyboard(mToDoTextBodyEditText);
@@ -318,10 +323,11 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
         else{
             mUserToDoItem.setToDoText(mUserEnteredText);
         }
-        mUserToDoItem.setLastEdited(mLastEdited);
+//        mUserToDoItem.setLastEdited(mLastEdited);
         mUserToDoItem.setHasReminder(mUserHasReminder);
         mUserToDoItem.setToDoDate(mUserReminderDate);
         mUserToDoItem.setTodoColor(mUserColor);
+        Log.d("OskarSchindler", ""+mUserReminderDate);
         i.putExtra(MainActivity.TODOITEM, mUserToDoItem);
         setResult(RESULT_OK, i);
     }

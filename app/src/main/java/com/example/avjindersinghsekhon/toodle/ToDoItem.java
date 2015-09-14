@@ -10,13 +10,13 @@ import java.util.UUID;
 public class ToDoItem implements Serializable{
     private String mToDoText;
     private boolean mHasReminder;
-    private Date mLastEdited;
+//    private Date mLastEdited;
     private String mTodoColor;
     private Date mToDoDate;
     private UUID mTodoIdentifier;
     private static final String TODOTEXT = "todotext";
     private static final String TODOREMINDER = "todoreminder";
-    private static final String TODOLASTEDITED = "todolastedited";
+//    private static final String TODOLASTEDITED = "todolastedited";
     private static final String TODOCOLOR = "todocolor";
     private static final String TODODATE = "tododate";
     private static final String TODOIDENTIFIER = "todoidentifier";
@@ -36,9 +36,9 @@ public class ToDoItem implements Serializable{
         mTodoColor = jsonObject.getString(TODOCOLOR);
         mTodoIdentifier = UUID.fromString(jsonObject.getString(TODOIDENTIFIER));
 
-        if(jsonObject.has(TODOLASTEDITED)){
-            mLastEdited = new Date(jsonObject.getLong(TODOLASTEDITED));
-        }
+//        if(jsonObject.has(TODOLASTEDITED)){
+//            mLastEdited = new Date(jsonObject.getLong(TODOLASTEDITED));
+//        }
         if(jsonObject.has(TODODATE)){
             mToDoDate = new Date(jsonObject.getLong(TODODATE));
         }
@@ -48,7 +48,7 @@ public class ToDoItem implements Serializable{
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(TODOTEXT, mToDoText);
         jsonObject.put(TODOREMINDER, mHasReminder);
-        jsonObject.put(TODOLASTEDITED, mLastEdited.getTime());
+//        jsonObject.put(TODOLASTEDITED, mLastEdited.getTime());
         if(mToDoDate!=null){
             jsonObject.put(TODODATE, mToDoDate.getTime());
         }
@@ -95,13 +95,7 @@ public class ToDoItem implements Serializable{
         this.mToDoDate = mToDoDate;
     }
 
-    public Date getLastEdited() {
-        return mLastEdited;
-    }
 
-    public void setLastEdited(Date mLastEdited) {
-        this.mLastEdited = mLastEdited;
-    }
     public UUID getIdentifier(){
         return mTodoIdentifier;
     }

@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/toDoListItemColorImageView"
         android:gravity="center"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="8dp"
         android:layout_width="45dp"
         android:layout_height="45dp"/>
 

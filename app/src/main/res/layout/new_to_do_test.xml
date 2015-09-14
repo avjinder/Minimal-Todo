@@ -38,11 +38,10 @@
                     <EditText
                         android:id="@+id/userToDoEditText"
                         android:hint="@string/title"
-                        android:lines="3"
+                        android:lines="2"
                         android:maxLines="3"
-                        android:inputType="textCapSentences"
                         android:textColor="@color/icons"
-                        android:gravity="top|start"
+                        android:gravity="start|bottom"
                         android:layout_marginRight="32dp"
                         android:layout_marginLeft="32dp"
                         android:layout_width="match_parent"
@@ -61,11 +60,11 @@
 
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_weight=".7"
+                    android:layout_weight=".5"
                     android:gravity="center"
                     android:layout_marginTop="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginRight="42dp"
                     android:layout_width="match_parent"
                     android:layout_height="0dp">
 
@@ -115,7 +114,7 @@
                     <LinearLayout
 
                         android:layout_width="match_parent"
-                        android:gravity="center"
+                        android:gravity="top"
                         android:layout_weight="1"
                         android:layout_height="0dp">
 
@@ -142,10 +141,10 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:id="@+id/newToDoDateTimeReminderTextView"
                         android:textSize="12sp"
-                        android:gravity="start|center"
+                        android:gravity="start"
                         android:text="@string/remind_date_and_time"
                         android:textColor="@color/secondary_text"
                         android:layout_width="match_parent"
@@ -153,20 +152,6 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/toDoLastEditedTextView"
-                    android:paddingTop="12dp"
-                    android:paddingLeft="8dp"
-                    android:layout_marginLeft="48dp"
-                    android:layout_marginRight="48dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginStart="36dp"
-                    android:textSize="12sp"
-                    android:layout_weight="1"
-                    android:text="@string/last_edited"
-                    android:textColor="@color/divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp" />
 
             </LinearLayout>
 
