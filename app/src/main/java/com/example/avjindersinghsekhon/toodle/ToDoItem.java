@@ -11,7 +11,7 @@ public class ToDoItem implements Serializable{
     private String mToDoText;
     private boolean mHasReminder;
 //    private Date mLastEdited;
-    private String mTodoColor;
+    private int mTodoColor;
     private Date mToDoDate;
     private UUID mTodoIdentifier;
     private static final String TODOTEXT = "todotext";
@@ -26,14 +26,14 @@ public class ToDoItem implements Serializable{
         mToDoText = todoBody;
         mHasReminder = hasReminder;
         mToDoDate = toDoDate;
-        mTodoColor = "#ffffff";
+        mTodoColor = 1677725;
         mTodoIdentifier = UUID.randomUUID();
     }
 
     public ToDoItem(JSONObject jsonObject) throws JSONException{
         mToDoText = jsonObject.getString(TODOTEXT);
         mHasReminder = jsonObject.getBoolean(TODOREMINDER);
-        mTodoColor = jsonObject.getString(TODOCOLOR);
+        mTodoColor = jsonObject.getInt(TODOCOLOR);
         mTodoIdentifier = UUID.fromString(jsonObject.getString(TODOIDENTIFIER));
 
 //        if(jsonObject.has(TODOLASTEDITED)){
@@ -83,11 +83,11 @@ public class ToDoItem implements Serializable{
         return mToDoDate;
     }
 
-    public String getTodoColor() {
+    public int getTodoColor() {
         return mTodoColor;
     }
 
-    public void setTodoColor(String mTodoColor) {
+    public void setTodoColor(int mTodoColor) {
         this.mTodoColor = mTodoColor;
     }
 

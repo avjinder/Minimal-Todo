@@ -57,7 +57,7 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
     private boolean mUserHasReminder;
     private Toolbar mToolbar;
     private Date mUserReminderDate;
-    private String mUserColor;
+    private int mUserColor;
     private boolean setDateButtonClickedOnce = false;
     private boolean setTimeButtonClickedOnce = false;
     private LinearLayout mContainerLayout;
@@ -132,9 +132,12 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
 //        TextInputLayout til = (TextInputLayout)findViewById(R.id.toDoCustomTextInput);
 //        til.requestFocus();
         mToDoTextBodyEditText.requestFocus();
+        mToDoTextBodyEditText.setText(mUserEnteredText);
         InputMethodManager imm = (InputMethodManager)this.getSystemService(INPUT_METHOD_SERVICE);
 //        imm.showSoftInput(mToDoTextBodyEditText, InputMethodManager.SHOW_IMPLICIT);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        mToDoTextBodyEditText.setSelection(mToDoTextBodyEditText.length());
+
 
         mToDoTextBodyEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -154,7 +157,6 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
             }
         });
 
-        mToDoTextBodyEditText.setText(mUserEnteredText);
 
 //        String lastSeen = formatDate(DATE_FORMAT, mLastEdited);
 //        mLastSeenTextView.setText(String.format(getResources().getString(R.string.last_edited), lastSeen));
@@ -236,6 +238,7 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
                 calendar.setTime(date);
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                 int minute = calendar.get(Calendar.MINUTE);
+
                 if(Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP){
                     com.android.datetimepicker.time.TimePickerDialog timePickerDialog = com.android.datetimepicker.time.TimePickerDialog.newInstance(AddToDoActivity.this, hour, minute, false);
                     timePickerDialog.show(getFragmentManager(), "TimeFragment");

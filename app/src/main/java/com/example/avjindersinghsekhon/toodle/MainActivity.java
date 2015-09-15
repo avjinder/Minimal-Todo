@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,15 +42,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ID_TODO_ITEM = 100;
     private ToDoItem mJustDeletedToDoItem;
     private int mIndexOfDeletedToDoItem;
-    public static final String DATE_TIME_FORMAT = "MMM d, yyyy  h:m a";
+    public static final String DATE_TIME_FORMAT = "MMM d, yyyy  h:mm a";
     public static final String FILENAME = "todoitems.json";
     private StoreRetrieveData storeRetrieveData;
     public ItemTouchHelper itemTouchHelper;
-//    private String[] testStrings = {"The snake had not eaten for days so it snuck into the hens henhouse and ate all her children",
-//            "Oswald found a resting place atop the mountain and he stopped for breath but found to his dimsay that it was fake",
-//            "Slimy the three-legged dog had a nasty habit of peeing on the tyres of cars it found outside it's master's house",
-//            "Slime oozed out of the ceiling as the house shook and haunting noises came and rumblings were heard"
-//    };
+    private CustomRecyclerScrollViewListener customRecyclerScrollViewListener;
 
     private String[] testStrings = {"Clean my room",
             "Water the plants",
@@ -104,9 +102,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
                 ToDoItem item = new ToDoItem("", false, null);
-                //noinspection ResourceType
-                String color = getResources().getString(R.color.primary_ligher);
+                int color = ColorGenerator.MATERIAL.getRandomColor();
                 item.setTodoColor(color);
+                //noinspection ResourceType
+//                String color = getResources().getString(R.color.primary_ligher);
                 newTodo.putExtra(TODOITEM, item);
                 startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
             }
@@ -119,6 +118,22 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        customRecyclerScrollViewListener = new CustomRecyclerScrollViewListener() {
+            @Override
+            public void show() {
+
+                mAddToDoItemFAB.animate().translationY(0).setInterpolator(new DecelerateInterpolator(1)).start();
+            }
+
+            @Override
+            public void hide() {
+
+                CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams)mAddToDoItemFAB.getLayoutParams();
+                int fabMargin = lp.bottomMargin;
+                mAddToDoItemFAB.animate().translationY(mAddToDoItemFAB.getHeight()+fabMargin).setInterpolator(new AccelerateInterpolator(2)).start();
+            }
+        };
+        mRecyclerView.addOnScrollListener(customRecyclerScrollViewListener);
         adapter = new BasicListAdapter(mToDoItemsArrayList);
 
 
@@ -240,16 +255,18 @@ public class MainActivity extends AppCompatActivity {
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRoundRect(item.getToDoText().substring(0,1),Color.RED, 10);
             //We check if holder.color is set or not
-            if(holder.color == -1){
-                ColorGenerator colorgen = ColorGenerator.MATERIAL;
-                holder.color = colorgen.getRandomColor();
-            }
+//            if(item.getTodoColor() == null){
+//                ColorGenerator generator = ColorGenerator.MATERIAL;
+//                int color = generator.getRandomColor();
+//                item.setTodoColor(color+"");
+//            }
+            Log.d("OskarSchindler", "Color: "+item.getTodoColor());
             TextDrawable myDrawable = TextDrawable.builder().beginConfig()
                     .textColor(Color.WHITE)
                     .useFont(Typeface.DEFAULT)
                     .toUpperCase()
                     .endConfig()
-                    .buildRound(item.getToDoText().substring(0,1),holder.color);
+                    .buildRound(item.getToDoText().substring(0,1),item.getTodoColor());
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRound(item.getToDoText().substring(0,1),holder.color);
             holder.mColorImageView.setImageDrawable(myDrawable);
@@ -279,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
 //            TextView mColorTextView;
             ImageView mColorImageView;
             TextView mTimeTextView;
-            int color = -1;
+//            int color = -1;
 
             public ViewHolder(View v){
                 super(v);
@@ -318,5 +335,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mRecyclerView.removeOnScrollListener(customRecyclerScrollViewListener);
     }
 }
