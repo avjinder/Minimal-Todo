@@ -6,7 +6,7 @@ import android.util.Log;
 public abstract class CustomRecyclerScrollViewListener extends RecyclerView.OnScrollListener {
     int scrollDist = 0;
     boolean isVisible = true;
-    static final float MINIMUM = 25;
+    static final float MINIMUM = 20;
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

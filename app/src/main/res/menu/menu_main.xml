@@ -4,10 +4,10 @@
     tools:context=".AddToDoActivity">
 
 
-    <item android:title="@string/set_color"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_color_lens_white_24dp"
-        android:id="@+id/toDoSetColorMenuItem"
+
+    <item android:title="@string/about"
+        android:id="@+id/aboutMeMenuItem"
+        app:showAsAction="never"
         />
 
 </menu>

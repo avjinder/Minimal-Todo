@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -81,6 +82,7 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
 
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
@@ -180,7 +182,7 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
         mToDoSendFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeResult();
+                makeResult(RESULT_OK);
                 hideKeyboard(mToDoTextBodyEditText);
                 finish();
             }
@@ -293,7 +295,7 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.set(year, month, day, hour, minute);
+        calendar.set(year, month, day, hour, minute, 0);
         mUserReminderDate = calendar.getTime();
 
         Log.d("OskarSchindler", "SetTime: "+mUserReminderDate.toString());
@@ -316,7 +318,7 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
         }
     }
 
-    public void makeResult(){
+    public void makeResult(int result){
         Intent i = new Intent();
         if(mUserEnteredText.length()>0){
 
@@ -332,25 +334,35 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
         mUserToDoItem.setTodoColor(mUserColor);
         Log.d("OskarSchindler", ""+mUserReminderDate);
         i.putExtra(MainActivity.TODOITEM, mUserToDoItem);
-        setResult(RESULT_OK, i);
+        setResult(result, i);
     }
 
     @Override
     public void onBackPressed() {
-        makeResult();
+        makeResult(RESULT_OK);
         super.onBackPressed();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_to_do, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
                 if(NavUtils.getParentActivityName(this)!=null){
-                    makeResult();
+                    makeResult(RESULT_OK);
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 hideKeyboard(mToDoTextBodyEditText);
+                return true;
+            case R.id.newTodoCrossMenuItem:
+                makeResult(RESULT_CANCELED);
+                hideKeyboard(mToDoTextBodyEditText);
+                finish();
                 return true;
 
             default:

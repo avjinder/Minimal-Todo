@@ -1,5 +1,7 @@
 package com.example.avjindersinghsekhon.toodle;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -14,13 +16,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
@@ -54,7 +57,22 @@ public class MainActivity extends AppCompatActivity {
             "Get my dry cleaning"
     };
 
-//    public static final int REQUEST_ID_EDIT_TODO_ITEM = "request id for editing to do item".hashCode();
+
+    public static ArrayList<ToDoItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData){
+        ArrayList<ToDoItem> items = null;
+
+        try {
+             items  = storeRetrieveData.loadFromFile();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        if(items == null){
+            items = new ArrayList<>();
+        }
+        return items;
+
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,29 +82,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         storeRetrieveData = new StoreRetrieveData(this, FILENAME);
-
-        try {
-            mToDoItemsArrayList = storeRetrieveData.loadFromFile();
-            Log.d("OskarSchindler", "Arraylist Length: "+mToDoItemsArrayList.size());
-        } catch (IOException e) {
-            Log.d("OskarSchindler", "IOException received");
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if(mToDoItemsArrayList==null){
-            mToDoItemsArrayList = new ArrayList<>();
-        }
-
+        mToDoItemsArrayList =  getLocallyStoredData(storeRetrieveData);
+//        storeRetrieveData = new StoreRetrieveData(this, FILENAME);
+//
+//        try {
+//            mToDoItemsArrayList = storeRetrieveData.loadFromFile();
+////            Log.d("OskarSchindler", "Arraylist Length: "+mToDoItemsArrayList.size());
+//        } catch (IOException | JSONException e) {
+////            Log.d("OskarSchindler", "IOException received");
+//            e.printStackTrace();
+//        }
+//
+//        if(mToDoItemsArrayList==null){
+//            mToDoItemsArrayList = new ArrayList<>();
+//        }
+//
 
 //        mToDoItemsArrayList = new ArrayList<>();
 //        makeUpItems(mToDoItemsArrayList, testStrings.length);
 
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
+        final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null){
-            getSupportActionBar().setElevation(0);
+//            getSupportActionBar().setElevation(0);
 //            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
@@ -118,11 +136,14 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
         customRecyclerScrollViewListener = new CustomRecyclerScrollViewListener() {
             @Override
             public void show() {
 
-                mAddToDoItemFAB.animate().translationY(0).setInterpolator(new DecelerateInterpolator(1)).start();
+                mAddToDoItemFAB.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+//                mAddToDoItemFAB.animate().translationY(0).setInterpolator(new AccelerateInterpolator(2.0f)).start();
             }
 
             @Override
@@ -130,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
                 CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams)mAddToDoItemFAB.getLayoutParams();
                 int fabMargin = lp.bottomMargin;
-                mAddToDoItemFAB.animate().translationY(mAddToDoItemFAB.getHeight()+fabMargin).setInterpolator(new AccelerateInterpolator(2)).start();
+                mAddToDoItemFAB.animate().translationY(mAddToDoItemFAB.getHeight()+fabMargin).setInterpolator(new AccelerateInterpolator(2.0f)).start();
             }
         };
         mRecyclerView.addOnScrollListener(customRecyclerScrollViewListener);
@@ -150,10 +171,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.aboutMeMenuItem:
+                Intent i = new Intent(this, AboutActivity.class);
+                i.putExtra(TodoNotificationService.TODOUUID, mToDoItemsArrayList.get(0).getIdentifier());
+                startActivity(i);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode!= RESULT_CANCELED && requestCode == REQUEST_ID_TODO_ITEM){
             ToDoItem item =(ToDoItem) data.getSerializableExtra(TODOITEM);
+            if(item.getToDoText().length()<=0){
+                return;
+            }
+            Log.d("OskarSchindler","Alarm created"+item.getToDoText());
             boolean existed = false;
+
+            if(item.hasReminder() && item.getToDoDate()!=null){
+                Intent i = new Intent(this, TodoNotificationService.class);
+                i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
+                i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
+                createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
+//                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
+            }
 
             for(int i = 0; i<mToDoItemsArrayList.size();i++){
                 if(item.getIdentifier().equals(mToDoItemsArrayList.get(i).getIdentifier())){
@@ -163,17 +216,38 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             }
-            if(existed){
-                //do nothing
-
-            }
-            else if(item.getToDoText().length()<=0){
-                Toast.makeText(this, "Todo discarded due to empty body", Toast.LENGTH_SHORT).show();
-            }
-            else{
+            if(!existed) {
                 addToDataStore(item);
             }
 
+
+        }
+    }
+
+    private AlarmManager getAlarmManager(){
+        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+        return am;
+    }
+
+    private boolean doesPendingIntentExist(Intent i, int requestCode){
+        PendingIntent pi = PendingIntent.getService(this,requestCode, i, PendingIntent.FLAG_NO_CREATE);
+        return pi!=null;
+    }
+
+    private void createAlarm(Intent i, int requestCode, long timeInMillis){
+        AlarmManager am = getAlarmManager();
+        PendingIntent pi = PendingIntent.getService(this,requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pi);
+//        Log.d("OskarSchindler", "createAlarm "+requestCode+" time: "+timeInMillis+" PI "+pi.toString());
+    }
+    private void deleteAlarm(Intent i, int requestCode){
+        if(!doesPendingIntentExist(i, requestCode)){
+//            Log.d("OskarSchindler", "Nonexistant PI cannot be cancelled");
+        }
+        else{
+            PendingIntent pi = PendingIntent.getService(this, requestCode,i, PendingIntent.FLAG_NO_CREATE);
+            getAlarmManager().cancel(pi);
+//            Log.d("OskarSchindler", "PendingIntent cancelled"+doesPendingIntentExist(i, requestCode));
         }
     }
 
@@ -216,6 +290,8 @@ public class MainActivity extends AppCompatActivity {
         public void onItemRemoved(final int position) {
             mJustDeletedToDoItem =  items.remove(position);
             mIndexOfDeletedToDoItem = position;
+            Intent i = new Intent(MainActivity.this,TodoNotificationService.class);
+            deleteAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode());
             notifyItemRemoved(position);
 
 //            String toShow = (mJustDeletedToDoItem.getToDoText().length()>20)?mJustDeletedToDoItem.getToDoText().substring(0, 20)+"...":mJustDeletedToDoItem.getToDoText();
@@ -225,6 +301,12 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
+                            if(mJustDeletedToDoItem.getToDoDate()!=null && mJustDeletedToDoItem.hasReminder()){
+                                Intent i = new Intent(MainActivity.this, TodoNotificationService.class);
+                                i.putExtra(TodoNotificationService.TODOTEXT, mJustDeletedToDoItem.getToDoText());
+                                i.putExtra(TodoNotificationService.TODOUUID, mJustDeletedToDoItem.getIdentifier());
+                                createAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode(), mJustDeletedToDoItem.getToDoDate().getTime());
+                            }
                             notifyItemInserted(mIndexOfDeletedToDoItem);
                         }
                     }).show();
@@ -260,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
 //                int color = generator.getRandomColor();
 //                item.setTodoColor(color+"");
 //            }
-            Log.d("OskarSchindler", "Color: "+item.getTodoColor());
+//            Log.d("OskarSchindler", "Color: "+item.getTodoColor());
             TextDrawable myDrawable = TextDrawable.builder().beginConfig()
                     .textColor(Color.WHITE)
                     .useFont(Typeface.DEFAULT)
@@ -337,9 +419,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         mRecyclerView.removeOnScrollListener(customRecyclerScrollViewListener);
     }
 }
