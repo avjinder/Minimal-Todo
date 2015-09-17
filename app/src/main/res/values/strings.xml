@@ -4,7 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="empty_list_view_add">To add one, try clicking the Add button</string>
-    <string name="no_to_dos">You don\'t have any to-do\'s</string>
+    <string name="no_to_dos">You don\'t have any to-dos</string>
     <string name="title">Title</string>
     <string name="remind_me">Remind Me</string>
     <string name="last_edited"><i>Last Edited %1$s</i></string>

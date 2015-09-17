@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.aboutMeMenuItem:
                 Intent i = new Intent(this, AboutActivity.class);
-                i.putExtra(TodoNotificationService.TODOUUID, mToDoItemsArrayList.get(0).getIdentifier());
+//                i.putExtra(TodoNotificationService.TODOUUID, mToDoItemsArrayList.get(0).getIdentifier());
 //                finish();
                 startActivity(i);
 

@@ -9,19 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.UUID;
-
 public class AboutActivity extends AppCompatActivity {
     private TextView mVersionTextView;
     private String appVersion = "0.1";
     private Toolbar toolbar;
-    private UUID mId;
+//    private UUID mId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
         Intent i = getIntent();
-        mId = (UUID)i.getSerializableExtra(TodoNotificationService.TODOUUID);
+//        mId = (UUID)i.getSerializableExtra(TodoNotificationService.TODOUUID);
 
         try{
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
