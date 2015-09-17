@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/icons"
+    android:layout_height="match_parent">
+    <include layout="@layout/base_toolbar"/>
+
+    <TextView
+        android:layout_below="@id/toolbar"
+        android:id="@+id/toDoReminderTextViewBody"
+        android:textSize="20sp"
+        android:background="@color/primary"
+        android:paddingLeft="16dp"
+        android:textColor="@color/icons"
+        android:ellipsize="middle"
+        android:gravity="center|start"
+        android:text="Clean my room"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+    <Button
+        android:id="@+id/toDoReminderRemoveButton"
+        android:layout_alignParentBottom="true"
+        android:text="Remove"
+        android:background="@drawable/button_pressed_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_below="@id/toDoReminderTextViewBody"
+        android:layout_above="@id/toDoReminderRemoveButton"
+        android:paddingTop="24dp"
+        android:id="@+id/toDoReminderLinearLayout"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="start"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:layout_weight="1.5"
+            android:drawablePadding="8dp"
+            android:drawableLeft="@drawable/ic_snooze_black_24dp"
+            android:layout_marginRight="2dp"
+            android:padding="8dp"
+            android:textColor="@color/secondary_text"
+            android:text="Snooze"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:layout_marginLeft="2dp"
+            android:id="@+id/todoReminderSnoozeSpinner"
+            app:ms_highlightColor="@color/accent"
+            app:ms_baseColor="@color/primary"
+            android:layout_weight="1.5"
+            android:layout_marginRight="16dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

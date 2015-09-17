@@ -121,7 +121,7 @@
                         <Button
                             android:id="@+id/newToDoChooseDateButton"
                             android:text="@string/choose_date"
-                            android:background="@color/primary"
+                            android:background="@drawable/button_pressed_background"
                             android:textColor="@android:color/white"
                             android:layout_weight="1"
                             android:layout_marginRight="4dp"
@@ -134,7 +134,7 @@
                             android:id="@+id/newToDoChooseTimeButton"
                             android:textColor="@android:color/white"
                             android:text="@string/choose_time"
-                            android:background="@color/primary"
+                            android:background="@drawable/button_pressed_background"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content" />

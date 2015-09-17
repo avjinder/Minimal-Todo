@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/icons"
+    android:layout_marginBottom="1dp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/toDoListItemColorImageView"
+        android:gravity="center"
+        android:layout_marginLeft="8dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="?android:listPreferredItemHeight">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_alignParentRight="true"
+                tools:ignore="MissingPrefix"
+                android:id="@+id/toDoListItemTextview"
+                android:padding="8dp"
+                android:maxLines="2"
+                android:lines="2"
+                android:gravity="start|center"
+                android:textColor="@color/secondary_text"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:text="Clean your room"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                />
+
+            <TextView
+                android:id="@+id/todoListItemTimeTextView"
+                android:padding="8dp"
+                android:textColor="?attr/colorAccent"
+                android:textSize="12sp"
+                android:gravity="start|bottom"
+                android:layout_weight=".8"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/listItemReorderImageView"
+            android:src="@drawable/ic_reorder_grey_600_18dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight=".4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

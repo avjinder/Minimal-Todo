@@ -3,6 +3,7 @@ package com.example.avjindersinghsekhon.toodle;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private StoreRetrieveData storeRetrieveData;
     public ItemTouchHelper itemTouchHelper;
     private CustomRecyclerScrollViewListener customRecyclerScrollViewListener;
+    public static final String SHARED_PREF_DATA_SET_CHANGED = "com.avjindersekhon.datasetchanged";
+    public static final String CHANGE_OCCURED = "com.avjinder.changeoccured";
 
     private String[] testStrings = {"Clean my room",
             "Water the plants",
@@ -58,11 +61,14 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+
     public static ArrayList<ToDoItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData){
         ArrayList<ToDoItem> items = null;
 
         try {
-             items  = storeRetrieveData.loadFromFile();
+            items  = storeRetrieveData.loadFromFile();
+            Log.d("OskarSchindler", "Data Retrieved: "+items.size());
+
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -74,15 +80,79 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
+        if(sharedPreferences.getBoolean(ReminderActivity.EXIT, false)){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(ReminderActivity.EXIT,false);
+            editor.apply();
+            finish();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
+        if(sharedPreferences.getBoolean(CHANGE_OCCURED, false)){
+            Log.d("OskarSchindler", "Change occured");
+
+            mToDoItemsArrayList = getLocallyStoredData(storeRetrieveData);
+            adapter = new BasicListAdapter(mToDoItemsArrayList);
+            mRecyclerView.setAdapter(adapter);
+            setAlarms();
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(CHANGE_OCCURED, false);
+//            editor.commit();
+            editor.apply();
+
+
+        }
+    }
+
+    private void setAlarms(){
+        if(mToDoItemsArrayList!=null){
+            for(ToDoItem item : mToDoItemsArrayList){
+                if(item.hasReminder() && item.getToDoDate()!=null){
+                    Intent i = new Intent(this, TodoNotificationService.class);
+                    i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
+                    i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
+                    createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
+                    Log.d("OskarSchindler", "Alarm Updated");
+                }
+            }
+        }
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
 //        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
 //                .setDefaultFontPath("fonts/Aller_Regular.tff").setFontAttrId(R.attr.fontPath).build());
         setContentView(R.layout.activity_main);
+        Log.d("OskarSchindler", "onCreate Called");
+
+//        if(getIntent().getBooleanExtra(ReminderActivity.EXIT,false)){
+//            Log.d("OskarSchindler", "Close app");
+//            finish();
+//        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(CHANGE_OCCURED, false);
+//        editor.commit();
+        editor.apply();
 
         storeRetrieveData = new StoreRetrieveData(this, FILENAME);
         mToDoItemsArrayList =  getLocallyStoredData(storeRetrieveData);
+        adapter = new BasicListAdapter(mToDoItemsArrayList);
+        setAlarms();
+
+
+//        adapter.notifyDataSetChanged();
 //        storeRetrieveData = new StoreRetrieveData(this, FILENAME);
 //
 //        try {
@@ -103,10 +173,6 @@ public class MainActivity extends AppCompatActivity {
 
         final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null){
-//            getSupportActionBar().setElevation(0);
-//            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
 
 
 
@@ -155,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         mRecyclerView.addOnScrollListener(customRecyclerScrollViewListener);
-        adapter = new BasicListAdapter(mToDoItemsArrayList);
 
 
         ItemTouchHelper.Callback callback = new ItemTouchHelperClass(adapter);
@@ -182,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.aboutMeMenuItem:
                 Intent i = new Intent(this, AboutActivity.class);
                 i.putExtra(TodoNotificationService.TODOUUID, mToDoItemsArrayList.get(0).getIdentifier());
+//                finish();
                 startActivity(i);
 
                 return true;
@@ -197,7 +263,6 @@ public class MainActivity extends AppCompatActivity {
             if(item.getToDoText().length()<=0){
                 return;
             }
-            Log.d("OskarSchindler","Alarm created"+item.getToDoText());
             boolean existed = false;
 
             if(item.hasReminder() && item.getToDoDate()!=null){
@@ -205,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
                 i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
                 createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
+                Log.d("OskarSchindler", "Alarm created" + item.getToDoText());
 //                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
             }
 
@@ -225,8 +291,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private AlarmManager getAlarmManager(){
-        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-        return am;
+        return (AlarmManager)getSystemService(ALARM_SERVICE);
     }
 
     private boolean doesPendingIntentExist(Intent i, int requestCode){
@@ -241,13 +306,10 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d("OskarSchindler", "createAlarm "+requestCode+" time: "+timeInMillis+" PI "+pi.toString());
     }
     private void deleteAlarm(Intent i, int requestCode){
-        if(!doesPendingIntentExist(i, requestCode)){
-//            Log.d("OskarSchindler", "Nonexistant PI cannot be cancelled");
-        }
-        else{
+        if(doesPendingIntentExist(i, requestCode)){
             PendingIntent pi = PendingIntent.getService(this, requestCode,i, PendingIntent.FLAG_NO_CREATE);
             getAlarmManager().cancel(pi);
-//            Log.d("OskarSchindler", "PendingIntent cancelled"+doesPendingIntentExist(i, requestCode));
+//            Log.d("OskarSchindler", "Nonexistant PI cannot be cancelled");
         }
     }
 
@@ -408,11 +470,20 @@ public class MainActivity extends AppCompatActivity {
 //        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
 //    }
 
+    private void saveDate(){
+        try {
+            storeRetrieveData.saveToFile(mToDoItemsArrayList);
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
         try {
+            Log.d("OskarSchindler", "MainAct Data Saved");
             storeRetrieveData.saveToFile(mToDoItemsArrayList);
         } catch (JSONException | IOException e) {
             e.printStackTrace();
