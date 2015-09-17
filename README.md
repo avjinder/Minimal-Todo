@@ -1,14 +1,17 @@
-# Toodle
-Material To-Do App
+# Minimal ToDo
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/512.png" height="250px"/> <br>
+A fully Material ToDo app with minimal features, just enough to be useful.
 
-A Material To-Do App that has Material Elements on not only Lollipop and above, 
-but also JellyBean and Kitkat.
 
 #Screenshots:
-
-<img src="https://github.com/avjinder/Toodle/blob/master/screenshot_list_to_do_sep_9_2015.png" />
-
-<img src="https://github.com/avjinder/Toodle/blob/master/screenshot_new_to_do_sep_9_2015.png" />
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_empty_list.png" height="400px"/>
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_add_todo.png" height="400px"/>
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_set_reminder.png" height="400px"/>
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_reminder_date.png" height="400px"/>
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_reminder_time.png" height="400px"/>
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_populated_list.png" height="400px"/>
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_notification.png" height="400px"/>
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_todo_snooze.png" height="400px"/>
 
 #License:
 The MIT License (MIT)
