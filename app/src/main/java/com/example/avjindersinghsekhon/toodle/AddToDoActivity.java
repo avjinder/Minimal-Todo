@@ -269,7 +269,10 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        if(currentYear>year || currentMonth > month || currentDay>day){
+        Calendar reminderCalendar = Calendar.getInstance();
+        reminderCalendar.set(year, month, day);
+        
+        if(reminderCalendar.before(calendar)){
             Toast.makeText(this, "My time-machine is a bit rusty", Toast.LENGTH_SHORT).show();
             return;
         }
