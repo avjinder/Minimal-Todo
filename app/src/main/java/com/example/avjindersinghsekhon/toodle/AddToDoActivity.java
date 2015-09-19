@@ -15,6 +15,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -242,12 +243,12 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
                 int minute = calendar.get(Calendar.MINUTE);
 
                 if(Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP){
-                    com.android.datetimepicker.time.TimePickerDialog timePickerDialog = com.android.datetimepicker.time.TimePickerDialog.newInstance(AddToDoActivity.this, hour, minute, false);
+                    com.android.datetimepicker.time.TimePickerDialog timePickerDialog = com.android.datetimepicker.time.TimePickerDialog.newInstance(AddToDoActivity.this, hour, minute, DateFormat.is24HourFormat(v.getContext()));
                     timePickerDialog.show(getFragmentManager(), "TimeFragment");
 
                 }
                 else {
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(AddToDoActivity.this, R.style.CustomDialog, AddToDoActivity.this, hour, minute, false);
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(AddToDoActivity.this, R.style.CustomDialog, AddToDoActivity.this, hour, minute, DateFormat.is24HourFormat(v.getContext()));
                     timePickerDialog.show();
                 }
             }
