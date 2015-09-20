@@ -41,6 +41,7 @@
                         android:lines="2"
                         android:maxLines="3"
                         android:textColor="@color/icons"
+                        android:inputType="textCapSentences|textAutoCorrect"
                         android:gravity="start|bottom"
                         android:layout_marginRight="32dp"
                         android:layout_marginLeft="32dp"
