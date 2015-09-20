@@ -1,4 +1,4 @@
-# Minimal ToDo
+# Minimal
 <img src="https://github.com/avjinder/Toodle/blob/master/screenshots/512.png" height="250px"/> <br>
 A fully Material ToDo app with minimal features, just enough to be useful.
 
