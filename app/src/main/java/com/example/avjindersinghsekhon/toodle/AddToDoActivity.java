@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
@@ -14,19 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
@@ -127,7 +122,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             setEnterDateLayoutVisibleWithAnimations(true);
         }
         if(mUserReminderDate==null){
-            Log.d("OskarSchindler", "Date is null");
             mToDoDateSwitch.setChecked(false);
             mReminderTextView.setVisibility(View.INVISIBLE);
         }
@@ -262,7 +256,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         }
 
         if(mUserReminderDate!=null){
-            Log.d("OskarSchindler", "Old Date: "+(mUserReminderDate.toString()));
             calendar.setTime(mUserReminderDate);
         }
 
@@ -271,7 +264,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
         calendar.set(year, month, day, hour, minute);
         mUserReminderDate = calendar.getTime();
-        Log.d("OskarSchindler", "Set Date: "+mUserReminderDate.toString());
         setReminderTextView();
     }
 
@@ -286,7 +278,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         calendar.set(year, month, day, hour, minute, 0);
         mUserReminderDate = calendar.getTime();
 
-        Log.d("OskarSchindler", "SetTime: "+mUserReminderDate.toString());
         setReminderTextView();
     }
 
@@ -295,8 +286,16 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             mReminderTextView.setVisibility(View.VISIBLE);
             Date date = mUserReminderDate;
             String dateString = formatDate("d MMM, yyyy", date);
-            String timeString = formatDate("h:mm", date);
-            String amPmString = formatDate("a", date);
+            String timeString;
+            String amPmString = "";
+
+            if(DateFormat.is24HourFormat(this)){
+                timeString = formatDate("k:mm", date);
+            }
+            else{
+                timeString = formatDate("h:mm", date);
+                amPmString = formatDate("a", date);
+            }
             String finalString = String.format(getResources().getString(R.string.remind_date_and_time), dateString, timeString, amPmString);
             mReminderTextView.setText(finalString);
         }
@@ -320,7 +319,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mUserToDoItem.setHasReminder(mUserHasReminder);
         mUserToDoItem.setToDoDate(mUserReminderDate);
         mUserToDoItem.setTodoColor(mUserColor);
-        Log.d("OskarSchindler", ""+mUserReminderDate);
         i.putExtra(MainActivity.TODOITEM, mUserToDoItem);
         setResult(result, i);
     }
@@ -336,7 +334,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         switch (item.getItemId()){
             case android.R.id.home:
                 if(NavUtils.getParentActivityName(this)!=null){
-                    makeResult(RESULT_OK);
+                    makeResult(RESULT_CANCELED);
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 hideKeyboard(mToDoTextBodyEditText);

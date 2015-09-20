@@ -15,7 +15,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ID_TODO_ITEM = 100;
     private ToDoItem mJustDeletedToDoItem;
     private int mIndexOfDeletedToDoItem;
-    public static final String DATE_TIME_FORMAT = "MMM d, yyyy  h:mm a";
+    public static final String DATE_TIME_FORMAT_12_HOUR = "MMM d, yyyy  h:mm a";
+    public static final String DATE_TIME_FORMAT_24_HOUR = "MMM d, yyyy  k:mm";
     public static final String FILENAME = "todoitems.json";
     private StoreRetrieveData storeRetrieveData;
     public ItemTouchHelper itemTouchHelper;
@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             items  = storeRetrieveData.loadFromFile();
-            Log.d("OskarSchindler", "Data Retrieved: "+items.size());
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -97,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         if(sharedPreferences.getBoolean(CHANGE_OCCURED, false)){
-            Log.d("OskarSchindler", "Change occured");
 
             mToDoItemsArrayList = getLocallyStoredData(storeRetrieveData);
             adapter = new BasicListAdapter(mToDoItemsArrayList);
@@ -121,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
                     i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
                     createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
-                    Log.d("OskarSchindler", "Alarm Updated");
                 }
             }
         }
@@ -133,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
 //        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
 //                .setDefaultFontPath("fonts/Aller_Regular.tff").setFontAttrId(R.attr.fontPath).build());
         setContentView(R.layout.activity_main);
-        Log.d("OskarSchindler", "onCreate Called");
 
 //        if(getIntent().getBooleanExtra(ReminderActivity.EXIT,false)){
 //            Log.d("OskarSchindler", "Close app");
@@ -270,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
                 i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
                 createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
-                Log.d("OskarSchindler", "Alarm created" + item.getToDoText());
 //                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
             }
 
@@ -415,7 +410,14 @@ public class MainActivity extends AppCompatActivity {
 //            TextDrawable myDrawable = TextDrawable.builder().buildRound(item.getToDoText().substring(0,1),holder.color);
             holder.mColorImageView.setImageDrawable(myDrawable);
             if(item.getToDoDate()!=null){
-                holder.mTimeTextView.setText(AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT, item.getToDoDate()));
+                String timeToShow;
+                if(android.text.format.DateFormat.is24HourFormat(MainActivity.this)){
+                    timeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_24_HOUR, item.getToDoDate());
+                }
+                else{
+                    timeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_12_HOUR, item.getToDoDate());
+                }
+                holder.mTimeTextView.setText(timeToShow);
             }
 
 
@@ -483,7 +485,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         try {
-            Log.d("OskarSchindler", "MainAct Data Saved");
             storeRetrieveData.saveToFile(mToDoItemsArrayList);
         } catch (JSONException | IOException e) {
             e.printStackTrace();
