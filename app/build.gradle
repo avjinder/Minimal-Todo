@@ -24,7 +24,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
     compile 'com.github.ganfra:material-spinner:1.1.0'
-    compile 'com.github.citux:datetimepicker:0.1.2'
+    compile 'com.wdullaer:materialdatetimepicker:1.5.1'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.github.ganfra:material-spinner:1.1.0'
     compile 'com.android.support:recyclerview-v7:23.0.1'

@@ -1,8 +1,6 @@
 package com.example.avjindersinghsekhon.toodle;
 
 import android.animation.Animator;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -30,13 +28,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.android.datetimepicker.time.RadialPickerLayout;
+
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddToDoActivity extends AppCompatActivity implements  com.android.datetimepicker.date.DatePickerDialog.OnDateSetListener, com.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+public class AddToDoActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private SwitchCompat mToDoDateSwitch;
@@ -212,17 +213,8 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-                if(Build.VERSION.SDK_INT< Build.VERSION_CODES.LOLLIPOP){
-                    com.android.datetimepicker.date.DatePickerDialog datePickerDialog = com.android.datetimepicker.date.DatePickerDialog.newInstance(AddToDoActivity.this, year, month, day);
-                    datePickerDialog.show(getFragmentManager(), "DateFragment");
-                }
-                else{
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AddToDoActivity.this, R.style.CustomDialog, AddToDoActivity.this, year, month, day);
-                datePickerDialog.show();
-
-                }
-
-
+                DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(AddToDoActivity.this, year, month, day);
+                datePickerDialog.show(getFragmentManager(), "DateFragment");
             }
         });
 
@@ -242,15 +234,8 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                 int minute = calendar.get(Calendar.MINUTE);
 
-                if(Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP){
-                    com.android.datetimepicker.time.TimePickerDialog timePickerDialog = com.android.datetimepicker.time.TimePickerDialog.newInstance(AddToDoActivity.this, hour, minute, DateFormat.is24HourFormat(v.getContext()));
-                    timePickerDialog.show(getFragmentManager(), "TimeFragment");
-
-                }
-                else {
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(AddToDoActivity.this, R.style.CustomDialog, AddToDoActivity.this, hour, minute, DateFormat.is24HourFormat(v.getContext()));
-                    timePickerDialog.show();
-                }
+                TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(AddToDoActivity.this, hour, minute, DateFormat.is24HourFormat(AddToDoActivity.this));
+                timePickerDialog.show(getFragmentManager(), "TimeFragment");
             }
         });
 
@@ -379,31 +364,14 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
         return simpleDateFormat.format(dateToFormat);
     }
 
-
-    //Internal DatePicker
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        //call some method
-        setDate(year, monthOfYear, dayOfMonth);
+    public void onTimeSet(RadialPickerLayout radialPickerLayout, int hour, int minute) {
+        setTime(hour, minute);
     }
 
-    //Internal TimePicker
     @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        setTime(hourOfDay, minute);
-    }
-
-    //External Library DatePicker
-    @Override
-    public void onDateSet(com.android.datetimepicker.date.DatePickerDialog datePickerDialog, int i, int i1, int i2) {
-        setDate(i, i1, i2);
-    }
-
-    //External Library TimePicker
-    @Override
-    public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i1) {
-        setTime(i, i1);
-
+    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+        setDate(year, month, day);
     }
 
     public void setEnterDateLayoutVisible(boolean checked){
