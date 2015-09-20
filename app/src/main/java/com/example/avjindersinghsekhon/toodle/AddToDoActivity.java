@@ -17,7 +17,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -69,14 +68,14 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.new_to_do_layout);
-        setContentView(R.layout.new_to_do_test);
+        setContentView(R.layout.activity_add_to_do);
 
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         //Get Default Drawable for up arrow, and apply custom color
 
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_clear_white_24dp);
         if(upArrow!=null){
             upArrow.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
         }
@@ -348,12 +347,6 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_to_do, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
@@ -362,11 +355,6 @@ public class AddToDoActivity extends AppCompatActivity implements  com.android.d
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 hideKeyboard(mToDoTextBodyEditText);
-                return true;
-            case R.id.newTodoCrossMenuItem:
-                makeResult(RESULT_CANCELED);
-                hideKeyboard(mToDoTextBodyEditText);
-                finish();
                 return true;
 
             default:
