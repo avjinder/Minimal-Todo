@@ -23,6 +23,7 @@
     <string name="email_address">avisekhon@gmail.com</string>
     <string name="made_by">Made by Avjinder</string>
     <string name="undo_changes">Undo</string>
+    <string name="done_label">Done</string>
 
     <string-array name="snooze_options">
         <item>10 Minutes</item>
