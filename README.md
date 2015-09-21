@@ -1,5 +1,8 @@
 # Minimal
 <img src="https://github.com/avjinder/Toodle/blob/master/screenshots/512.png" height="250px"/> <br>
+
+[![Build Status](https://travis-ci.org/avjinder/Minimal-Todo.svg?branch=master)](https://travis-ci.org/avjinder/Minimal-Todo)
+
 A fully Material ToDo app with minimal features, just enough to be useful.
 
 
