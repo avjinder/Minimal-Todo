@@ -5,6 +5,7 @@
 
     <item android:id="@+id/toDoReminderDoneMenuItem"
         app:showAsAction="always"
+        android:icon="@drawable/ic_done_white_24dp"
         android:title="@string/done_label"
         />
 

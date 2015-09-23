@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/icons"
     android:layout_height="match_parent">
     <include layout="@layout/base_toolbar"/>
 
@@ -22,6 +21,7 @@
     <Button
         android:id="@+id/toDoReminderRemoveButton"
         android:layout_alignParentBottom="true"
+        android:textColor="@android:color/white"
         android:text="Remove"
         android:background="@drawable/button_pressed_background"
         android:layout_width="match_parent"
@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/reminderViewSnoozeTextView"
             android:gravity="start"
             android:layout_marginLeft="16dp"
             android:textSize="16sp"
@@ -45,7 +46,6 @@
             android:drawableLeft="@drawable/ic_snooze_black_24dp"
             android:layout_marginRight="2dp"
             android:padding="8dp"
-            android:textColor="@color/secondary_text"
             android:text="Snooze"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
@@ -53,8 +53,7 @@
         <fr.ganfra.materialspinner.MaterialSpinner
             android:layout_marginLeft="2dp"
             android:id="@+id/todoReminderSnoozeSpinner"
-            app:ms_highlightColor="@color/accent"
-            app:ms_baseColor="@color/primary"
+            app:ms_highlightColor="?attr/colorAccent"
             android:layout_weight="1.5"
             android:layout_marginRight="16dp"
             android:layout_width="0dp"

@@ -2,6 +2,7 @@ package com.example.avjindersinghsekhon.toodle;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONException;
 
@@ -32,9 +36,27 @@ public class ReminderActivity extends AppCompatActivity{
     private ArrayList<ToDoItem> mToDoItems;
     private ToDoItem mItem;
     public static final String EXIT = "com.avjindersekon.exit";
+    private TextView mSnoozeTextView;
+    String theme;
+    AnalyticsApplication application;
+    Tracker mTracker;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+
+        application = (AnalyticsApplication)getApplication();
+        mTracker = application.getDefaultTracker();
+
+        mTracker.setScreenName("Reminder Activity");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
+        if(theme.equals(MainActivity.LIGHTTHEME)){
+            setTheme(R.style.CustomStyle_LightTheme);
+        }
+        else{
+            setTheme(R.style.CustomStyle_DarkTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reminder_layout);
         storeRetrieveData = new StoreRetrieveData(this, MainActivity.FILENAME);
@@ -58,14 +80,26 @@ public class ReminderActivity extends AppCompatActivity{
 
         mRemoveToDoButton = (Button)findViewById(R.id.toDoReminderRemoveButton);
         mtoDoTextTextView = (TextView)findViewById(R.id.toDoReminderTextViewBody);
+        mSnoozeTextView = (TextView)findViewById(R.id.reminderViewSnoozeTextView);
         mSnoozeSpinner = (MaterialSpinner)findViewById(R.id.todoReminderSnoozeSpinner);
 
 //        mtoDoTextTextView.setBackgroundColor(item.getTodoColor());
         mtoDoTextTextView.setText(mItem.getToDoText());
 
+        if(theme.equals(MainActivity.LIGHTTHEME)){
+            mSnoozeTextView.setTextColor(getResources().getColor(R.color.secondary_text));
+        }
+        else{
+            mSnoozeTextView.setTextColor(Color.WHITE);
+            mSnoozeTextView.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_snooze_white_24dp,0,0,0
+            );
+        }
+
         mRemoveToDoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Todo Removed from Reminder Activity").build());
                 mToDoItems.remove(mItem);
                 changeOccurred();
                 saveData();
@@ -111,6 +145,7 @@ public class ReminderActivity extends AppCompatActivity{
     }
 
     private Date addTimeToDate(int mins){
+        mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Snoozed").setLabel("For "+mins+" minutes").build());
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -161,7 +196,6 @@ public class ReminderActivity extends AppCompatActivity{
 
     private void saveData(){
         try{
-            Log.d("OskarSchindler", "Data Saved "+mToDoItems.size());
             storeRetrieveData.saveToFile(mToDoItems);
         }
         catch (JSONException | IOException e){
@@ -173,7 +207,6 @@ public class ReminderActivity extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
 //        try{
-//            Log.d("OskarSchindler", "Data Saved "+mToDoItems.size());
 //            storeRetrieveData.saveToFile(mToDoItems);
 //        }
 //        catch (JSONException | IOException e){

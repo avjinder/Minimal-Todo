@@ -17,7 +17,6 @@
             android:id="@+id/toDoEmptyView"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -55,7 +54,6 @@
 
             <com.example.avjindersinghsekhon.toodle.RecyclerViewEmptySupport
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:background="@color/primary_lightest"
                 android:id="@+id/toDoRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

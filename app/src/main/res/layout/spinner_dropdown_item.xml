@@ -8,7 +8,6 @@
     style="?android:attr/spinnerDropDownItemStyle"
     android:paddingLeft="8dp"
     android:ellipsize="end"
-    android:background="@drawable/dropdown_text_background_color"
     android:layout_height="50dp"
     android:layout_width="match_parent"
     >

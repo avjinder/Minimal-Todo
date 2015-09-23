@@ -3,10 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowActionBar">false</item>
     </style>
-    <style name="CustomStyle" parent="Theme.AppCompat">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
+    <style name="CustomStyle" parent="Theme.AppCompat.NoActionBar">
         <item name="colorAccent">@color/accent</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -16,6 +15,86 @@
         <item name="android:colorForeground">@color/grey600</item>
 
     </style>
+
+    <!--<style name="AnotherCustomStyle" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorAccent">@color/accent</item>-->
+        <!--<item name="colorPrimaryDark">@color/primary_dark</item>-->
+        <!--<item name="android:windowActionBar">false</item>-->
+        <!--<item name="colorPrimary">@color/primary</item>-->
+    <!--</style>-->
+
+
+    <style name="CustomStyle.DarkTheme" parent="Theme.AppCompat">
+
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorAccent">@color/amber</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!--color of thumb when inactive-->
+        <item name="colorSwitchThumbNormal">@color/grey300</item>
+        <!--Inactive track color-->
+        <item name="android:colorForeground">@color/grey600</item>
+    </style>
+
+    <style name="PopupMenuLight" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@android:color/black</item>
+    </style>
+
+    <style name="OverflowThreeDotsWhite" parent="Widget.AppCompat.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_menu_overflow_light</item>
+
+    </style>
+
+
+    <style name="ToolBarTheme" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/ToolbarTitleTextAppearanceLight</item>
+    </style>
+
+    <!--Change color of title on Toolbar-->
+    <style name="ToolbarTitleTextAppearanceLight" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+
+    </style>
+    <style name="ToolbarTitleTextAppearanceDark" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/amber</item>
+
+    </style>
+
+    <style name="CustomStyle.LightTheme" parent="Theme.AppCompat.Light">
+
+        <item name="actionOverflowButtonStyle">@style/OverflowThreeDotsWhite</item>
+        <item name="toolbarStyle">@style/ToolBarTheme</item>
+        <item name="popupMenuStyle">@style/PopupMenuLight</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        color of thumb when inactive
+        <item name="colorSwitchThumbNormal">@color/grey300</item>
+        <!--Inactive track color-->
+        <item name="android:colorForeground">@color/grey600</item>
+
+    </style>
+
+    <style name="CustomToolbar" parent="Widget.AppCompat.ActionBar">
+        <item name="theme">@style/CustomToolbarTheme</item>
+
+    </style>
+
+    <style name="CustomToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/secondary_text</item>
+
+    </style>
+
+
+    <style name="CustomCheckbox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@color/amber</item>
+    </style>
+
+
 
     <style name="AppTheme.ToolBarPadding" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="toolbarStyle">@style/myToolBarStyle</item>

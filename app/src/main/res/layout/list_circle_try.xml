@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/icons"
+    android:id="@+id/listItemLinearLayout"
     android:layout_marginBottom="1dp"
     android:gravity="center"
     android:orientation="horizontal"
@@ -11,44 +11,42 @@
     <ImageView
         android:id="@+id/toDoListItemColorImageView"
         android:gravity="center"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_width="45dp"
         android:layout_height="45dp"/>
 
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
+        android:layout_marginLeft="16dp"
         android:layout_weight="5"
         android:layout_width="0dp"
+        android:gravity="center"
         android:layout_height="?android:attr/listPreferredItemHeight">
 
         <TextView
-            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             tools:ignore="MissingPrefix"
             android:id="@+id/toDoListItemTextview"
-            android:padding="8dp"
-            android:maxLines="2"
-            android:lines="2"
-            android:gravity="start|center"
+            android:lines="1"
+            android:gravity="start|bottom"
             android:textColor="@color/secondary_text"
             android:ellipsize="end"
             android:textSize="16sp"
             android:text="Clean your room"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             />
 
         <TextView
+            android:layout_below="@id/toDoListItemTextview"
             android:id="@+id/todoListItemTimeTextView"
-            android:padding="8dp"
+            android:text="27 Sept 2015, 22:30"
             android:textColor="?attr/colorAccent"
             android:textSize="12sp"
-            android:gravity="start|bottom"
-            android:layout_weight=".8"
+            android:gravity="start|center"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
-    </LinearLayout>
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 
 </LinearLayout>

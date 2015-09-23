@@ -5,6 +5,13 @@
 
 
 
+
+    <item
+        android:id="@+id/preferences"
+        android:title="@string/action_settings"
+        app:showAsAction="never"
+        />
+
     <item android:title="@string/about"
         android:id="@+id/aboutMeMenuItem"
         app:showAsAction="never"

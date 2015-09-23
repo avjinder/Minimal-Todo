@@ -15,6 +15,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,10 +24,13 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONException;
 
@@ -53,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
     private CustomRecyclerScrollViewListener customRecyclerScrollViewListener;
     public static final String SHARED_PREF_DATA_SET_CHANGED = "com.avjindersekhon.datasetchanged";
     public static final String CHANGE_OCCURED = "com.avjinder.changeoccured";
+    private int mTheme = -1;
+    private String theme = "name_of_the_theme";
+    public static final String THEME_PREFERENCES = "com.avjindersekhon.themepref";
+    public static final String RECREATE_ACTIVITY = "com.avjindersekhon.recreateactivity";
+    public static final String THEME_SAVED = "com.avjindersekhon.savedtheme";
+    public static final String DARKTHEME = "com.avjindersekon.darktheme";
+    public static final String LIGHTTHEME = "com.avjindersekon.lighttheme";
+    AnalyticsApplication analyticsApplication;
+    Tracker mTracker;
 
     private String[] testStrings = {"Clean my room",
             "Water the plants",
@@ -82,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //Comment out these lines if not using Analytics
+        mTracker.setScreenName("Main Activity");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         if(sharedPreferences.getBoolean(ReminderActivity.EXIT, false)){
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -89,6 +106,25 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
             finish();
         }
+        /*
+        We need to do this, as this activity's onCreate won't be called when coming back from SettingsActivity,
+        thus our changes to dark/light mode won't take place, as the setContentView() is not called again.
+        So, inside our SettingsFragment, whenever the checkbox's value is changed, in our shared preferences,
+        we mark our recreate_activity key as true.
+
+        Note: the recreate_key's value is changed to false before calling recreate(), or we woudl have ended up in an infinite loop,
+        as onResume() will be called on recreation, which will again call recreate() and so on....
+        and get an ANR
+
+         */
+        if(getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).getBoolean(RECREATE_ACTIVITY, false)){
+            SharedPreferences.Editor editor = getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).edit();
+            editor.putBoolean(RECREATE_ACTIVITY, false);
+            editor.apply();
+            recreate();
+        }
+
+
     }
 
     @Override
@@ -115,6 +151,10 @@ public class MainActivity extends AppCompatActivity {
         if(mToDoItemsArrayList!=null){
             for(ToDoItem item : mToDoItemsArrayList){
                 if(item.hasReminder() && item.getToDoDate()!=null){
+                    if(item.getToDoDate().before(new Date())){
+                        item.setToDoDate(null);
+                        continue;
+                    }
                     Intent i = new Intent(this, TodoNotificationService.class);
                     i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
                     i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
@@ -125,21 +165,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
 //        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
 //                .setDefaultFontPath("fonts/Aller_Regular.tff").setFontAttrId(R.attr.fontPath).build());
+
+        //Comment out these two lines if not using Google Analytics
+        analyticsApplication = (AnalyticsApplication)getApplication();
+        mTracker = analyticsApplication.getDefaultTracker();
+
+        //We recover the theme we've set and setTheme accordingly
+        theme = getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).getString(THEME_SAVED, LIGHTTHEME);
+
+        if(theme.equals(LIGHTTHEME)){
+            mTheme = R.style.CustomStyle_LightTheme;
+        }
+        else{
+            mTheme = R.style.CustomStyle_DarkTheme;
+        }
+        this.setTheme(mTheme);
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        if(getIntent().getBooleanExtra(ReminderActivity.EXIT,false)){
-//            Log.d("OskarSchindler", "Close app");
-//            finish();
-//        }
+
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(CHANGE_OCCURED, false);
-//        editor.commit();
         editor.apply();
 
         storeRetrieveData = new StoreRetrieveData(this, FILENAME);
@@ -180,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
+                mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("FAB pressed").build());
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
                 ToDoItem item = new ToDoItem("", false, null);
                 int color = ColorGenerator.MATERIAL.getRandomColor();
@@ -194,10 +246,14 @@ public class MainActivity extends AppCompatActivity {
 
 //        mRecyclerView = (RecyclerView)findViewById(R.id.toDoRecyclerView);
         mRecyclerView = (RecyclerViewEmptySupport)findViewById(R.id.toDoRecyclerView);
+        if(theme.equals(LIGHTTHEME)){
+            mRecyclerView.setBackgroundColor(getResources().getColor(R.color.primary_lightest));
+        }
         mRecyclerView.setEmptyView(findViewById(R.id.toDoEmptyView));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
 
         customRecyclerScrollViewListener = new CustomRecyclerScrollViewListener() {
@@ -230,6 +286,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void addThemeToSharedPreferences(String theme){
+        SharedPreferences sharedPreferences = getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(THEME_SAVED, theme);
+        editor.apply();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -242,11 +304,29 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.aboutMeMenuItem:
                 Intent i = new Intent(this, AboutActivity.class);
-//                i.putExtra(TodoNotificationService.TODOUUID, mToDoItemsArrayList.get(0).getIdentifier());
-//                finish();
                 startActivity(i);
-
                 return true;
+//            case R.id.switch_themes:
+//                if(mTheme == R.style.CustomStyle_DarkTheme){
+//                    addThemeToSharedPreferences(LIGHTTHEME);
+//                }
+//                else{
+//                    addThemeToSharedPreferences(DARKTHEME);
+//                }
+//
+////                if(mTheme == R.style.CustomStyle_DarkTheme){
+////                    mTheme = R.style.CustomStyle_LightTheme;
+////                }
+////                else{
+////                    mTheme = R.style.CustomStyle_DarkTheme;
+////                }
+//                this.recreate();
+//                return true;
+            case R.id.preferences:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -303,8 +383,9 @@ public class MainActivity extends AppCompatActivity {
     private void deleteAlarm(Intent i, int requestCode){
         if(doesPendingIntentExist(i, requestCode)){
             PendingIntent pi = PendingIntent.getService(this, requestCode,i, PendingIntent.FLAG_NO_CREATE);
+            pi.cancel();
             getAlarmManager().cancel(pi);
-//            Log.d("OskarSchindler", "Nonexistant PI cannot be cancelled");
+            Log.d("OskarSchindler", "PI Cancelled " + doesPendingIntentExist(i, requestCode));
         }
     }
 
@@ -345,6 +426,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onItemRemoved(final int position) {
+            //Remove this line if not using Google Analytics
+            mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Swiped Todo Away").build());
+
             mJustDeletedToDoItem =  items.remove(position);
             mIndexOfDeletedToDoItem = position;
             Intent i = new Intent(MainActivity.this,TodoNotificationService.class);
@@ -357,6 +441,9 @@ public class MainActivity extends AppCompatActivity {
                     .setAction("UNDO", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            //Comment the line below if not using Google Analytics
+                            mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("UNDO Pressed").build());
                             items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
                             if(mJustDeletedToDoItem.getToDoDate()!=null && mJustDeletedToDoItem.hasReminder()){
                                 Intent i = new Intent(MainActivity.this, TodoNotificationService.class);
@@ -371,7 +458,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public BasicListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_circle_try, parent, false);
             return new ViewHolder(v);
         }
@@ -379,6 +465,23 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final BasicListAdapter.ViewHolder holder, final int position) {
             ToDoItem item = items.get(position);
+//            if(item.getToDoDate()!=null && item.getToDoDate().before(new Date())){
+//                item.setToDoDate(null);
+//            }
+            SharedPreferences sharedPreferences = getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE);
+            //Background color for each to-do item. Necessary for night/day mode
+            int bgColor;
+            //color of title text in our to-do item. White for night mode, dark gray for day mode
+            int todoTextColor;
+            if(sharedPreferences.getString(THEME_SAVED, LIGHTTHEME).equals(LIGHTTHEME)){
+                bgColor = Color.WHITE;
+                todoTextColor = getResources().getColor(R.color.secondary_text);
+            }
+            else{
+                bgColor = Color.DKGRAY;
+                todoTextColor = Color.WHITE;
+            }
+            holder.linearLayout.setBackgroundColor(bgColor);
 
             if(item.hasReminder() && item.getToDoDate()!=null){
                 holder.mToDoTextview.setMaxLines(1);
@@ -390,6 +493,7 @@ public class MainActivity extends AppCompatActivity {
                 holder.mToDoTextview.setMaxLines(2);
             }
             holder.mToDoTextview.setText(item.getToDoText());
+            holder.mToDoTextview.setTextColor(todoTextColor);
 //            holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRoundRect(item.getToDoText().substring(0,1),Color.RED, 10);
@@ -438,6 +542,7 @@ public class MainActivity extends AppCompatActivity {
         public class ViewHolder extends RecyclerView.ViewHolder{
 
             View mView;
+            LinearLayout linearLayout;
             TextView mToDoTextview;
 //            TextView mColorTextView;
             ImageView mColorImageView;
@@ -460,6 +565,7 @@ public class MainActivity extends AppCompatActivity {
                 mTimeTextView = (TextView)v.findViewById(R.id.todoListItemTimeTextView);
 //                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
                 mColorImageView = (ImageView)v.findViewById(R.id.toDoListItemColorImageView);
+                linearLayout = (LinearLayout)v.findViewById(R.id.listItemLinearLayout);
             }
 
 
@@ -497,4 +603,12 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         mRecyclerView.removeOnScrollListener(customRecyclerScrollViewListener);
     }
+
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putInt(THEME, mTheme);
+//    }
 }
+
+
