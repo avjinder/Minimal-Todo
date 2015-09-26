@@ -38,17 +38,12 @@ public class ReminderActivity extends AppCompatActivity{
     public static final String EXIT = "com.avjindersekon.exit";
     private TextView mSnoozeTextView;
     String theme;
-    AnalyticsApplication application;
-    Tracker mTracker;
+    AnalyticsApplication app;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-
-        application = (AnalyticsApplication)getApplication();
-        mTracker = application.getDefaultTracker();
-
-        mTracker.setScreenName("Reminder Activity");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        app = (AnalyticsApplication)getApplication();
+        app.send(this);
 
         theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
         if(theme.equals(MainActivity.LIGHTTHEME)){
@@ -99,7 +94,7 @@ public class ReminderActivity extends AppCompatActivity{
         mRemoveToDoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Todo Removed from Reminder Activity").build());
+                app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Todo Removed from Reminder Activity").build());
                 mToDoItems.remove(mItem);
                 changeOccurred();
                 saveData();
@@ -145,7 +140,7 @@ public class ReminderActivity extends AppCompatActivity{
     }
 
     private Date addTimeToDate(int mins){
-        mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Snoozed").setLabel("For "+mins+" minutes").build());
+        app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Snoozed").setLabel("For "+mins+" minutes").build());
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

@@ -30,7 +30,6 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONException;
 
@@ -64,9 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String THEME_SAVED = "com.avjindersekhon.savedtheme";
     public static final String DARKTHEME = "com.avjindersekon.darktheme";
     public static final String LIGHTTHEME = "com.avjindersekon.lighttheme";
-    AnalyticsApplication analyticsApplication;
-    Tracker mTracker;
-
+    private AnalyticsApplication app;
     private String[] testStrings = {"Clean my room",
             "Water the plants",
             "Get car washed",
@@ -95,9 +92,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //Comment out these lines if not using Analytics
-        mTracker.setScreenName("Main Activity");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        app.send(this);
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         if(sharedPreferences.getBoolean(ReminderActivity.EXIT, false)){
@@ -129,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        app = (AnalyticsApplication)getApplication();
         super.onStart();
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         if(sharedPreferences.getBoolean(CHANGE_OCCURED, false)){
@@ -165,12 +161,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void onCreate(Bundle savedInstanceState) {
+        app = (AnalyticsApplication)getApplication();
 //        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
 //                .setDefaultFontPath("fonts/Aller_Regular.tff").setFontAttrId(R.attr.fontPath).build());
-
-        //Comment out these two lines if not using Google Analytics
-        analyticsApplication = (AnalyticsApplication)getApplication();
-        mTracker = analyticsApplication.getDefaultTracker();
 
         //We recover the theme we've set and setTheme accordingly
         theme = getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).getString(THEME_SAVED, LIGHTTHEME);
@@ -231,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
-                mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("FAB pressed").build());
+                app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("FAB pressed").build());
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
                 ToDoItem item = new ToDoItem("", false, null);
                 int color = ColorGenerator.MATERIAL.getRandomColor();
@@ -427,7 +420,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemRemoved(final int position) {
             //Remove this line if not using Google Analytics
-            mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Swiped Todo Away").build());
+            app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Swiped Todo Away").build());
 
             mJustDeletedToDoItem =  items.remove(position);
             mIndexOfDeletedToDoItem = position;
@@ -443,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(View v) {
 
                             //Comment the line below if not using Google Analytics
-                            mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("UNDO Pressed").build());
+                            app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("UNDO Pressed").build());
                             items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
                             if(mJustDeletedToDoItem.getToDoDate()!=null && mJustDeletedToDoItem.hasReminder()){
                                 Intent i = new Intent(MainActivity.this, TodoNotificationService.class);

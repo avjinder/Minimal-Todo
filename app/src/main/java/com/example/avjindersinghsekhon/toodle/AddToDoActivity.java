@@ -66,21 +66,18 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     private boolean setTimeButtonClickedOnce = false;
     private LinearLayout mContainerLayout;
     private String theme;
-    AnalyticsApplication analyticsApplication;
-    Tracker mTracker;
+    AnalyticsApplication app;
 
     @Override
     protected void onResume() {
         super.onResume();
-        mTracker.setScreenName("AddToDoActivity");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        app.send(this);
     }
 
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        analyticsApplication = (AnalyticsApplication)getApplication();
-        mTracker = analyticsApplication.getDefaultTracker();
+        app = (AnalyticsApplication)getApplication();
 //        setContentView(R.layout.new_to_do_layout);
         //Need references to these to change them during light/dark mode
         ImageButton reminderIconImageButton;
@@ -209,10 +206,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Reminder Set").build());
+                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Reminder Set").build());
                 }
                 else{
-                    mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Reminder Removed").build());
+                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Reminder Removed").build());
 
                 }
 
@@ -231,11 +228,11 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             @Override
             public void onClick(View v) {
                 if(mUserReminderDate!=null && mUserReminderDate.before(new Date())){
-                    mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Date in the Past").build());
+                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Date in the Past").build());
                     makeResult(RESULT_CANCELED);
                 }
                 else{
-                    mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Make Todo").build());
+                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Make Todo").build());
                     makeResult(RESULT_OK);
                 }
                 hideKeyboard(mToDoTextBodyEditText);
@@ -580,7 +577,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         switch (item.getItemId()){
             case android.R.id.home:
                 if(NavUtils.getParentActivityName(this)!=null){
-                    mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Discard Todo").build());
+                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Discard Todo").build());
                     makeResult(RESULT_CANCELED);
                     NavUtils.navigateUpFromSameTask(this);
                 }

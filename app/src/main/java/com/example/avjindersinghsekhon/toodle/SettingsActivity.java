@@ -14,24 +14,19 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 public class SettingsActivity extends AppCompatActivity{
-    AnalyticsApplication analyticsApplication;
-    Tracker tracker;
 
+    AnalyticsApplication app;
     @Override
     protected void onResume() {
         super.onResume();
-        tracker.setScreenName("Settings Activity");
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+        app.send(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        analyticsApplication = (AnalyticsApplication)getApplication();
-        tracker = analyticsApplication.getDefaultTracker();
-
-
-        String theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED,MainActivity.LIGHTTHEME);
+        app = (AnalyticsApplication)getApplication();
+        String theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
         if(theme.equals(MainActivity.LIGHTTHEME)){
             setTheme(R.style.CustomStyle_LightTheme);
         }
