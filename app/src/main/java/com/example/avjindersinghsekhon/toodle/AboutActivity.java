@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 public class AboutActivity extends AppCompatActivity {
     private TextView mVersionTextView;
@@ -24,17 +23,12 @@ public class AboutActivity extends AppCompatActivity {
     private TextView contactMe;
     String theme;
 //    private UUID mId;
-    AnalyticsApplication application;
-    Tracker tracker;
+    private AnalyticsApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        application = (AnalyticsApplication)getApplication();
-        tracker = application.getDefaultTracker();
-
-        tracker.setScreenName("About Activity");
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+        app = (AnalyticsApplication)getApplication();
+        app.send(this);
 
         theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
         if(theme.equals(MainActivity.DARKTHEME)){
@@ -73,7 +67,7 @@ public class AboutActivity extends AppCompatActivity {
         contactMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Feedback").build());
+                app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Feedback").build());
             }
         });
 

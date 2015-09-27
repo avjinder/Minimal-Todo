@@ -10,14 +10,14 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
-    Tracker mTracker;
+    AnalyticsApplication app;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_layout);
-        mTracker = ((AnalyticsApplication)getActivity().getApplication()).getDefaultTracker();
+        app = (AnalyticsApplication) getActivity().getApplication();
    }
 
     @Override
@@ -32,7 +32,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)findPreference(preferenceKeys.night_mode_pref_key);
             if(checkBoxPreference.isChecked()){
                 //Comment out this line if not using Google Analytics
-                mTracker.send(new HitBuilders.EventBuilder().setCategory("Settings").setAction("Night Mode used").build());
+                app.send(this, new HitBuilders.EventBuilder().setCategory("Settings").setAction("Night Mode used").build());
                 themeEditor.putString(MainActivity.THEME_SAVED, MainActivity.DARKTHEME);
             }
             else{
