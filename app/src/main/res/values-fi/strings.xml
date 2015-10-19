@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="hello_world">Tervehdys maailma!</string>
+    <string name="action_settings">Asetukset</string>
+    <string name="empty_list_view_add">Paina lisää -painiketta lisätäksesi tehtävän</string>
+    <string name="no_to_dos">Ei tekemättömiä tehtäviä</string>
+    <string name="title">Otsikko</string>
+    <string name="remind_me">Muistutus</string>
+    <string name="last_edited"><i>Viimeksi muokattu %1$s</i></string>
+    <string name="date">Päivämäärä</string>
+    <string name="time">Aika</string>
+    <string name="set_color">Aseta väri</string>
+    <string name="fake_time_list"><i>11 Syys, 12:30</i></string>
+    <string name="choose_date">Päivämäärä</string>
+    <string name="choose_time">Aika</string>
+    <string name="remind_date">Muistutus asetettu</string>
+    <string name="remind_time">klo </string>
+    <string name="remind_date_and_time">Muistutus asetettu: %1$s, %2$s %3$s</string>
+    <string name="about">Tietoja</string>
+    <string name="app_version">Versio: %1$s</string>
+    <string name="contact_me">Ota yhteyttä</string>
+    <string name="email_address">avisekhon@gmail.com</string>
+    <string name="made_by">Tekijä Avjinder</string>
+    <string name="undo_changes">Kumoa</string>
+    <string name="done_label">Valmis</string>
+
+    <string name="date_reminder_default">Tänään</string>
+    <string name="date_error_check_again">Annettu päivämäärä on menneisyydessä.</string>
+
+    <string name="night_mode">Yötila</string>
+    <string name="night_mode_pref_key">NightModePreference</string>
+    <string name="night_mode_on_summary">Yötila päällä</string>
+    <string name="night_mode_off_summary">Yötila poissa päältä</string>
+
+    <string-array name="snooze_options">
+        <item>10 Minuuttia</item>
+        <item>30 Minuuttia</item>
+        <item>1 Tunti</item>
+    </string-array>
+
+    <string-array name="date_options">
+        <item>Tänään</item>
+        <item>Huomenna</item>
+        <item>Valitse päivämäärä</item>
+    </string-array>
+
+    <string-array name="time_options">
+        <item>Aamu - <i>9:00</i></item>
+        <item>Keskipäivä - <i>12:00</i></item>
+        <item>Iltapäivä - <i>17:00</i></item>
+        <item>Ilta - <i>21:00</i></item>
+        <item>Valitse aika</item>
+    </string-array>
+</resources>

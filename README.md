@@ -28,7 +28,7 @@ A fully Material ToDo app with minimal features, just enough to be useful.
 Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
 ##Translations
 * Spanish by [nanopc](https://github.com/nanopc) <br>
-
+* Finnish by [Miikka Andersson](https://github.com/miikande) <br>
 
 
 
