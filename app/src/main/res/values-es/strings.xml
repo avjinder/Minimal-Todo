@@ -38,6 +38,10 @@
         <item>Elige una fecha</item>
     </string-array>
 
+    <string name="snooze">Siesta</string>
+    <string name="remove">Eliminar</string>
+
+
     <string-array name="time_options">
         <item>Mañana  &#160; &#160; &#160;<i>9:00</i></item>
         <item>Mediodía &#160; <i>12:00</i></item>
