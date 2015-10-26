@@ -29,7 +29,8 @@ Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
 ##Translations
 * Spanish by [nanopc](https://github.com/nanopc) <br>
 
-
+##Contributing
+Looking to contribute something to Bootstrap? [Here's how you can help](/Contributing.md).
 
 
 #License:
