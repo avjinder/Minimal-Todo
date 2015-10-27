@@ -1,12 +1,12 @@
 [Minimal-Todo](https://github.com/avjinder/Minimal-Todo) - Material To-Do App 
 ==================================================
 
-Welcome, so you are thinking about contributing to Minimal-Todo? awesome, this is a great place to start.
+Welcome, so you are thinking about contributing to Minimal-Todo? Awesome, this is a great place to start.
 
 Get in Touch
 ------------
 
-Most project discussions should happen on the Mailing list, however if you are a first time contributor and want some help getting started feel free to send a private email to any of the following maintainers:
+If you are a first time contributor and want some help getting started feel free to send a private email to any of the following maintainers:
 
  * Avjinder (avisekhon@gmail.com)
 
@@ -37,7 +37,6 @@ Git Essentials
 
 Workflows can vary, but here is a very simple workflow for contributing a bug fix:
 
-    $ git clone git@github.com:myfork/Minimal-Todo.git
     $ git clone git@github.com:myfork/Minimal-Todo.git
     $ git remote add Minimal-Todo https://github.com/Minimal-Todo/Minimal-Todo.git
     $ git checkout -b 121-issue-keyword master

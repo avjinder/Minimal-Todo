@@ -28,9 +28,11 @@ A fully Material ToDo app with minimal features, just enough to be useful.
 Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
 ##Translations
 * Spanish by [nanopc](https://github.com/nanopc) <br>
+* German by [kaiwinter](https://github.com/kaiwinter) <br>
+* Polish by [piotrek1543](https://github.com/piotrek1543) <br>
 
 ##Contributing
-Looking to contribute something to Bootstrap? [Here's how you can help](/Contributing.md).
+Looking to contribute something to Minimal? [Here's how you can help](/Contributing.md).
 
 
 #License:
