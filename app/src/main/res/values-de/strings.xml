@@ -39,6 +39,10 @@
         <item>1 Stunde</item>
     </string-array>
 
+    <string name="snooze">Nickerchen</string>
+    <string name="remove">Herausnehmen</string>
+
+
     <string-array name="date_options">
         <item>Heute</item>
         <item>Morgen</item>

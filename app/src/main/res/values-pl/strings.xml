@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Minimal</string>
+
+    <string name="hello_world">Witaj świecie!</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="empty_list_view_add">By dodać jedno, naciśnij przycisk Dodaj</string>
+    <string name="no_to_dos">Nie masz nic do zrobienia</string>
+    <string name="title">Tytuł</string>
+    <string name="remind_me">Przypomnij mi</string>
+    <string name="last_edited"><i>Ostatnio edytowany %1$s</i></string>
+    <string name="date">Data</string>
+    <string name="time">Czas</string>
+    <string name="set_color">Ustaw kolor</string>
+    <string name="fake_time_list"><i>11 Wrz, 12:30</i></string>
+    <string name="choose_date">Data</string>
+    <string name="choose_time">Czas</string>
+    <string name="remind_date">Przypomnienie </string>
+    <string name="remind_time">o </string>
+    <string name="remind_date_and_time">Przypomnienie nastąpi %1$s, %2$s %3$s</string>
+    <string name="about">O programie</string>
+    <string name="app_version">Wersja: %1$s</string>
+    <string name="contact_me">Kontakt z autorem:</string>
+    <string name="email_address">avisekhon@gmail.com</string>
+    <string name="made_by">Autor: Avjinder</string>
+    <string name="undo_changes">Cofnij</string>
+    <string name="done_label">Zrobione</string>
+
+    <string name="date_reminder_default">Dziś</string>
+    <string name="date_error_check_again">Czas, który wybrałeś dotyczy przeszłości.</string>
+
+    <string name="night_mode">Tryb nocny</string>
+    <string name="night_mode_pref_key">Tryb nocny (ustawienia)</string>
+    <string name="night_mode_on_summary">Tryb nocny jest włączony</string>
+    <string name="night_mode_off_summary">Tryb nocny jest wyłączony</string>
+
+    <string-array name="snooze_options">
+        <item>10 minut</item>
+        <item>30 minut</item>
+        <item>1 godzina</item>
+    </string-array>
+
+    <string name="snooze">Drzemka</string>
+    <string name="remove">Usuń</string>
+
+
+    <string-array name="date_options">
+        <item>Dzisiaj</item>
+        <item>Jutro</item>
+        <item>Wybierz datę</item>
+    </string-array>
+
+    <string-array name="time_options">
+        <item>Rano - <i>9:00</i></item>
+        <item>Popołudnie - <i>12:00</i></item>
+        <item>Wieczór - <i>17:00</i></item>
+        <item>Noc - <i>21:00</i></item>
+        <item>Ustaw czas przypomnienia</item>
+    </string-array>
+</resources>
