@@ -30,6 +30,7 @@ Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
 * Spanish by [nanopc](https://github.com/nanopc) <br>
 * German by [kaiwinter](https://github.com/kaiwinter) <br>
 * Polish by [piotrek1543](https://github.com/piotrek1543) <br>
+* Finnish by [Miikka Andersson](https://github.com/miikande) <br>
 
 ##Contributing
 Looking to contribute something to Minimal? [Here's how you can help](/Contributing.md).
