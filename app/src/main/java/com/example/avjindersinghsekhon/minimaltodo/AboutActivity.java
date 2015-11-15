@@ -42,6 +42,7 @@ public class AboutActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
+        
         Intent i = getIntent();
 //        mId = (UUID)i.getSerializableExtra(TodoNotificationService.TODOUUID);
 
