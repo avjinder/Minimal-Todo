@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.toodle;
+package com.example.avjindersinghsekhon.minimaltodo;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

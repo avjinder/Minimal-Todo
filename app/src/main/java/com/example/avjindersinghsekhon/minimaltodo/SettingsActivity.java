@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.toodle;
+package com.example.avjindersinghsekhon.minimaltodo;
 
 import android.app.FragmentManager;
 import android.graphics.Color;
@@ -9,9 +9,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 public class SettingsActivity extends AppCompatActivity{
 

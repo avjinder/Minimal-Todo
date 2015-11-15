@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.toodle;
+package com.example.avjindersinghsekhon.minimaltodo;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONException;
 
@@ -35,7 +34,7 @@ public class ReminderActivity extends AppCompatActivity{
     private StoreRetrieveData storeRetrieveData;
     private ArrayList<ToDoItem> mToDoItems;
     private ToDoItem mItem;
-    public static final String EXIT = "com.avjindersekon.exit";
+    public static final String EXIT = "com.avjindersekhon.exit";
     private TextView mSnoozeTextView;
     String theme;
     AnalyticsApplication app;

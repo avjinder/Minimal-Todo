@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.toodle;
+package com.example.avjindersinghsekhon.minimaltodo;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton mAddToDoItemFAB;
     private ArrayList<ToDoItem> mToDoItemsArrayList;
     private CoordinatorLayout mCoordLayout;
-    public static final String TODOITEM = "com.avjindersinghsekhon.toodle.MainActivity";
+    public static final String TODOITEM = "com.avjindersinghsekhon.com.avjindersinghsekhon.minimaltodo.MainActivity";
     private BasicListAdapter adapter;
     private static final int REQUEST_ID_TODO_ITEM = 100;
     private ToDoItem mJustDeletedToDoItem;
@@ -232,6 +232,28 @@ public class MainActivity extends AppCompatActivity {
                 //noinspection ResourceType
 //                String color = getResources().getString(R.color.primary_ligher);
                 newTodo.putExtra(TODOITEM, item);
+//                View decorView = getWindow().getDecorView();
+//                View navView= decorView.findViewById(android.R.id.navigationBarBackground);
+//                View statusView = decorView.findViewById(android.R.id.statusBarBackground);
+//                Pair<View, String> navBar ;
+//                if(navView!=null){
+//                    navBar = Pair.create(navView, navView.getTransitionName());
+//                }
+//                else{
+//                    navBar = null;
+//                }
+//                Pair<View, String> statusBar= Pair.create(statusView, statusView.getTransitionName());
+//                ActivityOptions options;
+//                if(navBar!=null){
+//                    options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, navBar, statusBar);
+//                }
+//                else{
+//                    options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, statusBar);
+//                }
+
+//                startActivity(new Intent(MainActivity.this, TestLayout.class), options.toBundle());
+//                startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM, options.toBundle());
+
                 startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
             }
         });
@@ -274,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mRecyclerView.setAdapter(adapter);
+//        setUpTransitions();
 
 
 
@@ -593,15 +616,29 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
         mRecyclerView.removeOnScrollListener(customRecyclerScrollViewListener);
     }
 
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt(THEME, mTheme);
+
+//    public void setUpTransitions(){
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+//            Transition enterT = new Slide(Gravity.RIGHT);
+//            enterT.setDuration(500);
+//
+//            Transition exitT = new Slide(Gravity.LEFT);
+//            exitT.setDuration(300);
+//
+//            Fade fade = new Fade();
+//            fade.setDuration(500);
+//
+//            getWindow().setExitTransition(fade);
+//            getWindow().setReenterTransition(fade);
+//
+//        }
 //    }
+
 }
 
 

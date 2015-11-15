@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.toodle;
+package com.example.avjindersinghsekhon.minimaltodo;
 
 import android.animation.Animator;
 import android.content.Intent;
@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -98,15 +97,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         //Testing out a new layout
         setContentView(R.layout.activity_todo_test);
 
-        mToolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
-
         //Show an X in place of <-
         final Drawable cross = getResources().getDrawable(R.drawable.ic_clear_white_24dp);
         if(cross !=null){
             cross.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
         }
+
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);
@@ -115,6 +113,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             getSupportActionBar().setHomeAsUpIndicator(cross );
 
         }
+
 
         mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
 
