@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.toodle;
 
 import android.app.Application;
 import android.content.pm.PackageManager;
@@ -23,7 +23,7 @@ public class AnalyticsApplication extends Application {
             your code as <string name="ga_trackingId">UX-XXXXXXXX-Y</string>
             */
 
-//            mTracker = analytics.newTracker(R.xml.app_tracker);
+            //mTracker = analytics.newTracker(R.xml.app_tracker);
             mTracker = analytics.newTracker(R.xml.global_tracker);
 //
             mTracker.setAppName("Minimal");
