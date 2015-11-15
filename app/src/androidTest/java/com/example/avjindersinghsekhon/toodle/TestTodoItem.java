@@ -23,6 +23,8 @@
 
 package com.example.avjindersinghsekhon.toodle;
 
+import com.example.avjindersinghsekhon.minimaltodo.ToDoItem;
+
 import junit.framework.TestCase;
 
 import org.json.JSONException;
