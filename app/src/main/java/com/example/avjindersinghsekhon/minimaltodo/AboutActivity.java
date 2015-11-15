@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.avjindersinghsekhon.toodle.AnalyticsApplication;
 import com.google.android.gms.analytics.HitBuilders;
 
 public class AboutActivity extends AppCompatActivity {
