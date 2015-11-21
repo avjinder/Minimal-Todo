@@ -28,7 +28,7 @@
                 android:layout_height="0dp">
 
 
-                <com.example.avjindersinghsekhon.toodle.CustomTextInputLayout
+                <com.example.avjindersinghsekhon.minimaltodo.CustomTextInputLayout
                     app:hintTextAppearance="@style/FloatingLabelTextAppearance"
                     android:id="@+id/toDoCustomTextInput"
                     android:gravity="center"
@@ -48,7 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                </com.example.avjindersinghsekhon.toodle.CustomTextInputLayout>
+                </com.example.avjindersinghsekhon.minimaltodo.CustomTextInputLayout>
 
             </LinearLayout>
             <LinearLayout
