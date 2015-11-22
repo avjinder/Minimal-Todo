@@ -14,8 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
-
 public class AboutActivity extends AppCompatActivity {
     private TextView mVersionTextView;
     private String appVersion = "0.1";
@@ -68,7 +66,7 @@ public class AboutActivity extends AppCompatActivity {
         contactMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Feedback").build());
+                app.send(this, "Action", "Feedback");
             }
         });
 
