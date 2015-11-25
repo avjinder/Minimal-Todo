@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceFragment;
 
-import com.google.android.gms.analytics.HitBuilders;
-
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
     AnalyticsApplication app;
 
@@ -31,7 +29,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)findPreference(preferenceKeys.night_mode_pref_key);
             if(checkBoxPreference.isChecked()){
                 //Comment out this line if not using Google Analytics
-                app.send(this, new HitBuilders.EventBuilder().setCategory("Settings").setAction("Night Mode used").build());
+                app.send(this, "Settings", "Night Mode used");
                 themeEditor.putString(MainActivity.THEME_SAVED, MainActivity.DARKTHEME);
             }
             else{

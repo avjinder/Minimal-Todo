@@ -1,35 +1,20 @@
 <resources>
     <string name="app_name">Minimal</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="empty_list_view_add">To add one, try clicking the Add button</string>
     <string name="no_to_dos">You don\'t have any todos</string>
     <string name="title">Title</string>
     <string name="remind_me">Remind Me</string>
-    <string name="last_edited"><i>Last Edited %1$s</i></string>
-    <string name="date">Date</string>
-    <string name="time">Time</string>
-    <string name="set_color">Set Color</string>
-    <string name="fake_time_list"><i>11 Sept, 12:30 PM</i></string>
     <string name="choose_date">Date</string>
     <string name="choose_time">Time</string>
-    <string name="remind_date">You will be reminded on</string>
-    <string name="remind_time">at </string>
     <string name="remind_date_and_time">Reminder set for %1$s, %2$s %3$s</string>
     <string name="about">About</string>
     <string name="app_version">Version: %1$s</string>
     <string name="contact_me">You can contact me at</string>
-    <string name="email_address">avisekhon2@gmail.com</string>
     <string name="made_by">Made by Avjinder</string>
-    <string name="undo_changes">Undo</string>
     <string name="done_label">Done</string>
-
     <string name="date_reminder_default">Today</string>
     <string name="date_error_check_again">The date you entered is in the past.</string>
-
     <string name="night_mode">Night Mode</string>
-    <string name="night_mode_pref_key">NightModePreference</string>
     <string name="night_mode_on_summary">Night mode is on</string>
     <string name="night_mode_off_summary">Night mode is off</string>
 
@@ -41,19 +26,4 @@
 
     <string name="snooze">Snooze</string>
     <string name="remove">Remove</string>
-    <string name="example">Clean my room</string>
-
-    <string-array name="date_options">
-        <item>Today</item>
-        <item>Tomorrow</item>
-        <item>Pick a date</item>
-    </string-array>
-
-    <string-array name="time_options">
-        <item>Morning - <i>9:00</i></item>
-        <item>Afternoon - <i>12:00</i></item>
-        <item>Evening - <i>17:00</i></item>
-        <item>Night - <i>21:00</i></item>
-        <item>Pick a time</item>
-    </string-array>
 </resources>

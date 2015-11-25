@@ -21,14 +21,10 @@
  *
  */
 
-package com.example.avjindersinghsekhon.toodle;
+package com.example.avjindersinghsekhon.minimaltodo;
 
 import android.content.Context;
 import android.test.ActivityUnitTestCase;
-
-import com.example.avjindersinghsekhon.minimaltodo.MainActivity;
-import com.example.avjindersinghsekhon.minimaltodo.StoreRetrieveData;
-import com.example.avjindersinghsekhon.minimaltodo.ToDoItem;
 
 import org.json.JSONArray;
 

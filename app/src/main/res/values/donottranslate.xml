@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_address" translatable="false">avisekhon2@gmail.com</string>
+    <string name="night_mode_pref_key" translatable="false">NightModePreference</string>
+    <string name="example" translatable="false">Clean my room</string>
+</resources>
