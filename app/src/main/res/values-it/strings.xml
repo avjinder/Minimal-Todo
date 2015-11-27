@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="no_to_dos">Non ci sono cosa da fare</string>
+    <string name="title">Titolo</string>
+    <string name="remind_me">Promemoria</string>
+    <string name="choose_date">Data</string>
+    <string name="choose_time">Ora</string>
+    <string name="remind_date_and_time">Promemoria impostato per il giorno %1$s, %2$s %3$s</string>
+    <string name="about">Informazioni</string>
+    <string name="app_version">Versione: %1$s</string>
+    <string name="contact_me">Per contattare lo sviluppatore</string>
+    <string name="made_by">Creata da Avjinder</string>
+    <string name="done_label">Fatto</string>
+    <string name="date_reminder_default">Oggi</string>
+    <string name="date_error_check_again">La data inserita è nel passato.</string>
+    <string name="night_mode">Modalità notturna</string>
+    <string name="night_mode_on_summary">Modalità notturna attiva</string>
+    <string name="night_mode_off_summary">Modalità notturna non attiva</string>
+
+    <string-array name="snooze_options">
+        <item>10 minuti</item>
+        <item>30 minuti</item>
+        <item>1 ora</item>
+    </string-array>
+
+    <string name="snooze">Posticipa</string>
+    <string name="remove">Rimuovi</string>
+</resources>
