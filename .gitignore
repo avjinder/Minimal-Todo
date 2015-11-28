@@ -7,8 +7,6 @@
 #/captures
 #/.idea
 
-# Created by https://www.gitignore.io
-
 ### Android ###
 
 # Files for the Dalvik VM
@@ -95,5 +93,3 @@ gradle-app.setting
 hs_err_pid*
 
 *.DS_Store
-Status API Training Shop Blog About Pricing
-© 2015 GitHub, Inc. Terms Privacy Security Contact Help
