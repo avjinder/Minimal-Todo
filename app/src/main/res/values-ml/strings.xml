@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">മിനിമൽ</string>
     <string name="action_settings">ക്രമീകരണങ്ങൾ</string>
@@ -28,5 +29,4 @@
 
     <string name="snooze">സ്‌നൂസ്</string>
     <string name="remove">കളയുക</string>
-
 </resources>

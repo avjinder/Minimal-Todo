@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -93,7 +94,6 @@
     <style name="CustomCheckbox" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:button">@color/amber</item>
     </style>
-
 
 
     <style name="AppTheme.ToolBarPadding" parent="Theme.AppCompat.Light.NoActionBar">
