@@ -1,43 +1,50 @@
 # Minimal [![Build Status](https://travis-ci.org/avjinder/Minimal-Todo.svg?branch=master)](https://travis-ci.org/avjinder/Minimal-Todo)
 
-<img src="/screenshots/app_icon.png" height="200px"/> <br>
+<img src="/screenshots/app_icon.png" height="200px"/><br />
 A fully Material ToDo app with minimal features, just enough to be useful.
 
+## Screenshots
 
-#Screenshots:
-<img src="/screenshots/main_empty_light.png" height="400px"/>
-<img src="/screenshots/main_empty_dark.png" height="400px"/>
-<img src="/screenshots/main_full_light.png" height="400px"/>
-<img src="/screenshots/main_full_dark.png" height="400px"/>
-<img src="/screenshots/add_todo_light.png" height="400px"/>
-<img src="/screenshots/add_todo_dark.png" height="400px"/>
+<img src="/screenshots/main_empty_light.png" height="400px" />
+<img src="/screenshots/main_empty_dark.png"  height="400px" />
+<img src="/screenshots/main_full_light.png"  height="400px" />
+<img src="/screenshots/main_full_dark.png"   height="400px" />
+<img src="/screenshots/add_todo_light.png"   height="400px" />
+<img src="/screenshots/add_todo_dark.png"    height="400px" />
 <img src="screenshots/screenshot_reminder_date.png" height="400px"/>
 <img src="screenshots/screenshot_reminder_time.png" height="400px"/>
-<img src="screenshots/todo_date_dark.png" height="400px"/>
-<img src="screenshots/todo_time_dark.png" height="400px"/>
-<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_notification.png" height="400px"/>
-<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_todo_snooze.png" height="400px"/>
+<img src="screenshots/todo_date_dark.png"    height="400px" />
+<img src="screenshots/todo_time_dark.png"    height="400px" />
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_notification.png" height="400px" />
+<img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_todo_snooze.png" height="400px" />
 
-##Download
-<a href="https://play.google.com/store/apps/details?id=com.avjindersinghsekhon.minimaltodo">
-  <img alt="Get it on Google Play"
-       src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
-</a>
+## Download
 
+[
+	![Get it on Google Play Store](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)
+](https://play.google.com/store/apps/details?id=com.avjindersinghsekhon.minimaltodo)
 
-##App Icon
+[
+	![Get it on F-Droid](https://guardianproject.info/wp-content/uploads/2014/07/logo-fdroid.png)
+](https://f-droid.org/repository/browse/?fdid=com.rubenroy.minimaltodo)
+
+## App Icon
+
 Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
-##Translations
-* Spanish by [nanopc](https://github.com/nanopc) <br>
-* German by [kaiwinter](https://github.com/kaiwinter) <br>
-* Polish by [piotrek1543](https://github.com/piotrek1543) <br>
-* Finnish by [Miikka Andersson](https://github.com/miikande) <br>
 
-##Contributing
-Looking to contribute something to Minimal? [Here's how you can help](/Contributing.md).
+## Translations
 
+* Spanish by [nanopc](https://github.com/nanopc)
+* German by [kaiwinter](https://github.com/kaiwinter)
+* Polish by [piotrek1543](https://github.com/piotrek1543)
+* Finnish by [Miikka Andersson](https://github.com/miikande)
 
-#License:
+## Contributing
+
+Looking to contribute something to Minimal? [Here's how you can help](Contributing.md).
+
+## License
+
 The MIT License (MIT)
 
 Copyright (c) 2015 Avjinder
@@ -59,4 +66,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
