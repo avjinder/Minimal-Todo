@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Copying and distribution of this file, with or without modification,
+        are permitted in any medium without royalty provided this notice is
+        preserved.  This file is offered as-is, without any warranty.
+    -->
+	
+    <string name="app_name">Minimal</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="no_to_dos">Vous n\'avez aucun todo</string>
+    <string name="title">Titre</string>
+    <string name="remind_me">Rappelle moi</string>
+    <string name="choose_date">Date</string>
+    <string name="choose_time">Temps</string>
+    <string name="remind_date_and_time">Rappel défini pour %1$s, %2$s %3$s</string>
+    <string name="about">À propos</string>
+    <string name="app_version">Version : %1$s</string>
+    <string name="contact_me">Vous pouvez me contacter à</string>
+    <string name="made_by">Fait par Avjinder</string>
+    <string name="done_label">Fait</string>
+    <string name="date_reminder_default">Aujourd\'hui</string>
+    <string name="date_error_check_again">La date que vous avez entré est dans le passé.</string>
+    <string name="night_mode">Mode nuit</string>
+    <string name="night_mode_on_summary">Mode nuit activé</string>
+    <string name="night_mode_off_summary">Mode nuit désactivé</string>
+
+    <string-array name="snooze_options">
+        <item>10 minutes</item>
+        <item>30 minutes</item>
+        <item>1 heure</item>
+    </string-array>
+
+    <string name="snooze">Répéter</string>
+    <string name="remove">Supprimer</string>
+</resources>
