@@ -16,7 +16,7 @@ Help Wanted
 #### If you have an error or support request
 
 - Read the error message and documentation.
-- Search [existing issues](https://github.com/avjinder/Minimal-Todo/issues), [closed issues](https://github.com/avjinder/Minimal-Todo/issues?page=1&state=closed), and [the internet](https://google.com) first.
+- Search [existing issues](https://github.com/avjinder/Minimal-Todo/issues), [closed issues](https://github.com/avjinder/Minimal-Todo/issues?page=1&state=closed), and the Web ([Google Search](https://google.com), [DuckDuckGo](https://duckduckgo.com/), etc) first.
 - If the issue is with a dependency of this project, post on the dependency's repo.
 - If you can fix the issue, submit a PR :+1: :dancer: :dancer: :rocket:.
 - If the issue persists, post on the issue tracker. Include any information that could help others reproduce and fix.
