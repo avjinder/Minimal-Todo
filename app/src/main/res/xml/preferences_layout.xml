@@ -7,7 +7,4 @@
             android:defaultValue="false"
             android:key="@string/night_mode_pref_key"
             />
-
-
-
 </PreferenceScreen>
