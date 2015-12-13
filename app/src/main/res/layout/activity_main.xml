@@ -52,7 +52,7 @@
         <!--</android.support.design.widget.AppBarLayout>-->
 
 
-            <com.example.avjindersinghsekhon.toodle.RecyclerViewEmptySupport
+            <com.example.avjindersinghsekhon.minimaltodo.RecyclerViewEmptySupport
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/toDoRecyclerView"
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             android:layout_margin="16dp"
             app:layout_anchor="@id/myCoordinatorLayout"
             app:layout_anchorGravity="bottom|right|end"
-            app:layout_behavior="com.example.avjindersinghsekhon.toodle.ScrollingFABBehaviour"
+            app:layout_behavior="com.example.avjindersinghsekhon.minimaltodo.ScrollingFABBehaviour"
             />
 
 

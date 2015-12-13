@@ -1,7 +1,7 @@
-# Minimal
+# Minimal [![Build Status](https://travis-ci.org/avjinder/Minimal-Todo.svg?branch=master)](https://travis-ci.org/avjinder/Minimal-Todo)
+
 <img src="/screenshots/app_icon.png" height="200px"/> <br>
-A fully Material ToDo app with minimal features, just enough to be useful. <br>
-[![Build Status](https://travis-ci.org/avjinder/Minimal-Todo.svg?branch=master)](https://travis-ci.org/avjinder/Minimal-Todo)
+A fully Material ToDo app with minimal features, just enough to be useful.
 
 
 #Screenshots:
@@ -32,6 +32,7 @@ Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
 * German by [kaiwinter](https://github.com/kaiwinter) <br>
 * Polish by [piotrek1543](https://github.com/piotrek1543) <br>
 * Finnish by [Miikka Andersson](https://github.com/miikande) <br>
+* French by [Nicola Spanti](http://www.nicola-spanti.info/)
 
 ##Contributing
 Looking to contribute something to Minimal? [Here's how you can help](/Contributing.md).

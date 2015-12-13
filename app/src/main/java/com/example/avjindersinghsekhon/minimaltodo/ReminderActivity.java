@@ -14,8 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
-
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -93,7 +91,7 @@ public class ReminderActivity extends AppCompatActivity{
         mRemoveToDoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Todo Removed from Reminder Activity").build());
+                app.send(this, "Action", "Todo Removed from Reminder Activity");
                 mToDoItems.remove(mItem);
                 changeOccurred();
                 saveData();
@@ -139,7 +137,7 @@ public class ReminderActivity extends AppCompatActivity{
     }
 
     private Date addTimeToDate(int mins){
-        app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Snoozed").setLabel("For "+mins+" minutes").build());
+        app.send(this, "Action", "Snoozed", "For "+mins+" minutes");
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

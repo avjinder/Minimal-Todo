@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -205,10 +204,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Reminder Set").build());
+                    app.send(this, "Action", "Reminder Set");
                 }
                 else{
-                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Reminder Removed").build());
+                    app.send(this, "Action", "Reminder Removed");
 
                 }
 
@@ -227,11 +226,11 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             @Override
             public void onClick(View v) {
                 if(mUserReminderDate!=null && mUserReminderDate.before(new Date())){
-                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Date in the Past").build());
+                    app.send(this, "Action", "Date in the Past");
                     makeResult(RESULT_CANCELED);
                 }
                 else{
-                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Make Todo").build());
+                    app.send(this, "Action", "Make Todo");
                     makeResult(RESULT_OK);
                 }
                 hideKeyboard(mToDoTextBodyEditText);
@@ -576,7 +575,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         switch (item.getItemId()){
             case android.R.id.home:
                 if(NavUtils.getParentActivityName(this)!=null){
-                    app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Discard Todo").build());
+                    app.send(this, "Action", "Discard Todo");
                     makeResult(RESULT_CANCELED);
                     NavUtils.navigateUpFromSameTask(this);
                 }

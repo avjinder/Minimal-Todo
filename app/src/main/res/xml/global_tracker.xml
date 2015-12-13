@@ -22,5 +22,4 @@
     <screenName name="com.avjindersinghsekhon.minimaltodo.MainActivity">Main Activity</screenName>
     <screenName name="com.avjindersinghsekhon.minimaltodo.AddToDoActivity">Add ToDo Activity</screenName>
     <screenName name="com.avjindersinghsekhon.minimaltodo.SettingsActivity">Settings Activity</screenName>
-
 </resources>

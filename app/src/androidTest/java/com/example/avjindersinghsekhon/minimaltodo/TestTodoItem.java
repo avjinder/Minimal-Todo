@@ -21,9 +21,7 @@
  *
  */
 
-package com.example.avjindersinghsekhon.toodle;
-
-import com.example.avjindersinghsekhon.minimaltodo.ToDoItem;
+package com.example.avjindersinghsekhon.minimaltodo;
 
 import junit.framework.TestCase;
 

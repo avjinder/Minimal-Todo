@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">മിനിമൽ</string>
+    <string name="action_settings">ക്രമീകരണങ്ങൾ</string>
+    <string name="no_to_dos">നിങ്ങൾക്ക് ഒന്നും ചെയ്യാനില്ല</string>
+    <string name="title">തലക്കെട്ട്</string>
+    <string name="remind_me">ഓർമ്മപ്പെടുതുക</string>
+    <string name="choose_date">തിയതി</string>
+    <string name="choose_time">സമയം</string>
+    <string name="remind_date_and_time">നിങ്ങളെ ഓർമ്മിപ്പിക്കുന്നത് %1$s, %2$s %3$s</string>
+    <string name="about">ആമുഖം</string>
+    <string name="app_version">പതിപ്പ്: %1$s</string>
+    <string name="contact_me">എന്നെ ഇവിടെ ബന്ധപ്പെടുക</string>
+    <string name="made_by">Avjinder ഉണ്ടാക്കിയത്</string>
+    <string name="done_label">കഴിഞ്ഞു</string>
+
+    <string name="date_reminder_default">ഇന്ന്</string>
+    <string name="date_error_check_again">നിങ്ങൾ തിരഞ്ഞെടുത്ത തിയതി കഴിഞ്ഞുപോയി.</string>
+
+    <string name="night_mode">നൈറ്റ് മോഡ്</string>
+    <string name="night_mode_on_summary">നൈറ്റ് മോഡ് സജീവം</string>
+    <string name="night_mode_off_summary">നൈറ്റ് മോഡ് നിർജീവം</string>
+
+    <string-array name="snooze_options">
+        <item>10 മിനിറ്റ്</item>
+        <item>30 മിനിറ്റ്</item>
+        <item>1 മണിക്കൂർ</item>
+    </string-array>
+
+    <string name="snooze">സ്‌നൂസ്</string>
+    <string name="remove">കളയുക</string>
+</resources>

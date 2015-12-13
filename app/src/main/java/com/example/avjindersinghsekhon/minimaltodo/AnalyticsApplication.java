@@ -43,7 +43,7 @@ public class AnalyticsApplication extends Application {
         send(screenName, new HitBuilders.ScreenViewBuilder().build());
     }
 
-    public void send(Object screenName, Map<String,String> params) {
+    private void send(Object screenName, Map<String,String> params) {
         if(IS_ENABLED) {
             Tracker tracker = getDefaultTracker();
             tracker.setScreenName(getClassName(screenName));
@@ -58,5 +58,12 @@ public class AnalyticsApplication extends Application {
         }
         return c.getSimpleName();
 
+    }
+    public void send(Object screenName, String category, String action) {
+        send(screenName, new HitBuilders.EventBuilder().setCategory(category).setAction(action).build());
+    }
+
+    public void send(Object screenName, String category, String action, String label) {
+        send(screenName, new HitBuilders.EventBuilder().setCategory(category).setAction(action).setLabel(label).build());
     }
 }

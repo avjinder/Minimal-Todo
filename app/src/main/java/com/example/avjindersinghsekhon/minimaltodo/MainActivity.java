@@ -29,7 +29,6 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.google.android.gms.analytics.HitBuilders;
 
 import org.json.JSONException;
 
@@ -224,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
-                app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("FAB pressed").build());
+                app.send(this, "Action", "FAB pressed");
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
                 ToDoItem item = new ToDoItem("", false, null);
                 int color = ColorGenerator.MATERIAL.getRandomColor();
@@ -443,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemRemoved(final int position) {
             //Remove this line if not using Google Analytics
-            app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("Swiped Todo Away").build());
+            app.send(this, "Action", "Swiped Todo Away");
 
             mJustDeletedToDoItem =  items.remove(position);
             mIndexOfDeletedToDoItem = position;
@@ -459,7 +458,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(View v) {
 
                             //Comment the line below if not using Google Analytics
-                            app.send(this, new HitBuilders.EventBuilder().setCategory("Action").setAction("UNDO Pressed").build());
+                            app.send(this, "Action", "UNDO Pressed");
                             items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
                             if(mJustDeletedToDoItem.getToDoDate()!=null && mJustDeletedToDoItem.hasReminder()){
                                 Intent i = new Intent(MainActivity.this, TodoNotificationService.class);
