@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="about">关于</string>
+    <string name="app_version">版本号：%1$s</string>
+    <string name="action_settings">设置</string>
+    <string name="choose_date">日期</string>
+    <string name="choose_time">时间</string>
+    <string name="contact_me">联系方式</string>
+    <string name="date">日期</string>
+    <string name="date_error_check_again">提醒时间为过去时间</string>
+    <string name="date_reminder_default">今天</string>
+    <string name="done_label">完成</string>
+    <string name="email_address">avisekhon@gmail.com</string>
+    <string name="empty_list_view_add">要新增一条待办，请点击新增按钮</string>
+    <string name="fake_time_list"><i>11 Sept, 12:30 PM</i></string>
+    <string name="hello_world">Hello world!</string>
+    <string name="last_edited"><i>上一次编辑于 %1$s</i></string>
+    <string name="made_by">作者：Avjinder</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="night_mode_off_summary">夜间模式已关闭</string>
+    <string name="night_mode_on_summary">夜间模式已开启</string>
+    <string name="night_mode_pref_key">NightModePreference</string>
+    <string name="example">打扫房间</string>
+    <string name="no_to_dos">当前没有待办事项</string>
+    <string name="remind_date">你将于此时被提醒：</string>
+    <string name="remind_date_and_time">提醒被设置为 %2$s,  %3$s %1$s</string>
+    <string name="remind_me">提醒我</string>
+    <string name="remind_time">于</string>
+    <string name="remove">移除</string>
+    <string name="set_color">设置颜色</string>
+    <string name="snooze">稍后提醒</string>
+    <string name="time">时间</string>
+    <string name="title">待办项目</string>
+    <string name="undo_changes">撤销</string>
+</resources>
