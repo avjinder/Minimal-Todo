@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+
+    <string name="action_settings">设置</string>
+    <string name="no_to_dos">任务都完成啦~</string>
+    <string name="title">标题</string>
+    <string name="remind_me">提醒我</string>
+    <string name="choose_date">日期</string>
+    <string name="choose_time">时间</string>
+    <string name="remind_date_and_time">设置提醒时间为 %1$s, %2$s %3$s</string>
+    <string name="about">关于</string>
+    <string name="app_version">版本号: %1$s</string>
+    <string name="contact_me">联系作者</string>
+    <string name="made_by">由Avjinder开发</string>
+    <string name="done_label">完成</string>
+    <string name="date_reminder_default">今天</string>
+    <string name="date_error_check_again">该提醒时间已设置</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="night_mode_on_summary">夜间模式已开启</string>
+    <string name="night_mode_off_summary">夜间模式已关闭</string>
+
+    <string-array name="snooze_options">
+        <item>10 分钟</item>
+        <item>30 分钟</item>
+        <item>1 小时</item>
+    </string-array>
+
+    <string name="snooze">小睡</string>
+    <string name="remove">移除</string>
+</resources>
