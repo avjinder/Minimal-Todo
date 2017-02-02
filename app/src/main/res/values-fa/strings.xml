@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">کارای کوچولو روزانه</string>
+    <string name="action_settings">تنظیمات</string>
+    <string name="no_to_dos">چیزی ثبت نکردی .</string>
+    <string name="title">عنوان</string>
+    <string name="remind_me">یادآوری کن</string>
+    <string name="choose_date">تاریخ</string>
+    <string name="choose_time">زمان</string>
+    <string name="remind_date_and_time">یاد آوری شد برای %1$s, %2$s %3$s</string>
+    <string name="about">درباره</string>
+    <string name="app_version">نسخه: %1$s</string>
+    <string name="contact_me">میتونید باهام تماس داشته باشید در </string>
+    <string name="made_by">ساخته شده به وسیله Avjinder</string>
+    <string name="done_label">انجام</string>
+    <string name="date_reminder_default">امروز</string>
+    <string name="date_error_check_again">روزی که شما وارد کردید گذشته.</string>
+    <string name="night_mode">حالت شب</string>
+    <string name="night_mode_on_summary">حالت شب فعال شد</string>
+    <string name="night_mode_off_summary">حالت شب غیر فعال شد</string>
+
+    <string-array name="snooze_options">
+        <item>10 دقیقه</item>
+        <item>30 دقیقه</item>
+        <item>1 ساعت</item>
+    </string-array>
+
+    <string name="snooze">چرت میزنم</string>
+    <string name="remove">حذف</string>
+</resources>
