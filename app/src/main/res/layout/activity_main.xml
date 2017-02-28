@@ -5,6 +5,18 @@
     android:gravity="center"
     android:layout_height="match_parent">
 
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:elevation="0dp">
+
+        <include layout="@layout/base_toolbar"/>
+    </android.support.design.widget.AppBarLayout>
+
+
+
     <!--<include layout="@layout/base_toolbar"/>-->
     <android.support.design.widget.CoordinatorLayout
             android:id="@+id/myCoordinatorLayout"
@@ -14,42 +26,38 @@
             >
 
         <LinearLayout
-            android:id="@+id/toDoEmptyView"
+            android:id="@+id/Attachment"
             android:orientation="vertical"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:src="@drawable/empty_view_bg"
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
-            <TextView
-                android:text="@string/no_to_dos"
-                android:textColor="@color/secondary_text"
-                android:textSize="16sp"
-                android:paddingTop="4dp"
-                android:paddingBottom="8dp"
+            <LinearLayout
+                android:id="@+id/toDoEmptyView"
+                android:orientation="vertical"
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent">
 
-        </LinearLayout>
+                <ImageView
+                    android:src="@drawable/empty_view_bg"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+                <TextView
+                    android:text="@string/no_to_dos"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="8dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:elevation="0dp"
-            android:elevation="0dp"
-            >
+            </LinearLayout>
 
-            <include layout="@layout/base_toolbar"/>
-        </android.support.design.widget.AppBarLayout>
-
-            <!--<include layout="@layout/base_toolbar"/>-->
+                <!--<include layout="@layout/base_toolbar"/>-->
 
 
-        <!--</android.support.design.widget.AppBarLayout>-->
+            <!--</android.support.design.widget.AppBarLayout>-->
 
 
             <com.example.avjindersinghsekhon.minimaltodo.RecyclerViewEmptySupport
@@ -58,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
+        </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:src="@drawable/ic_add_white_24dp"
@@ -65,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:layout_anchor="@id/myCoordinatorLayout"
+            app:layout_anchor="@id/Attachment"
             app:layout_anchorGravity="bottom|right|end"
             app:layout_behavior="com.example.avjindersinghsekhon.minimaltodo.ScrollingFABBehaviour"
             />
