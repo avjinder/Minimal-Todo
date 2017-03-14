@@ -545,8 +545,8 @@ public class MainActivity extends AppCompatActivity {
                     timeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_24_HOUR, item.getToDoDate());
                 }
                 else{
-                    timeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_12_HOUR, item.getToDoDate());
-                }
+                    {   timeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_12_HOUR, item.getToDoDate());
+                }}
                 holder.mTimeTextView.setText(timeToShow);
             }
 
