@@ -4,7 +4,9 @@
 
     <uses-permission android:name="ANDROID.PERMISSION.INTERNET"/>
     <uses-permission android:name="ANDROID.PERMISSION.ACCESS_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.STORAGE" />
     <!--We set theme to DarkTheme because when the app opens it shows
     a white screen if our theme here is LightTheme. The screen is shown for
     about 1 second, but it's jarring if users have set Night Mode to true.

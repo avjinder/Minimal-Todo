@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -153,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent i = new Intent(this, TodoNotificationService.class);
                     i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
                     i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
+                    i.putExtra(TodoNotificationService.TODOAUDIO, item.getmAudioLocation());
                     createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
                 }
             }
@@ -225,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 app.send(this, "Action", "FAB pressed");
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
-                ToDoItem item = new ToDoItem("", false, null);
+                ToDoItem item = new ToDoItem("", false, null,null);
                 int color = ColorGenerator.MATERIAL.getRandomColor();
                 item.setTodoColor(color);
                 //noinspection ResourceType
@@ -360,6 +363,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(this, TodoNotificationService.class);
                 i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
                 i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
+                i.putExtra(TodoNotificationService.TODOAUDIO,item.getmAudioLocation());
                 createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
 //                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
             }
@@ -413,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void makeUpItems(ArrayList<ToDoItem> items, int len){
         for (String testString : testStrings) {
-            ToDoItem item = new ToDoItem(testString, false, new Date());
+            ToDoItem item = new ToDoItem(testString, false, new Date(),null);
             //noinspection ResourceType
 //            item.setTodoColor(getResources().getString(R.color.red_secondary));
             items.add(item);
@@ -463,6 +467,7 @@ public class MainActivity extends AppCompatActivity {
                             if(mJustDeletedToDoItem.getToDoDate()!=null && mJustDeletedToDoItem.hasReminder()){
                                 Intent i = new Intent(MainActivity.this, TodoNotificationService.class);
                                 i.putExtra(TodoNotificationService.TODOTEXT, mJustDeletedToDoItem.getToDoText());
+                                i.putExtra(TodoNotificationService.TODOAUDIO, mJustDeletedToDoItem.getmAudioLocation());
                                 i.putExtra(TodoNotificationService.TODOUUID, mJustDeletedToDoItem.getIdentifier());
                                 createAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode(), mJustDeletedToDoItem.getToDoDate().getTime());
                             }
@@ -528,6 +533,12 @@ public class MainActivity extends AppCompatActivity {
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRound(item.getToDoText().substring(0,1),holder.color);
             holder.mColorImageView.setImageDrawable(myDrawable);
+            holder.mColorImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MediaPlayer.create(MainActivity.this, Uri.parse(items.get(position).getmAudioLocation())).start();
+                }
+            });
             if(item.getToDoDate()!=null){
                 String timeToShow;
                 if(android.text.format.DateFormat.is24HourFormat(MainActivity.this)){

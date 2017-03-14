@@ -60,13 +60,12 @@
 
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_weight=".5"
                     android:gravity="center"
                     android:layout_marginTop="32dp"
                     android:layout_marginLeft="42dp"
                     android:layout_marginRight="42dp"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp">
+                    android:layout_height="wrap_content">
 
                     <ImageButton
                         android:layout_weight=".4"
@@ -105,20 +104,18 @@
                 <LinearLayout
                     android:id="@+id/toDoEnterDateLinearLayout"
                     android:animateLayoutChanges="true"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="48dp"
                     android:layout_marginRight="48dp"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:layout_height="0dp">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
 
                         android:layout_width="match_parent"
                         android:gravity="top"
-                        android:layout_weight="1"
-                        android:layout_height="0dp">
+                        android:layout_height="wrap_content">
 
                         <Button
                             android:id="@+id/newToDoChooseDateButton"
@@ -143,18 +140,50 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_weight="2"
                         android:id="@+id/newToDoDateTimeReminderTextView"
                         android:textSize="14sp"
                         android:gravity="start"
                         android:text="@string/remind_date_and_time"
                         android:textColor="@color/secondary_text"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Record" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="STOP" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Play" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="STOP playing Recording" />
             </LinearLayout>
 
         </LinearLayout>
@@ -171,4 +200,5 @@
             android:layout_width="wrap_content"
             />
     </android.support.design.widget.CoordinatorLayout>
+
 </LinearLayout>
