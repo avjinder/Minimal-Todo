@@ -4,7 +4,7 @@
 A fully Material ToDo app with minimal features, just enough to be useful.
 
 
-#Screenshots:
+# Screenshots:
 <img src="/screenshots/main_empty_light.png" height="400px"/>
 <img src="/screenshots/main_empty_dark.png" height="400px"/>
 <img src="/screenshots/main_full_light.png" height="400px"/>
@@ -18,16 +18,16 @@ A fully Material ToDo app with minimal features, just enough to be useful.
 <img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_notification.png" height="400px"/>
 <img src="https://github.com/avjinder/Toodle/blob/master/screenshots/screenshot_todo_snooze.png" height="400px"/>
 
-##Download
+## Download
 <a href="https://play.google.com/store/apps/details?id=com.avjindersinghsekhon.minimaltodo&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1">
 <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" height="50px"/></a>
 
 
 
 
-##App Icon
+## App Icon
 Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
-##Translations
+## Translations
 * Spanish by [nanopc](https://github.com/nanopc) <br>
 * German by [kaiwinter](https://github.com/kaiwinter) <br>
 * Polish by [piotrek1543](https://github.com/piotrek1543) <br>
@@ -35,11 +35,11 @@ Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
 * French by [Nicola Spanti](http://www.nicola-spanti.info/)
 * Bulgarian by [Georgy Hristov](http://www.georgyhristov.xyz/)
 
-##Contributing
+## Contributing
 Looking to contribute something to Minimal? [Here's how you can help](/Contributing.md).
 
 
-#License:
+# License:
 The MIT License (MIT)
 
 Copyright (c) 2015 Avjinder
