@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class ToDoItem implements Serializable{
     private String mToDoText;
+    private String mAudioLocation;
     private boolean mHasReminder;
 //    private Date mLastEdited;
     private int mTodoColor;
@@ -16,22 +17,25 @@ public class ToDoItem implements Serializable{
     private UUID mTodoIdentifier;
     private static final String TODOTEXT = "todotext";
     private static final String TODOREMINDER = "todoreminder";
+    private static final String TODOAUDIO = "todoaudio";
 //    private static final String TODOLASTEDITED = "todolastedited";
     private static final String TODOCOLOR = "todocolor";
     private static final String TODODATE = "tododate";
     private static final String TODOIDENTIFIER = "todoidentifier";
 
 
-    public ToDoItem(String todoBody, boolean hasReminder, Date toDoDate){
+    public ToDoItem(String todoBody, boolean hasReminder, Date toDoDate,String audioLocation){
         mToDoText = todoBody;
         mHasReminder = hasReminder;
         mToDoDate = toDoDate;
         mTodoColor = 1677725;
         mTodoIdentifier = UUID.randomUUID();
+        mAudioLocation=audioLocation;
     }
 
     public ToDoItem(JSONObject jsonObject) throws JSONException{
         mToDoText = jsonObject.getString(TODOTEXT);
+        mAudioLocation=jsonObject.getString(TODOAUDIO);
         mHasReminder = jsonObject.getBoolean(TODOREMINDER);
         mTodoColor = jsonObject.getInt(TODOCOLOR);
         mTodoIdentifier = UUID.fromString(jsonObject.getString(TODOIDENTIFIER));
@@ -44,9 +48,12 @@ public class ToDoItem implements Serializable{
         }
     }
 
+
+
     public JSONObject toJSON() throws JSONException{
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(TODOTEXT, mToDoText);
+        jsonObject.put(TODOAUDIO, mAudioLocation);
         jsonObject.put(TODOREMINDER, mHasReminder);
 //        jsonObject.put(TODOLASTEDITED, mLastEdited.getTime());
         if(mToDoDate!=null){
@@ -60,7 +67,7 @@ public class ToDoItem implements Serializable{
 
 
     public ToDoItem(){
-        this("Clean my room", true, new Date());
+
     }
 
     public String getToDoText() {
@@ -98,6 +105,14 @@ public class ToDoItem implements Serializable{
 
     public UUID getIdentifier(){
         return mTodoIdentifier;
+    }
+
+    public String getmAudioLocation() {
+        return mAudioLocation;
+    }
+
+    public void setmAudioLocation(String mAudioLocation) {
+        this.mAudioLocation = mAudioLocation;
     }
 }
 
