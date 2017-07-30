@@ -11,14 +11,14 @@
     <ImageView
         android:id="@+id/toDoListItemColorImageView"
         android:gravity="center"
-        android:layout_marginLeft="16dp"
         android:layout_width="45dp"
-        android:layout_height="45dp"/>
-
+        android:layout_height="45dp"
+        android:layout_marginLeft="16dp"
+        android:contentDescription="@string/app_name" />
 
     <RelativeLayout
         android:layout_marginLeft="16dp"
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:layout_width="0dp"
         android:gravity="center"
         android:layout_height="?android:attr/listPreferredItemHeight">
@@ -48,5 +48,15 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/toDoListItemDoneImage"
+        android:gravity="center"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_done_white_24dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:contentDescription="@string/app_name"/>
 
 </LinearLayout>

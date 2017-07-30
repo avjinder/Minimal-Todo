@@ -49,7 +49,7 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
             mTestData.add(new ToDoItem(
                     "item" + i,
                     false,
-                    new Date()));
+                    new Date(), false));
         }
     }
 
