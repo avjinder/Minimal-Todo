@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="action_settings">설정</string>
+    <string name="no_to_dos">등록된 할 일이 없습니다.</string>
+    <string name="title">제목</string>
+    <string name="remind_me">알리기</string>
+    <string name="choose_date">날짜</string>
+    <string name="choose_time">시간</string>
+    <string name="remind_date_and_time">알림 설정: %1$s, %2$s %3$s</string>
+    <string name="about">대하여..</string>
+    <string name="app_version">버전: %1$s</string>
+    <string name="contact_me">연락 방법:</string>
+    <string name="made_by">Avjinder 제작</string>
+    <string name="done_label">완료</string>
+    <string name="date_reminder_default">오늘</string>
+    <string name="date_error_check_again">지나간 날짜를 입력했습니다.</string>
+    <string name="night_mode">야간 모드</string>
+    <string name="night_mode_on_summary">야간 모드 켜짐</string>
+    <string name="night_mode_off_summary">야간 모드 꺼짐</string>
+
+    <string-array name="snooze_options">
+        <item>10 분</item>
+        <item>30 분</item>
+        <item>1 시간</item>
+    </string-array>
+
+    <string name="snooze">스누즈</string>
+    <string name="remove">제거</string>
+    <string name="todo_error">할 일을 입력해주세요.</string>
+</resources>
