@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="about">О программе</string>
+    <string name="action_settings">Настройки</string>
+    <string name="app_version">Версия: %1$s</string>
+    <string name="choose_date">Дата</string>
+    <string name="choose_time">Время</string>
+    <string name="contact_me">Вы можете связаться со мной по</string>
+    <string name="date_error_check_again">Вы ввели прошедшую дату</string>
+    <string name="date_reminder_default">Сегодня</string>
+    <string name="done_label">Готово</string>
+    <string name="made_by">Автор: Avjinger</string>
+    <string name="night_mode">Ночной режим</string>
+    <string name="night_mode_off_summary">Ночной режим выключен</string>
+    <string name="night_mode_on_summary">Ночной режим включен</string>
+    <string name="no_to_dos">У вас нет задач</string>
+    <string name="remind_date_and_time">Напоминание установлено на %1$s, %2$s, %3$s</string>
+    <string name="remind_me">Напомнить мне</string>
+    <string name="remove">Удалить</string>
+    <string name="snooze">Отложить</string>
+    <string name="title">Название</string>
+</resources>
