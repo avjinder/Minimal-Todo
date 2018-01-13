@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ToDoItem> mToDoItemsArrayList;
     private CoordinatorLayout mCoordLayout;
     public static final String TODOITEM = "com.avjindersinghsekhon.com.avjindersinghsekhon.minimaltodo.MainActivity";
+    public static final String EDIT_MODE = "editMode";
     private BasicListAdapter adapter;
     private static final int REQUEST_ID_TODO_ITEM = 100;
     private ToDoItem mJustDeletedToDoItem;
@@ -225,12 +226,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 app.send(this, "Action", "FAB pressed");
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
-                ToDoItem item = new ToDoItem("", false, null);
+                ToDoItem item = new ToDoItem("", false, null, false);
                 int color = ColorGenerator.MATERIAL.getRandomColor();
                 item.setTodoColor(color);
                 //noinspection ResourceType
 //                String color = getResources().getString(R.color.primary_ligher);
                 newTodo.putExtra(TODOITEM, item);
+                newTodo.putExtra(EDIT_MODE, false);
 //                View decorView = getWindow().getDecorView();
 //                View navView= decorView.findViewById(android.R.id.navigationBarBackground);
 //                View statusView = decorView.findViewById(android.R.id.statusBarBackground);
@@ -413,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void makeUpItems(ArrayList<ToDoItem> items, int len){
         for (String testString : testStrings) {
-            ToDoItem item = new ToDoItem(testString, false, new Date());
+            ToDoItem item = new ToDoItem(testString, false, new Date(), false);
             //noinspection ResourceType
 //            item.setTodoColor(getResources().getString(R.color.red_secondary));
             items.add(item);
@@ -426,16 +428,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onItemMoved(int fromPosition, int toPosition) {
-           if(fromPosition<toPosition){
-               for(int i=fromPosition; i<toPosition; i++){
-                   Collections.swap(items, i, i+1);
-               }
-           }
+            if(fromPosition<toPosition){
+                for(int i=fromPosition; i<toPosition; i++){
+                    Collections.swap(items, i, i+1);
+                }
+            }
             else{
-               for(int i=fromPosition; i > toPosition; i--){
-                   Collections.swap(items, i, i-1);
-               }
-           }
+                for(int i=fromPosition; i > toPosition; i--){
+                    Collections.swap(items, i, i-1);
+                }
+            }
             notifyItemMoved(fromPosition, toPosition);
         }
 
@@ -509,6 +511,13 @@ public class MainActivity extends AppCompatActivity {
             }
             holder.mToDoTextview.setText(item.getToDoText());
             holder.mToDoTextview.setTextColor(todoTextColor);
+
+            if (item.getDone()){
+                holder.mDoneImage.setColorFilter(item.getTodoColor());
+            }else{
+                holder.mDoneImage.setColorFilter(Color.parseColor("#eff0f1"));
+            }
+
 //            holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRoundRect(item.getToDoText().substring(0,1),Color.RED, 10);
@@ -559,8 +568,9 @@ public class MainActivity extends AppCompatActivity {
             View mView;
             LinearLayout linearLayout;
             TextView mToDoTextview;
-//            TextView mColorTextView;
+            //            TextView mColorTextView;
             ImageView mColorImageView;
+            ImageView mDoneImage;
             TextView mTimeTextView;
 //            int color = -1;
 
@@ -573,6 +583,7 @@ public class MainActivity extends AppCompatActivity {
                         ToDoItem item = items.get(ViewHolder.this.getAdapterPosition());
                         Intent i = new Intent(MainActivity.this, AddToDoActivity.class);
                         i.putExtra(TODOITEM, item);
+                        i.putExtra(EDIT_MODE, true);
                         startActivityForResult(i, REQUEST_ID_TODO_ITEM);
                     }
                 });
@@ -580,6 +591,7 @@ public class MainActivity extends AppCompatActivity {
                 mTimeTextView = (TextView)v.findViewById(R.id.todoListItemTimeTextView);
 //                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
                 mColorImageView = (ImageView)v.findViewById(R.id.toDoListItemColorImageView);
+                mDoneImage = (ImageView)v.findViewById(R.id.toDoListItemDoneImage);
                 linearLayout = (LinearLayout)v.findViewById(R.id.listItemLinearLayout);
             }
 
@@ -639,5 +651,3 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 }
-
-

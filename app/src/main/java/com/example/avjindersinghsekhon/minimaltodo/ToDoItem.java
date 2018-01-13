@@ -10,29 +10,33 @@ import java.util.UUID;
 public class ToDoItem implements Serializable{
     private String mToDoText;
     private boolean mHasReminder;
-//    private Date mLastEdited;
+    //    private Date mLastEdited;
     private int mTodoColor;
     private Date mToDoDate;
     private UUID mTodoIdentifier;
+    private boolean mTodoDone;
     private static final String TODOTEXT = "todotext";
     private static final String TODOREMINDER = "todoreminder";
-//    private static final String TODOLASTEDITED = "todolastedited";
+    //    private static final String TODOLASTEDITED = "todolastedited";
     private static final String TODOCOLOR = "todocolor";
     private static final String TODODATE = "tododate";
+    private static final String TODODONE = "tododone";
     private static final String TODOIDENTIFIER = "todoidentifier";
 
 
-    public ToDoItem(String todoBody, boolean hasReminder, Date toDoDate){
+    public ToDoItem(String todoBody, boolean hasReminder, Date toDoDate, boolean done){
         mToDoText = todoBody;
         mHasReminder = hasReminder;
         mToDoDate = toDoDate;
         mTodoColor = 1677725;
+        mTodoDone = done;
         mTodoIdentifier = UUID.randomUUID();
     }
 
     public ToDoItem(JSONObject jsonObject) throws JSONException{
         mToDoText = jsonObject.getString(TODOTEXT);
         mHasReminder = jsonObject.getBoolean(TODOREMINDER);
+        mTodoDone = jsonObject.getBoolean(TODODONE);
         mTodoColor = jsonObject.getInt(TODOCOLOR);
         mTodoIdentifier = UUID.fromString(jsonObject.getString(TODOIDENTIFIER));
 
@@ -53,6 +57,7 @@ public class ToDoItem implements Serializable{
             jsonObject.put(TODODATE, mToDoDate.getTime());
         }
         jsonObject.put(TODOCOLOR, mTodoColor);
+        jsonObject.put(TODODONE, mTodoDone);
         jsonObject.put(TODOIDENTIFIER, mTodoIdentifier.toString());
 
         return jsonObject;
@@ -60,7 +65,7 @@ public class ToDoItem implements Serializable{
 
 
     public ToDoItem(){
-        this("Clean my room", true, new Date());
+        this("Clean my room", true, new Date(), false);
     }
 
     public String getToDoText() {
@@ -95,6 +100,9 @@ public class ToDoItem implements Serializable{
         this.mToDoDate = mToDoDate;
     }
 
+    public boolean getDone() {return mTodoDone;}
+
+    public void setDone(boolean mDone){this.mTodoDone = mDone;}
 
     public UUID getIdentifier(){
         return mTodoIdentifier;

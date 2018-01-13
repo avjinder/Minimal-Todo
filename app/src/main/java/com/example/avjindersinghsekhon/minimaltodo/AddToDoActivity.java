@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
@@ -38,7 +39,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private SwitchCompat mToDoDateSwitch;
-//    private TextView mLastSeenTextView;
+    //    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
 
@@ -51,6 +52,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     private Button mChooseTimeButton;
     private ToDoItem mUserToDoItem;
     private FloatingActionButton mToDoSendFloatingActionButton;
+    private FloatingActionButton mToDoDoneFloatingActionButton;
     public static final String DATE_FORMAT = "MMM d, yyyy";
     public static final String DATE_FORMAT_MONTH_DAY = "MMM d";
     public static final String DATE_FORMAT_TIME = "H:m";
@@ -60,6 +62,8 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     private Toolbar mToolbar;
     private Date mUserReminderDate;
     private int mUserColor;
+    private boolean mUserDone;
+    private boolean editMode;
     private boolean setDateButtonClickedOnce = false;
     private boolean setTimeButtonClickedOnce = false;
     private LinearLayout mContainerLayout;
@@ -115,12 +119,13 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
 
         mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
+        editMode = (boolean)getIntent().getSerializableExtra(MainActivity.EDIT_MODE);
 
         mUserEnteredText = mUserToDoItem.getToDoText();
         mUserHasReminder = mUserToDoItem.hasReminder();
         mUserReminderDate = mUserToDoItem.getToDoDate();
         mUserColor = mUserToDoItem.getTodoColor();
-
+        mUserDone = mUserToDoItem.getDone();
 
 //        if(mUserToDoItem.getLastEdited()==null) {
 //            mLastEdited = new Date();
@@ -144,7 +149,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
 //        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
+        mToDoDoneFloatingActionButton = (FloatingActionButton)findViewById(R.id.doneToDoFloatingActionButton);
         mReminderTextView = (TextView)findViewById(R.id.newToDoDateTimeReminderTextView);
+
+        if (editMode){
+            mToDoDoneFloatingActionButton.setVisibility(View.VISIBLE);
+        }else{
+            mToDoDoneFloatingActionButton.setVisibility(View.GONE);
+        }
 
 
         mContainerLayout.setOnClickListener(new View.OnClickListener() {
@@ -225,7 +237,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mToDoSendFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if (mToDoTextBodyEditText.length() <= 0){
+                if (mToDoTextBodyEditText.length() <= 0){
                     mToDoTextBodyEditText.setError(getString(R.string.todo_error));
                 }
                 else if(mUserReminderDate!=null && mUserReminderDate.before(new Date())){
@@ -238,6 +250,17 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
                     finish();
                 }
                 hideKeyboard(mToDoTextBodyEditText);
+            }
+        });
+
+        mToDoDoneFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUserDone = true;
+                app.send(this, "Action", "Make Todo");
+                makeResult(RESULT_OK);
+                hideKeyboard(mToDoTextBodyEditText);
+                finish();
             }
         });
 
@@ -444,7 +467,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
         Calendar reminderCalendar = Calendar.getInstance();
         reminderCalendar.set(year, month, day);
-        
+
         if(reminderCalendar.before(calendar)){
             Toast.makeText(this, "My time-machine is a bit rusty", Toast.LENGTH_SHORT).show();
             return;
@@ -560,6 +583,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mUserToDoItem.setHasReminder(mUserHasReminder);
         mUserToDoItem.setToDoDate(mUserReminderDate);
         mUserToDoItem.setTodoColor(mUserColor);
+        mUserToDoItem.setDone(mUserDone);
         i.putExtra(MainActivity.TODOITEM, mUserToDoItem);
         setResult(result, i);
     }

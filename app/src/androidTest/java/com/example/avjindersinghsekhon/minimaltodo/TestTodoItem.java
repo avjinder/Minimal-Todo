@@ -38,6 +38,7 @@ public class TestTodoItem extends TestCase {
     private final String TEXT_BODY = "This is some text";
     private final boolean REMINDER_OFF = false;
     private final boolean REMINDER_ON = true;
+    private final boolean DONE = true;
 
      /**
       * Check we can construct a ToDoItem object using the three parameter constructor
@@ -86,6 +87,6 @@ public class TestTodoItem extends TestCase {
     }
 
     private ToDoItem getToDoItem(boolean hasReminder) {
-        return new ToDoItem(TEXT_BODY, hasReminder, CURRENT_DATE);
+        return new ToDoItem(TEXT_BODY, hasReminder, CURRENT_DATE, DONE);
     }
 }
