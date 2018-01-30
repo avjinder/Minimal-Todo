@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="about">Hakkında</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="app_version">Versiyon: %1$s</string>
+    <string name="choose_date">Tarih</string>
+    <string name="choose_time">Saat</string>
+    <string name="contact_me">İletişim</string>
+    <string name="date_error_check_again">Girdiğiniz tarih geçmiştedir.</string>
+    <string name="date_reminder_default">Bugün</string>
+    <string name="done_label">Tamamlandı.</string>
+    <string name="made_by">Geliştiren: Avjinder</string>
+    <string name="night_mode">Gece Modu</string>
+    <string name="night_mode_off_summary">Gece modu kapalı</string>
+    <string name="night_mode_on_summary">Gece modu açık</string>
+    <string name="no_to_dos">Herhangi bir planınız yok</string>
+    <string name="remind_date_and_time">Hatırlatıcı kuruldu %1$s, %2$s %3$s</string>
+    <string name="remind_me">Hatırlat</string>
+    <string name="remove">Çıkar</string>
+    <string name="snooze">Ertele</string>
+    <string name="title">Başlık</string>
+</resources>
