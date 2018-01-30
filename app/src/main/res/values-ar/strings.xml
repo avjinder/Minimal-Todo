@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="no_to_dos">ليس لديك أي عناصر</string>
+    <string name="title">العنوان</string>
+    <string name="remind_me">ذكرني</string>
+    <string name="choose_date">التاريخ</string>
+    <string name="choose_time">الوقت</string>
+    <string name="remind_date_and_time">سيتم تذكيرك في %1$s, %2$s %3$s</string>
+    <string name="about">عن التطبيق</string>
+    <string name="app_version">الإصدار %1$s</string>
+    <string name="contact_me">يمكنك التواصل معي علي</string>
+    <string name="made_by">تم تطويره بواسطة Avjinder</string>
+    <string name="done_label">تم</string>
+    <string name="date_reminder_default">اليوم</string>
+    <string name="date_error_check_again">لقد أدخلت تاريخ في الماضي</string>
+    <string name="night_mode">الوضع الليلي</string>
+    <string name="night_mode_on_summary">الوضع الليلي يعمل</string>
+    <string name="night_mode_off_summary">الوضع الليلي متوقف</string>
+
+    <string-array name="snooze_options">
+        <item>١٠ دقائق</item>
+        <item>٣٠ دقيقة</item>
+        <item>ساعة</item>
+    </string-array>
+
+    <string name="snooze">غفوة</string>
+    <string name="remove">حذف</string>
+    <string name="todo_error">من فضلك ادخل عنصر</string>
+</resources>
