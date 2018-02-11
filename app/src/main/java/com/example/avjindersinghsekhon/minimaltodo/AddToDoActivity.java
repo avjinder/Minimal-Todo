@@ -38,7 +38,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private SwitchCompat mToDoDateSwitch;
-//    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
 
