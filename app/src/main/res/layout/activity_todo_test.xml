@@ -58,6 +58,16 @@
                 android:orientation="vertical"
                 android:layout_height="0dp">
 
+                <EditText
+                    android:id="@+id/userToDoDescription"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:gravity="top|left"
+                    android:maxLines="10"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:scrollbars="vertical"
+                    />
 
                 <LinearLayout
                     android:orientation="horizontal"

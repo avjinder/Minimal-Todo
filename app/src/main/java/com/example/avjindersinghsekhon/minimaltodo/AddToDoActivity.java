@@ -37,6 +37,7 @@ import java.util.Date;
 public class AddToDoActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
+    private EditText mToDoTextDescription;
     private SwitchCompat mToDoDateSwitch;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
@@ -55,6 +56,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     public static final String DATE_FORMAT_TIME = "H:m";
 
     private String mUserEnteredText;
+    private String mUserEnteredDescription;
     private boolean mUserHasReminder;
     private Toolbar mToolbar;
     private Date mUserReminderDate;
@@ -116,6 +118,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
 
         mUserEnteredText = mUserToDoItem.getToDoText();
+        mUserEnteredDescription = mUserToDoItem.getToDoDescription();
         mUserHasReminder = mUserToDoItem.hasReminder();
         mUserReminderDate = mUserToDoItem.getToDoDate();
         mUserColor = mUserToDoItem.getTodoColor();
@@ -140,6 +143,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mContainerLayout = (LinearLayout)findViewById(R.id.todoReminderAndDateContainerLayout);
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
+        mToDoTextDescription = (EditText) findViewById(R.id.userToDoDescription);
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
 //        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
@@ -150,6 +154,13 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             @Override
             public void onClick(View v) {
                 hideKeyboard(mToDoTextBodyEditText);
+            }
+        });
+
+        mContainerLayout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                hideKeyboard(mToDoTextDescription);
             }
         });
 
@@ -168,6 +179,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 //        til.requestFocus();
         mToDoTextBodyEditText.requestFocus();
         mToDoTextBodyEditText.setText(mUserEnteredText);
+        mToDoTextDescription.setText(mUserEnteredDescription);
         InputMethodManager imm = (InputMethodManager)this.getSystemService(INPUT_METHOD_SERVICE);
 //        imm.showSoftInput(mToDoTextBodyEditText, InputMethodManager.SHOW_IMPLICIT);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -184,6 +196,23 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mUserEnteredText = s.toString();
 
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mToDoTextDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mUserEnteredDescription = s.toString();
             }
 
             @Override
@@ -358,6 +387,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 //                timePickerDialog.show(getFragmentManager(), "TimeFragment");
 //            }
 //        });
+
+    }
+
+    private void setTodoTextDescription(){
 
     }
 
@@ -549,6 +582,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         else{
             mUserToDoItem.setToDoText(mUserEnteredText);
         }
+        if(mUserEnteredDescription.length()>0){
+            String capitalizedString = Character.toUpperCase(mUserEnteredDescription.charAt(0)) + mUserEnteredDescription.substring(1);
+            mUserToDoItem.setToDoDescription(capitalizedString);
+        }
+        else{
+            mUserToDoItem.setToDoText(mUserEnteredDescription);
+        }
+
 //        mUserToDoItem.setLastEdited(mLastEdited);
         if(mUserReminderDate!=null){
             Calendar calendar = Calendar.getInstance();
@@ -582,12 +623,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 hideKeyboard(mToDoTextBodyEditText);
+                //TODO: add it for description
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     public static String formatDate(String formatString, Date dateToFormat){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatString);

@@ -75,11 +75,11 @@ public class ToDoItem implements Serializable{
         this.mToDoText = mToDoText;
     }
 
-    public String getmToDoDescription() {
+    public String getToDoDescription() {
         return mToDoDescription;
     }
 
-    public void setmToDoDescription(String mToDoDescription) {
+    public void setToDoDescription(String mToDoDescription) {
         this.mToDoDescription = mToDoDescription;
     }
 
