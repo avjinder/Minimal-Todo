@@ -593,14 +593,14 @@ public class MainActivity extends AppCompatActivity {
 //        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
 //    }
 
-    private void saveDate(){
-        try {
-            storeRetrieveData.saveToFile(mToDoItemsArrayList);
-        } catch (JSONException | IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+//    private void saveDate(){
+//        try {
+//            storeRetrieveData.saveToFile(mToDoItemsArrayList);
+//        } catch (JSONException | IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     @Override
     protected void onPause() {
