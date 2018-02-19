@@ -23,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private EditText mToDoTextDescription;
+    private SeekBar mPriority;
+    private TextView mPriorityText;
     private SwitchCompat mToDoDateSwitch;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
@@ -57,6 +60,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
     private String mUserEnteredText;
     private String mUserEnteredDescription;
+    private ToDoItem.PriorityType mUserPriority;
     private boolean mUserHasReminder;
     private Toolbar mToolbar;
     private Date mUserReminderDate;
@@ -119,6 +123,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
         mUserEnteredText = mUserToDoItem.getToDoText();
         mUserEnteredDescription = mUserToDoItem.getToDoDescription();
+        mUserPriority = mUserToDoItem.getPriority();
         mUserHasReminder = mUserToDoItem.hasReminder();
         mUserReminderDate = mUserToDoItem.getToDoDate();
         mUserColor = mUserToDoItem.getTodoColor();
@@ -144,6 +149,8 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
         mToDoTextDescription = (EditText) findViewById(R.id.userToDoDescription);
+        mPriority = (SeekBar) findViewById(R.id.priority_level);
+        mPriorityText = (TextView) findViewById(R.id.priority_text);
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
 //        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
@@ -180,6 +187,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mToDoTextBodyEditText.requestFocus();
         mToDoTextBodyEditText.setText(mUserEnteredText);
         mToDoTextDescription.setText(mUserEnteredDescription);
+        mPriority.setProgress(mUserPriority.ordinal());
         InputMethodManager imm = (InputMethodManager)this.getSystemService(INPUT_METHOD_SERVICE);
 //        imm.showSoftInput(mToDoTextBodyEditText, InputMethodManager.SHOW_IMPLICIT);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -217,6 +225,33 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
             @Override
             public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mPriority.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                switch (progress){
+                    case 0:
+                        mUserPriority = ToDoItem.PriorityType.LOW;
+                        break;
+                    case 1:
+                        mUserPriority = ToDoItem.PriorityType.MEDIUM;
+                        break;
+                    case 2:
+                        mUserPriority = ToDoItem.PriorityType.HIGH;
+                }
+                mUserToDoItem.setPriority(mUserPriority);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
@@ -390,9 +425,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
     }
 
-    private void setTodoTextDescription(){
-
-    }
 
     private void setDateAndTimeEditText(){
 

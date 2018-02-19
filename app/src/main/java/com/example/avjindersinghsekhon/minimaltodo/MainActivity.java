@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 app.send(this, "Action", "FAB pressed");
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
-                ToDoItem item = new ToDoItem("", "", false, null);
+                ToDoItem item = new ToDoItem("", "", ToDoItem.PriorityType.LOW, false, null);
                 int color = ColorGenerator.MATERIAL.getRandomColor();
                 item.setTodoColor(color);
                 //noinspection ResourceType
@@ -411,15 +411,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void makeUpItems(ArrayList<ToDoItem> items, int len){
-        for (String testString : testStrings) {
-            ToDoItem item = new ToDoItem(testString, testString, false, new Date());
-            //noinspection ResourceType
+//    public void makeUpItems(ArrayList<ToDoItem> items, int len){
+//        for (String testString : testStrings) {
+//            ToDoItem item = new ToDoItem(testString, testString, testString, false, new Date());
+//            //noinspection ResourceType
 //            item.setTodoColor(getResources().getString(R.color.red_secondary));
-            items.add(item);
-        }
-
-    }
+//            items.add(item);
+//        }
+//
+//    }
 
     public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter{
         private ArrayList<ToDoItem> items;
