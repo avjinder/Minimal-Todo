@@ -520,6 +520,7 @@ public class MainActivity extends AppCompatActivity {
             }
             holder.mToDoTextview.setText(item.getToDoText());
             holder.mToDoTextview.setTextColor(todoTextColor);
+            holder.mPriority.setText(item.getPriority().toString().toLowerCase());
 //            holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRoundRect(item.getToDoText().substring(0,1),Color.RED, 10);
@@ -573,6 +574,7 @@ public class MainActivity extends AppCompatActivity {
 //            TextView mColorTextView;
             ImageView mColorImageView;
             TextView mTimeTextView;
+            TextView mPriority;
 //            int color = -1;
 
             public ViewHolder(View v){
@@ -589,6 +591,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 mToDoTextview = (TextView)v.findViewById(R.id.toDoListItemTextview);
                 mTimeTextView = (TextView)v.findViewById(R.id.todoListItemTimeTextView);
+                mPriority = (TextView)v.findViewById(R.id.todoListItemPriorityText);
 //                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
                 mColorImageView = (ImageView)v.findViewById(R.id.toDoListItemColorImageView);
                 linearLayout = (LinearLayout)v.findViewById(R.id.listItemLinearLayout);
