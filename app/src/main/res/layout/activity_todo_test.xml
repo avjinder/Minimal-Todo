@@ -63,9 +63,9 @@
                     android:id="@+id/userToDoDescription"
                     android:hint="@string/add_note"
                     android:inputType="textMultiLine"
-                    android:lines="5"
+                    android:lines="3"
                     android:gravity="top|left"
-                    android:maxLines="10"
+                    android:maxLines="7"
                     android:layout_marginRight="32dp"
                     android:layout_marginLeft="32dp"
                     android:layout_height="wrap_content"
@@ -77,7 +77,43 @@
                     android:orientation="horizontal"
                     android:layout_weight=".5"
                     android:gravity="center"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="36dp"
+                    android:layout_marginRight="36dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+
+                    <TextView
+                        android:id="@+id/priority_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="start"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="8dp"
+                        android:text="@string/priority"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/priority_level"
+                        android:max="2"
+                        android:layout_gravity="center"
+                        android:paddingRight="8dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:layout_marginTop="25dp"
                     android:layout_marginLeft="36dp"
                     android:layout_marginRight="36dp"
                     android:layout_width="match_parent"
@@ -115,38 +151,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_weight=".5"
-                    android:gravity="center"
-                    android:layout_marginLeft="36dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp">
-
-
-                    <TextView
-                        android:id="@+id/priority_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:paddingTop="8dp"
-                        android:text="@string/priority"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16sp" />
-
-                    <SeekBar
-                        android:id="@+id/priority_level"
-                        android:max="2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center" />
                 </LinearLayout>
 
                 <LinearLayout
