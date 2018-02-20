@@ -23,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +38,10 @@ import java.util.Date;
 public class AddToDoActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
+    private EditText mToDoTextDescription;
+    private SeekBar mPriority;
+    private TextView mPriorityText;
     private SwitchCompat mToDoDateSwitch;
-//    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
 
@@ -56,6 +59,8 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     public static final String DATE_FORMAT_TIME = "H:m";
 
     private String mUserEnteredText;
+    private String mUserEnteredDescription;
+    private ToDoItem.PriorityType mUserPriority;
     private boolean mUserHasReminder;
     private Toolbar mToolbar;
     private Date mUserReminderDate;
@@ -117,6 +122,8 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
 
         mUserEnteredText = mUserToDoItem.getToDoText();
+        mUserEnteredDescription = mUserToDoItem.getToDoDescription();
+        mUserPriority = mUserToDoItem.getPriority();
         mUserHasReminder = mUserToDoItem.hasReminder();
         mUserReminderDate = mUserToDoItem.getToDoDate();
         mUserColor = mUserToDoItem.getTodoColor();
@@ -141,6 +148,9 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mContainerLayout = (LinearLayout)findViewById(R.id.todoReminderAndDateContainerLayout);
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
+        mToDoTextDescription = (EditText) findViewById(R.id.userToDoDescription);
+        mPriority = (SeekBar) findViewById(R.id.priority_level);
+        mPriorityText = (TextView) findViewById(R.id.priority_text);
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
 //        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
@@ -151,6 +161,13 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             @Override
             public void onClick(View v) {
                 hideKeyboard(mToDoTextBodyEditText);
+            }
+        });
+
+        mContainerLayout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                hideKeyboard(mToDoTextDescription);
             }
         });
 
@@ -169,6 +186,8 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 //        til.requestFocus();
         mToDoTextBodyEditText.requestFocus();
         mToDoTextBodyEditText.setText(mUserEnteredText);
+        mToDoTextDescription.setText(mUserEnteredDescription);
+        mPriority.setProgress(mUserPriority.ordinal());
         InputMethodManager imm = (InputMethodManager)this.getSystemService(INPUT_METHOD_SERVICE);
 //        imm.showSoftInput(mToDoTextBodyEditText, InputMethodManager.SHOW_IMPLICIT);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -189,6 +208,50 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
             @Override
             public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mToDoTextDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mUserEnteredDescription = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mPriority.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                switch (progress){
+                    case 0:
+                        mUserPriority = ToDoItem.PriorityType.LOW;
+                        break;
+                    case 1:
+                        mUserPriority = ToDoItem.PriorityType.MEDIUM;
+                        break;
+                    case 2:
+                        mUserPriority = ToDoItem.PriorityType.HIGH;
+                }
+                mUserToDoItem.setPriority(mUserPriority);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
@@ -361,6 +424,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 //        });
 
     }
+
 
     private void setDateAndTimeEditText(){
 
@@ -550,6 +614,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         else{
             mUserToDoItem.setToDoText(mUserEnteredText);
         }
+        if(mUserEnteredDescription.length()>0){
+            String capitalizedString = Character.toUpperCase(mUserEnteredDescription.charAt(0)) + mUserEnteredDescription.substring(1);
+            mUserToDoItem.setToDoDescription(capitalizedString);
+        }
+        else{
+            mUserToDoItem.setToDoText(mUserEnteredDescription);
+        }
+
 //        mUserToDoItem.setLastEdited(mLastEdited);
         if(mUserReminderDate!=null){
             Calendar calendar = Calendar.getInstance();
@@ -583,12 +655,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 hideKeyboard(mToDoTextBodyEditText);
+                //TODO: add it for description
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     public static String formatDate(String formatString, Date dateToFormat){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatString);

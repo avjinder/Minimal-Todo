@@ -28,4 +28,6 @@
     <string name="snooze">Snooze</string>
     <string name="remove">Remove</string>
     <string name="todo_error">Please enter a Todo</string>
+    <string name="priority">Priority</string>
+    <string name="add_note">Add note</string>
 </resources>
