@@ -341,7 +341,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-
+            case R.id.sort_title:
+                Collections.sort(mToDoItemsArrayList, new TitleComparator());
+                adapter.notifyDataSetChanged();
+                return true;
+            case R.id.sort_priority:
+                Collections.sort(mToDoItemsArrayList, new PriorityComparator());
+                adapter.notifyDataSetChanged();
+                return true;
+            case R.id.sort_date:
+                Collections.sort(mToDoItemsArrayList, new DateComparator());
+                adapter.notifyDataSetChanged();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

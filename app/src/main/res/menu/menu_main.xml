@@ -11,6 +11,18 @@
         />
 
     <item
+        android:id="@+id/sort_priority"
+        android:title="@string/sort_by_priority"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/sort_date"
+        android:title="@string/sort_by_date"
+        app:showAsAction="never"
+        />
+
+    <item
         android:id="@+id/preferences"
         android:title="@string/action_settings"
         app:showAsAction="never"

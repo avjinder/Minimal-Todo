@@ -31,4 +31,6 @@
     <string name="priority">Priority</string>
     <string name="add_note">Add note</string>
     <string name="sort_by_title">Sort by Title</string>
+    <string name="sort_by_priority">Sort by Priority</string>
+    <string name="sort_by_date">Sort by Date</string>
 </resources>

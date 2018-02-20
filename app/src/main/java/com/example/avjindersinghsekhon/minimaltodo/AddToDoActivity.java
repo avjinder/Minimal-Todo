@@ -655,7 +655,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 hideKeyboard(mToDoTextBodyEditText);
-                //TODO: add it for description
                 return true;
 
             default:
