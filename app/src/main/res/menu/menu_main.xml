@@ -4,7 +4,11 @@
     tools:context=".AddToDoActivity">
 
 
-
+    <item
+        android:id="@+id/sort_title"
+        android:title="@string/sort_by_title"
+        app:showAsAction="never"
+        />
 
     <item
         android:id="@+id/preferences"

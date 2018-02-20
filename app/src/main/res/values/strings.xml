@@ -30,4 +30,5 @@
     <string name="todo_error">Please enter a Todo</string>
     <string name="priority">Priority</string>
     <string name="add_note">Add note</string>
+    <string name="sort_by_title">Sort by Title</string>
 </resources>
