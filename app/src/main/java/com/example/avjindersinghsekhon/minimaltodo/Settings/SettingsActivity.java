@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.Settings;
 
 import android.app.FragmentManager;
 import android.graphics.Color;
@@ -9,6 +9,10 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
+import com.example.avjindersinghsekhon.minimaltodo.R;
 
 public class SettingsActivity extends AppCompatActivity{
 

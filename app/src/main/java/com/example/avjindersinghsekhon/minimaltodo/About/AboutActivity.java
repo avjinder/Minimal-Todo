@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.About;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -14,7 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
+import com.example.avjindersinghsekhon.minimaltodo.R;
+
 public class AboutActivity extends AppCompatActivity {
+
     private TextView mVersionTextView;
     private String appVersion = "0.1";
     private Toolbar toolbar;

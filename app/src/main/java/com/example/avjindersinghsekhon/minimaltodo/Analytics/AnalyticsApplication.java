@@ -1,8 +1,9 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.Analytics;
 
 import android.app.Application;
 import android.content.pm.PackageManager;
 
+import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;

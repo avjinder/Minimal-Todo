@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.Main;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -29,6 +29,17 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.example.avjindersinghsekhon.minimaltodo.About.AboutActivity;
+import com.example.avjindersinghsekhon.minimaltodo.AddToDo.AddToDoActivity;
+import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.ItemTouchHelperClass;
+import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.RecyclerViewEmptySupport;
+import com.example.avjindersinghsekhon.minimaltodo.Reminder.ReminderActivity;
+import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.TodoNotificationService;
 
 import org.json.JSONException;
 

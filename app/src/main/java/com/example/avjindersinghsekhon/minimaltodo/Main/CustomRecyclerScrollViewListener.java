@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.Main;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;

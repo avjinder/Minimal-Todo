@@ -1,7 +1,9 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.Utility;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+
+import com.example.avjindersinghsekhon.minimaltodo.R;
 
 
 public class Utils {
