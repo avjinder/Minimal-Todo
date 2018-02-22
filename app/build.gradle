@@ -10,8 +10,8 @@ android {
             storePassword ''
         }
     }
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 25
+    buildToolsVersion '27.0.1'
     defaultConfig {
         applicationId "com.avjindersinghsekhon.minimaltodo"
         minSdkVersion 16
@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.android.gms:play-services-analytics:7.8.0'
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
     compile 'com.github.ganfra:material-spinner:1.1.0'

@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 app.send(this, "Action", "FAB pressed");
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
-                ToDoItem item = new ToDoItem("", false, null);
+                ToDoItem item = new ToDoItem("", "", ToDoItem.PriorityType.LOW, false, null);
                 int color = ColorGenerator.MATERIAL.getRandomColor();
                 item.setTodoColor(color);
                 //noinspection ResourceType
@@ -341,7 +341,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-
+            case R.id.sort_title:
+                Collections.sort(mToDoItemsArrayList, new TitleComparator());
+                adapter.notifyDataSetChanged();
+                return true;
+            case R.id.sort_priority:
+                Collections.sort(mToDoItemsArrayList, new PriorityComparator());
+                adapter.notifyDataSetChanged();
+                return true;
+            case R.id.sort_date:
+                Collections.sort(mToDoItemsArrayList, new DateComparator());
+                adapter.notifyDataSetChanged();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -411,15 +422,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void makeUpItems(ArrayList<ToDoItem> items, int len){
-        for (String testString : testStrings) {
-            ToDoItem item = new ToDoItem(testString, false, new Date());
-            //noinspection ResourceType
+//    public void makeUpItems(ArrayList<ToDoItem> items, int len){
+//        for (String testString : testStrings) {
+//            ToDoItem item = new ToDoItem(testString, testString, testString, false, new Date());
+//            //noinspection ResourceType
 //            item.setTodoColor(getResources().getString(R.color.red_secondary));
-            items.add(item);
-        }
-
-    }
+//            items.add(item);
+//        }
+//
+//    }
 
     public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter{
         private ArrayList<ToDoItem> items;
@@ -509,6 +520,7 @@ public class MainActivity extends AppCompatActivity {
             }
             holder.mToDoTextview.setText(item.getToDoText());
             holder.mToDoTextview.setTextColor(todoTextColor);
+            holder.mPriority.setText(item.getPriority().toString().toLowerCase());
 //            holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRoundRect(item.getToDoText().substring(0,1),Color.RED, 10);
@@ -562,6 +574,7 @@ public class MainActivity extends AppCompatActivity {
 //            TextView mColorTextView;
             ImageView mColorImageView;
             TextView mTimeTextView;
+            TextView mPriority;
 //            int color = -1;
 
             public ViewHolder(View v){
@@ -578,6 +591,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 mToDoTextview = (TextView)v.findViewById(R.id.toDoListItemTextview);
                 mTimeTextView = (TextView)v.findViewById(R.id.todoListItemTimeTextView);
+                mPriority = (TextView)v.findViewById(R.id.todoListItemPriorityText);
 //                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
                 mColorImageView = (ImageView)v.findViewById(R.id.toDoListItemColorImageView);
                 linearLayout = (LinearLayout)v.findViewById(R.id.listItemLinearLayout);
@@ -593,14 +607,14 @@ public class MainActivity extends AppCompatActivity {
 //        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
 //    }
 
-    private void saveDate(){
-        try {
-            storeRetrieveData.saveToFile(mToDoItemsArrayList);
-        } catch (JSONException | IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+//    private void saveDate(){
+//        try {
+//            storeRetrieveData.saveToFile(mToDoItemsArrayList);
+//        } catch (JSONException | IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     @Override
     protected void onPause() {
