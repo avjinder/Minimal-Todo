@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Payak</string>
+    <string name="action_settings">Tagpo</string>
+    <string name="no_to_dos">Walang mga gawain</string>
+    <string name="title">Pamagat</string>
+    <string name="remind_me">Ipaalala mo sa akin</string>
+    <string name="choose_date">Petsa</string>
+    <string name="choose_time">Oras</string>
+    <string name="remind_date_and_time">Itakda ang paalala sa %1$s, %2$s %3$s</string>
+    <string name="about">Tungkol</string>
+    <string name="app_version">Bersyon: %1$s</string>
+    <string name="contact_me">Maaari kang makipag-ugnay sa akin sa</string>
+    <string name="made_by">Gawa ni Avjinder</string>
+    <string name="done_label">Tapos na</string>
+    <string name="date_reminder_default">Ngayong araw</string>
+    <string name="date_error_check_again">Ang petsa na iyong ipinasok ay tapos na.</string>
+    <string name="night_mode">Mode na Panggabi</string>
+    <string name="night_mode_on_summary">Mode na Panggabi ay naka on</string>
+    <string name="night_mode_off_summary">Mode na Panggabi ay naka off</string>
+    <string name="snooze">Hilik</string>
+    <string name="remove">Tanggalin</string>
+    <string name="todo_error">Magpasok ng gawain</string>
+</resources>
