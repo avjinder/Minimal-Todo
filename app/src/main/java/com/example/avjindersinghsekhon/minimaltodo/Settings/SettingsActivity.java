@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
-import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 
 public class SettingsActivity extends AppCompatActivity{
@@ -27,8 +27,8 @@ public class SettingsActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
 
         app = (AnalyticsApplication)getApplication();
-        String theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
-        if(theme.equals(MainActivity.LIGHTTHEME)){
+        String theme = getSharedPreferences(MainFragment.THEME_PREFERENCES, MODE_PRIVATE).getString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);
+        if(theme.equals(MainFragment.LIGHTTHEME)){
             setTheme(R.style.CustomStyle_LightTheme);
         }
         else{

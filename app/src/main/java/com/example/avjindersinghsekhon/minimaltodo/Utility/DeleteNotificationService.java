@@ -4,10 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
-import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
-import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
-import com.example.avjindersinghsekhon.minimaltodo.Utility.TodoNotificationService;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -24,7 +21,7 @@ public class DeleteNotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        storeRetrieveData = new StoreRetrieveData(this, MainActivity.FILENAME);
+        storeRetrieveData = new StoreRetrieveData(this, MainFragment.FILENAME);
         UUID todoID = (UUID)intent.getSerializableExtra(TodoNotificationService.TODOUUID);
 
         mToDoItems = loadData();
@@ -47,9 +44,9 @@ public class DeleteNotificationService extends IntentService {
     }
 
     private void dataChanged(){
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(MainFragment.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(MainActivity.CHANGE_OCCURED, true);
+        editor.putBoolean(MainFragment.CHANGE_OCCURED, true);
         editor.apply();
     }
 
