@@ -11,21 +11,22 @@
         android:src="@mipmap/ic_launcher"
         android:layout_marginTop="50dp"
         android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"/>
 
     <TextView
         android:text="@string/app_name"
         android:gravity="center"
         android:textSize="24sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/aboutVersionTextView"
         android:text="@string/app_version"
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:textSize="20sp"
@@ -33,7 +34,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/made_by"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:textSize="16sp"
@@ -41,7 +42,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/contact_me"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:textSize="16sp"
@@ -52,6 +53,6 @@
         android:linksClickable="true"
         android:text="@string/email_address"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

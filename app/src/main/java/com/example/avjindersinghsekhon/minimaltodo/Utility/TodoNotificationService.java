@@ -20,16 +20,17 @@ public class TodoNotificationService extends IntentService {
     private UUID mTodoUUID;
     private Context mContext;
 
-    public TodoNotificationService(){
+    public TodoNotificationService() {
         super("TodoNotificationService");
     }
+
     @Override
     protected void onHandleIntent(Intent intent) {
         mTodoText = intent.getStringExtra(TODOTEXT);
-        mTodoUUID = (UUID)intent.getSerializableExtra(TODOUUID);
+        mTodoUUID = (UUID) intent.getSerializableExtra(TODOUUID);
 
         Log.d("OskarSchindler", "onHandleIntent called");
-        NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Intent i = new Intent(this, ReminderActivity.class);
         i.putExtra(TodoNotificationService.TODOUUID, mTodoUUID);
         Intent deleteIntent = new Intent(this, DeleteNotificationService.class);

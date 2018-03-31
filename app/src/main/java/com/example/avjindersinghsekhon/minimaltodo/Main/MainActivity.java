@@ -15,13 +15,9 @@ import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
 
 public class MainActivity extends AppDefaultActivity {
 
-
-
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
+        final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -48,7 +44,7 @@ public class MainActivity extends AppDefaultActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.aboutMeMenuItem:
                 Intent i = new Intent(this, AboutActivity.class);
                 startActivity(i);

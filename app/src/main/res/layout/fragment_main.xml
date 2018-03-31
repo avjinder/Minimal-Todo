@@ -23,7 +23,8 @@
             <ImageView
                 android:src="@drawable/empty_view_bg"
                 android:layout_width="100dp"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"/>
+
             <TextView
                 android:text="@string/no_to_dos"
                 android:textColor="@color/secondary_text"
@@ -32,10 +33,9 @@
                 android:paddingBottom="8dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
-
 
 
         <!--<include layout="@layout/base_toolbar"/>-->

@@ -90,24 +90,21 @@ public class MainFragment extends AppDefaultFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        app = (AnalyticsApplication)getActivity().getApplication();
+        app = (AnalyticsApplication) getActivity().getApplication();
 //        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
 //                .setDefaultFontPath("fonts/Aller_Regular.tff").setFontAttrId(R.attr.fontPath).build());
 
         //We recover the theme we've set and setTheme accordingly
         theme = getActivity().getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).getString(THEME_SAVED, LIGHTTHEME);
 
-        if(theme.equals(LIGHTTHEME)){
+        if (theme.equals(LIGHTTHEME)) {
             mTheme = R.style.CustomStyle_LightTheme;
-        }
-        else{
+        } else {
             mTheme = R.style.CustomStyle_DarkTheme;
         }
         this.getActivity().setTheme(mTheme);
 
         super.onCreate(savedInstanceState);
-
-
 
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
@@ -116,7 +113,7 @@ public class MainFragment extends AppDefaultFragment {
         editor.apply();
 
         storeRetrieveData = new StoreRetrieveData(getContext(), FILENAME);
-        mToDoItemsArrayList =  getLocallyStoredData(storeRetrieveData);
+        mToDoItemsArrayList = getLocallyStoredData(storeRetrieveData);
         adapter = new MainFragment.BasicListAdapter(mToDoItemsArrayList);
         setAlarms();
 
@@ -141,10 +138,8 @@ public class MainFragment extends AppDefaultFragment {
 //        makeUpItems(mToDoItemsArrayList, testStrings.length);
 
 
-
-
-        mCoordLayout = (CoordinatorLayout)view.findViewById(R.id.myCoordinatorLayout);
-        mAddToDoItemFAB = (FloatingActionButton)view.findViewById(R.id.addToDoItemFAB);
+        mCoordLayout = (CoordinatorLayout) view.findViewById(R.id.myCoordinatorLayout);
+        mAddToDoItemFAB = (FloatingActionButton) view.findViewById(R.id.addToDoItemFAB);
 
         mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
 
@@ -187,15 +182,14 @@ public class MainFragment extends AppDefaultFragment {
 
 
 //        mRecyclerView = (RecyclerView)findViewById(R.id.toDoRecyclerView);
-        mRecyclerView = (RecyclerViewEmptySupport)view.findViewById(R.id.toDoRecyclerView);
-        if(theme.equals(LIGHTTHEME)){
+        mRecyclerView = (RecyclerViewEmptySupport) view.findViewById(R.id.toDoRecyclerView);
+        if (theme.equals(LIGHTTHEME)) {
             mRecyclerView.setBackgroundColor(getResources().getColor(R.color.primary_lightest));
         }
         mRecyclerView.setEmptyView(view.findViewById(R.id.toDoEmptyView));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
 
         customRecyclerScrollViewListener = new CustomRecyclerScrollViewListener() {
@@ -209,9 +203,9 @@ public class MainFragment extends AppDefaultFragment {
             @Override
             public void hide() {
 
-                CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams)mAddToDoItemFAB.getLayoutParams();
+                CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) mAddToDoItemFAB.getLayoutParams();
                 int fabMargin = lp.bottomMargin;
-                mAddToDoItemFAB.animate().translationY(mAddToDoItemFAB.getHeight()+fabMargin).setInterpolator(new AccelerateInterpolator(2.0f)).start();
+                mAddToDoItemFAB.animate().translationY(mAddToDoItemFAB.getHeight() + fabMargin).setInterpolator(new AccelerateInterpolator(2.0f)).start();
             }
         };
         mRecyclerView.addOnScrollListener(customRecyclerScrollViewListener);
@@ -228,17 +222,17 @@ public class MainFragment extends AppDefaultFragment {
 
     }
 
-    public static ArrayList<ToDoItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData){
+    public static ArrayList<ToDoItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData) {
         ArrayList<ToDoItem> items = null;
 
         try {
-            items  = storeRetrieveData.loadFromFile();
+            items = storeRetrieveData.loadFromFile();
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
-        if(items == null){
+        if (items == null) {
             items = new ArrayList<>();
         }
         return items;
@@ -251,9 +245,9 @@ public class MainFragment extends AppDefaultFragment {
         app.send(this);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
-        if(sharedPreferences.getBoolean(ReminderFragment.EXIT, false)){
+        if (sharedPreferences.getBoolean(ReminderFragment.EXIT, false)) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(ReminderFragment.EXIT,false);
+            editor.putBoolean(ReminderFragment.EXIT, false);
             editor.apply();
             getActivity().finish();
         }
@@ -268,7 +262,7 @@ public class MainFragment extends AppDefaultFragment {
         and get an ANR
 
          */
-        if(getActivity().getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).getBoolean(RECREATE_ACTIVITY, false)){
+        if (getActivity().getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).getBoolean(RECREATE_ACTIVITY, false)) {
             SharedPreferences.Editor editor = getActivity().getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).edit();
             editor.putBoolean(RECREATE_ACTIVITY, false);
             editor.apply();
@@ -280,10 +274,10 @@ public class MainFragment extends AppDefaultFragment {
 
     @Override
     public void onStart() {
-        app = (AnalyticsApplication)getActivity().getApplication();
+        app = (AnalyticsApplication) getActivity().getApplication();
         super.onStart();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
-        if(sharedPreferences.getBoolean(CHANGE_OCCURED, false)){
+        if (sharedPreferences.getBoolean(CHANGE_OCCURED, false)) {
 
             mToDoItemsArrayList = getLocallyStoredData(storeRetrieveData);
             adapter = new MainFragment.BasicListAdapter(mToDoItemsArrayList);
@@ -299,11 +293,11 @@ public class MainFragment extends AppDefaultFragment {
         }
     }
 
-    private void setAlarms(){
-        if(mToDoItemsArrayList!=null){
-            for(ToDoItem item : mToDoItemsArrayList){
-                if(item.hasReminder() && item.getToDoDate()!=null){
-                    if(item.getToDoDate().before(new Date())){
+    private void setAlarms() {
+        if (mToDoItemsArrayList != null) {
+            for (ToDoItem item : mToDoItemsArrayList) {
+                if (item.hasReminder() && item.getToDoDate() != null) {
+                    if (item.getToDoDate().before(new Date())) {
                         item.setToDoDate(null);
                         continue;
                     }
@@ -317,7 +311,7 @@ public class MainFragment extends AppDefaultFragment {
     }
 
 
-    public void addThemeToSharedPreferences(String theme){
+    public void addThemeToSharedPreferences(String theme) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(THEME_SAVED, theme);
@@ -332,7 +326,7 @@ public class MainFragment extends AppDefaultFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.aboutMeMenuItem:
                 Intent i = new Intent(getContext(), AboutActivity.class);
                 startActivity(i);
@@ -365,14 +359,14 @@ public class MainFragment extends AppDefaultFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode!= RESULT_CANCELED && requestCode == REQUEST_ID_TODO_ITEM){
-            ToDoItem item =(ToDoItem) data.getSerializableExtra(TODOITEM);
-            if(item.getToDoText().length()<=0){
+        if (resultCode != RESULT_CANCELED && requestCode == REQUEST_ID_TODO_ITEM) {
+            ToDoItem item = (ToDoItem) data.getSerializableExtra(TODOITEM);
+            if (item.getToDoText().length() <= 0) {
                 return;
             }
             boolean existed = false;
 
-            if(item.hasReminder() && item.getToDoDate()!=null){
+            if (item.hasReminder() && item.getToDoDate() != null) {
                 Intent i = new Intent(getContext(), TodoNotificationService.class);
                 i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
                 i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
@@ -380,15 +374,15 @@ public class MainFragment extends AppDefaultFragment {
 //                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
             }
 
-            for(int i = 0; i<mToDoItemsArrayList.size();i++){
-                if(item.getIdentifier().equals(mToDoItemsArrayList.get(i).getIdentifier())){
+            for (int i = 0; i < mToDoItemsArrayList.size(); i++) {
+                if (item.getIdentifier().equals(mToDoItemsArrayList.get(i).getIdentifier())) {
                     mToDoItemsArrayList.set(i, item);
                     existed = true;
                     adapter.notifyDataSetChanged();
                     break;
                 }
             }
-            if(!existed) {
+            if (!existed) {
                 addToDataStore(item);
             }
 
@@ -396,38 +390,39 @@ public class MainFragment extends AppDefaultFragment {
         }
     }
 
-    private AlarmManager getAlarmManager(){
-        return (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+    private AlarmManager getAlarmManager() {
+        return (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
     }
 
-    private boolean doesPendingIntentExist(Intent i, int requestCode){
-        PendingIntent pi = PendingIntent.getService(getContext(),requestCode, i, PendingIntent.FLAG_NO_CREATE);
-        return pi!=null;
+    private boolean doesPendingIntentExist(Intent i, int requestCode) {
+        PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_NO_CREATE);
+        return pi != null;
     }
 
-    private void createAlarm(Intent i, int requestCode, long timeInMillis){
+    private void createAlarm(Intent i, int requestCode, long timeInMillis) {
         AlarmManager am = getAlarmManager();
-        PendingIntent pi = PendingIntent.getService(getContext(),requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
         am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pi);
 //        Log.d("OskarSchindler", "createAlarm "+requestCode+" time: "+timeInMillis+" PI "+pi.toString());
     }
-    private void deleteAlarm(Intent i, int requestCode){
-        if(doesPendingIntentExist(i, requestCode)){
-            PendingIntent pi = PendingIntent.getService(getContext(), requestCode,i, PendingIntent.FLAG_NO_CREATE);
+
+    private void deleteAlarm(Intent i, int requestCode) {
+        if (doesPendingIntentExist(i, requestCode)) {
+            PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_NO_CREATE);
             pi.cancel();
             getAlarmManager().cancel(pi);
             Log.d("OskarSchindler", "PI Cancelled " + doesPendingIntentExist(i, requestCode));
         }
     }
 
-    private void addToDataStore(ToDoItem item){
+    private void addToDataStore(ToDoItem item) {
         mToDoItemsArrayList.add(item);
         adapter.notifyItemInserted(mToDoItemsArrayList.size() - 1);
 
     }
 
 
-    public void makeUpItems(ArrayList<ToDoItem> items, int len){
+    public void makeUpItems(ArrayList<ToDoItem> items, int len) {
         for (String testString : testStrings) {
             ToDoItem item = new ToDoItem(testString, false, new Date());
             //noinspection ResourceType
@@ -437,19 +432,18 @@ public class MainFragment extends AppDefaultFragment {
 
     }
 
-    public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter{
+    public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter {
         private ArrayList<ToDoItem> items;
 
         @Override
         public void onItemMoved(int fromPosition, int toPosition) {
-            if(fromPosition<toPosition){
-                for(int i=fromPosition; i<toPosition; i++){
-                    Collections.swap(items, i, i+1);
+            if (fromPosition < toPosition) {
+                for (int i = fromPosition; i < toPosition; i++) {
+                    Collections.swap(items, i, i + 1);
                 }
-            }
-            else{
-                for(int i=fromPosition; i > toPosition; i--){
-                    Collections.swap(items, i, i-1);
+            } else {
+                for (int i = fromPosition; i > toPosition; i--) {
+                    Collections.swap(items, i, i - 1);
                 }
             }
             notifyItemMoved(fromPosition, toPosition);
@@ -460,15 +454,15 @@ public class MainFragment extends AppDefaultFragment {
             //Remove this line if not using Google Analytics
             app.send(this, "Action", "Swiped Todo Away");
 
-            mJustDeletedToDoItem =  items.remove(position);
+            mJustDeletedToDoItem = items.remove(position);
             mIndexOfDeletedToDoItem = position;
-            Intent i = new Intent(getContext(),TodoNotificationService.class);
+            Intent i = new Intent(getContext(), TodoNotificationService.class);
             deleteAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode());
             notifyItemRemoved(position);
 
 //            String toShow = (mJustDeletedToDoItem.getToDoText().length()>20)?mJustDeletedToDoItem.getToDoText().substring(0, 20)+"...":mJustDeletedToDoItem.getToDoText();
             String toShow = "Todo";
-            Snackbar.make(mCoordLayout, "Deleted "+toShow,Snackbar.LENGTH_LONG)
+            Snackbar.make(mCoordLayout, "Deleted " + toShow, Snackbar.LENGTH_LONG)
                     .setAction("UNDO", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -476,7 +470,7 @@ public class MainFragment extends AppDefaultFragment {
                             //Comment the line below if not using Google Analytics
                             app.send(this, "Action", "UNDO Pressed");
                             items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
-                            if(mJustDeletedToDoItem.getToDoDate()!=null && mJustDeletedToDoItem.hasReminder()){
+                            if (mJustDeletedToDoItem.getToDoDate() != null && mJustDeletedToDoItem.hasReminder()) {
                                 Intent i = new Intent(getContext(), TodoNotificationService.class);
                                 i.putExtra(TodoNotificationService.TODOTEXT, mJustDeletedToDoItem.getToDoText());
                                 i.putExtra(TodoNotificationService.TODOUUID, mJustDeletedToDoItem.getIdentifier());
@@ -504,22 +498,20 @@ public class MainFragment extends AppDefaultFragment {
             int bgColor;
             //color of title text in our to-do item. White for night mode, dark gray for day mode
             int todoTextColor;
-            if(sharedPreferences.getString(THEME_SAVED, LIGHTTHEME).equals(LIGHTTHEME)){
+            if (sharedPreferences.getString(THEME_SAVED, LIGHTTHEME).equals(LIGHTTHEME)) {
                 bgColor = Color.WHITE;
                 todoTextColor = getResources().getColor(R.color.secondary_text);
-            }
-            else{
+            } else {
                 bgColor = Color.DKGRAY;
                 todoTextColor = Color.WHITE;
             }
             holder.linearLayout.setBackgroundColor(bgColor);
 
-            if(item.hasReminder() && item.getToDoDate()!=null){
+            if (item.hasReminder() && item.getToDoDate() != null) {
                 holder.mToDoTextview.setMaxLines(1);
                 holder.mTimeTextView.setVisibility(View.VISIBLE);
 //                holder.mToDoTextview.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 holder.mTimeTextView.setVisibility(View.GONE);
                 holder.mToDoTextview.setMaxLines(2);
             }
@@ -540,16 +532,15 @@ public class MainFragment extends AppDefaultFragment {
                     .useFont(Typeface.DEFAULT)
                     .toUpperCase()
                     .endConfig()
-                    .buildRound(item.getToDoText().substring(0,1),item.getTodoColor());
+                    .buildRound(item.getToDoText().substring(0, 1), item.getTodoColor());
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRound(item.getToDoText().substring(0,1),holder.color);
             holder.mColorImageView.setImageDrawable(myDrawable);
-            if(item.getToDoDate()!=null){
+            if (item.getToDoDate() != null) {
                 String timeToShow;
-                if(android.text.format.DateFormat.is24HourFormat(getContext())){
+                if (android.text.format.DateFormat.is24HourFormat(getContext())) {
                     timeToShow = AddToDoFragment.formatDate(MainFragment.DATE_TIME_FORMAT_24_HOUR, item.getToDoDate());
-                }
-                else{
+                } else {
                     timeToShow = AddToDoFragment.formatDate(MainFragment.DATE_TIME_FORMAT_12_HOUR, item.getToDoDate());
                 }
                 holder.mTimeTextView.setText(timeToShow);
@@ -563,14 +554,14 @@ public class MainFragment extends AppDefaultFragment {
             return items.size();
         }
 
-        BasicListAdapter(ArrayList<ToDoItem> items){
+        BasicListAdapter(ArrayList<ToDoItem> items) {
 
             this.items = items;
         }
 
 
         @SuppressWarnings("deprecation")
-        public class ViewHolder extends RecyclerView.ViewHolder{
+        public class ViewHolder extends RecyclerView.ViewHolder {
 
             View mView;
             LinearLayout linearLayout;
@@ -580,7 +571,7 @@ public class MainFragment extends AppDefaultFragment {
             TextView mTimeTextView;
 //            int color = -1;
 
-            public ViewHolder(View v){
+            public ViewHolder(View v) {
                 super(v);
                 mView = v;
                 v.setOnClickListener(new View.OnClickListener() {
@@ -592,11 +583,11 @@ public class MainFragment extends AppDefaultFragment {
                         startActivityForResult(i, REQUEST_ID_TODO_ITEM);
                     }
                 });
-                mToDoTextview = (TextView)v.findViewById(R.id.toDoListItemTextview);
-                mTimeTextView = (TextView)v.findViewById(R.id.todoListItemTimeTextView);
+                mToDoTextview = (TextView) v.findViewById(R.id.toDoListItemTextview);
+                mTimeTextView = (TextView) v.findViewById(R.id.todoListItemTimeTextView);
 //                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
-                mColorImageView = (ImageView)v.findViewById(R.id.toDoListItemColorImageView);
-                linearLayout = (LinearLayout)v.findViewById(R.id.listItemLinearLayout);
+                mColorImageView = (ImageView) v.findViewById(R.id.toDoListItemColorImageView);
+                linearLayout = (LinearLayout) v.findViewById(R.id.listItemLinearLayout);
             }
 
 
@@ -609,7 +600,7 @@ public class MainFragment extends AppDefaultFragment {
 //        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
 //    }
 
-    private void saveDate(){
+    private void saveDate() {
         try {
             storeRetrieveData.saveToFile(mToDoItemsArrayList);
         } catch (JSONException | IOException e) {

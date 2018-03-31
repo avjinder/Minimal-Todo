@@ -29,11 +29,11 @@ public class AboutFragment extends AppDefaultFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        app = (AnalyticsApplication)getActivity().getApplication();
+        app = (AnalyticsApplication) getActivity().getApplication();
         app.send(this);
-        mVersionTextView = (TextView)view.findViewById(R.id.aboutVersionTextView);
+        mVersionTextView = (TextView) view.findViewById(R.id.aboutVersionTextView);
         mVersionTextView.setText(String.format(getResources().getString(R.string.app_version), appVersion));
-        toolbar = (Toolbar)view.findViewById(R.id.toolbar);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
         contactMe = (TextView) view.findViewById(R.id.aboutContactMe);
 

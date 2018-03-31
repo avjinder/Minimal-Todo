@@ -8,14 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.example.avjindersinghsekhon.minimaltodo.Utility.Utils;
-
 public class ScrollingFABBehaviour extends CoordinatorLayout.Behavior<FloatingActionButton> {
     private int toolbarHeight;
     private static boolean scrolledUp = false;
     private static boolean scrolledDown = false;
 
-    public  ScrollingFABBehaviour(Context context, AttributeSet attributeSet){
+    public ScrollingFABBehaviour(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         this.toolbarHeight = Utils.getToolbarHeight(context);
     }
@@ -29,8 +27,8 @@ public class ScrollingFABBehaviour extends CoordinatorLayout.Behavior<FloatingAc
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, final FloatingActionButton child, View dependency) {
-        if(dependency instanceof Snackbar.SnackbarLayout){
-            float finalVal = (float)parent.getHeight() - dependency.getY();
+        if (dependency instanceof Snackbar.SnackbarLayout) {
+            float finalVal = (float) parent.getHeight() - dependency.getY();
             child.setTranslationY(-finalVal);
         }
 //
@@ -46,11 +44,11 @@ public class ScrollingFABBehaviour extends CoordinatorLayout.Behavior<FloatingAc
 //
 //
 //        }
-        if(dependency instanceof Toolbar){
-            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams)child.getLayoutParams();
+        if (dependency instanceof Toolbar) {
+            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
             int fabBottomMargin = lp.bottomMargin;
             int distanceToScroll = child.getHeight() + fabBottomMargin;
-            float finalVal = dependency.getY()/(float)toolbarHeight;
+            float finalVal = dependency.getY() / (float) toolbarHeight;
             float distFinal = -distanceToScroll * finalVal;
             child.setTranslationY(distFinal);
         }
