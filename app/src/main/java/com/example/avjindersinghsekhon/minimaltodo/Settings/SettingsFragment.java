@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.Settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,12 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceFragment;
 
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
+import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
+import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.PreferenceKeys;
+
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     AnalyticsApplication app;
 
 
@@ -15,25 +20,24 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_layout);
         app = (AnalyticsApplication) getActivity().getApplication();
-   }
+    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         PreferenceKeys preferenceKeys = new PreferenceKeys(getResources());
-        if(key.equals(preferenceKeys.night_mode_pref_key)){
-            SharedPreferences themePreferences = getActivity().getSharedPreferences(MainActivity.THEME_PREFERENCES, Context.MODE_PRIVATE);
+        if (key.equals(preferenceKeys.night_mode_pref_key)) {
+            SharedPreferences themePreferences = getActivity().getSharedPreferences(MainFragment.THEME_PREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor themeEditor = themePreferences.edit();
             //We tell our MainLayout to recreate itself because mode has changed
-            themeEditor.putBoolean(MainActivity.RECREATE_ACTIVITY, true);
+            themeEditor.putBoolean(MainFragment.RECREATE_ACTIVITY, true);
 
-            CheckBoxPreference checkBoxPreference = (CheckBoxPreference)findPreference(preferenceKeys.night_mode_pref_key);
-            if(checkBoxPreference.isChecked()){
+            CheckBoxPreference checkBoxPreference = (CheckBoxPreference) findPreference(preferenceKeys.night_mode_pref_key);
+            if (checkBoxPreference.isChecked()) {
                 //Comment out this line if not using Google Analytics
                 app.send(this, "Settings", "Night Mode used");
-                themeEditor.putString(MainActivity.THEME_SAVED, MainActivity.DARKTHEME);
-            }
-            else{
-                themeEditor.putString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
+                themeEditor.putString(MainFragment.THEME_SAVED, MainFragment.DARKTHEME);
+            } else {
+                themeEditor.putString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);
             }
             themeEditor.apply();
 

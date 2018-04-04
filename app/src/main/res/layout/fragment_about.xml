@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:gravity="center|top"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/aboutImageView"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+    <TextView
+        android:text="@string/app_name"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/aboutVersionTextView"
+        android:text="@string/app_version"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="@string/made_by"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="@string/contact_me"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="16sp"
+        android:gravity="center"
+        android:id="@+id/aboutContactMe"
+        android:layout_marginTop="4dp"
+        android:autoLink="email"
+        android:linksClickable="true"
+        android:text="@string/email_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

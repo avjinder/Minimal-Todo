@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.Utility;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -7,6 +7,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.example.avjindersinghsekhon.minimaltodo.Reminder.ReminderActivity;
 
 import java.util.UUID;
 
@@ -17,16 +20,17 @@ public class TodoNotificationService extends IntentService {
     private UUID mTodoUUID;
     private Context mContext;
 
-    public TodoNotificationService(){
+    public TodoNotificationService() {
         super("TodoNotificationService");
     }
+
     @Override
     protected void onHandleIntent(Intent intent) {
         mTodoText = intent.getStringExtra(TODOTEXT);
-        mTodoUUID = (UUID)intent.getSerializableExtra(TODOUUID);
+        mTodoUUID = (UUID) intent.getSerializableExtra(TODOUUID);
 
         Log.d("OskarSchindler", "onHandleIntent called");
-        NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Intent i = new Intent(this, ReminderActivity.class);
         i.putExtra(TodoNotificationService.TODOUUID, mTodoUUID);
         Intent deleteIntent = new Intent(this, DeleteNotificationService.class);

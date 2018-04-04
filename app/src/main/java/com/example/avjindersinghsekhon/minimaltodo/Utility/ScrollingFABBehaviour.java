@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.Utility;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,7 +13,7 @@ public class ScrollingFABBehaviour extends CoordinatorLayout.Behavior<FloatingAc
     private static boolean scrolledUp = false;
     private static boolean scrolledDown = false;
 
-    public  ScrollingFABBehaviour(Context context, AttributeSet attributeSet){
+    public ScrollingFABBehaviour(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         this.toolbarHeight = Utils.getToolbarHeight(context);
     }
@@ -27,8 +27,8 @@ public class ScrollingFABBehaviour extends CoordinatorLayout.Behavior<FloatingAc
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, final FloatingActionButton child, View dependency) {
-        if(dependency instanceof Snackbar.SnackbarLayout){
-            float finalVal = (float)parent.getHeight() - dependency.getY();
+        if (dependency instanceof Snackbar.SnackbarLayout) {
+            float finalVal = (float) parent.getHeight() - dependency.getY();
             child.setTranslationY(-finalVal);
         }
 //
@@ -44,11 +44,11 @@ public class ScrollingFABBehaviour extends CoordinatorLayout.Behavior<FloatingAc
 //
 //
 //        }
-        if(dependency instanceof Toolbar){
-            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams)child.getLayoutParams();
+        if (dependency instanceof Toolbar) {
+            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
             int fabBottomMargin = lp.bottomMargin;
             int distanceToScroll = child.getHeight() + fabBottomMargin;
-            float finalVal = dependency.getY()/(float)toolbarHeight;
+            float finalVal = dependency.getY() / (float) toolbarHeight;
             float distFinal = -distanceToScroll * finalVal;
             child.setTranslationY(distFinal);
         }

@@ -1,9 +1,10 @@
-package com.example.avjindersinghsekhon.minimaltodo;
+package com.example.avjindersinghsekhon.minimaltodo.Reminder;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,6 +14,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
+import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
+import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.TodoNotificationService;
 
 import org.json.JSONException;
 
@@ -24,7 +34,9 @@ import java.util.UUID;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 
-public class ReminderActivity extends AppCompatActivity{
+import static android.content.Context.MODE_PRIVATE;
+
+public class ReminderFragment extends AppDefaultFragment {
     private TextView mtoDoTextTextView;
     private Button mRemoveToDoButton;
     private MaterialSpinner mSnoozeSpinner;
@@ -38,31 +50,28 @@ public class ReminderActivity extends AppCompatActivity{
     AnalyticsApplication app;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        app = (AnalyticsApplication)getApplication();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        app = (AnalyticsApplication) getActivity().getApplication();
         app.send(this);
 
-        theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
-        if(theme.equals(MainActivity.LIGHTTHEME)){
-            setTheme(R.style.CustomStyle_LightTheme);
+        theme = getActivity().getSharedPreferences(MainFragment.THEME_PREFERENCES, MODE_PRIVATE).getString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);
+        if (theme.equals(MainFragment.LIGHTTHEME)) {
+            getActivity().setTheme(R.style.CustomStyle_LightTheme);
+        } else {
+            getActivity().setTheme(R.style.CustomStyle_DarkTheme);
         }
-        else{
-            setTheme(R.style.CustomStyle_DarkTheme);
-        }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.reminder_layout);
-        storeRetrieveData = new StoreRetrieveData(this, MainActivity.FILENAME);
-        mToDoItems = MainActivity.getLocallyStoredData(storeRetrieveData);
+        storeRetrieveData = new StoreRetrieveData(getContext(), MainFragment.FILENAME);
+        mToDoItems = MainFragment.getLocallyStoredData(storeRetrieveData);
 
-        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+        ((AppCompatActivity) getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
 
 
-
-        Intent i = getIntent();
-        UUID id = (UUID)i.getSerializableExtra(TodoNotificationService.TODOUUID);
+        Intent i = getActivity().getIntent();
+        UUID id = (UUID) i.getSerializableExtra(TodoNotificationService.TODOUUID);
         mItem = null;
-        for(ToDoItem toDoItem : mToDoItems){
-            if (toDoItem.getIdentifier().equals(id)){
+        for (ToDoItem toDoItem : mToDoItems) {
+            if (toDoItem.getIdentifier().equals(id)) {
                 mItem = toDoItem;
                 break;
             }
@@ -70,21 +79,20 @@ public class ReminderActivity extends AppCompatActivity{
 
         snoozeOptionsArray = getResources().getStringArray(R.array.snooze_options);
 
-        mRemoveToDoButton = (Button)findViewById(R.id.toDoReminderRemoveButton);
-        mtoDoTextTextView = (TextView)findViewById(R.id.toDoReminderTextViewBody);
-        mSnoozeTextView = (TextView)findViewById(R.id.reminderViewSnoozeTextView);
-        mSnoozeSpinner = (MaterialSpinner)findViewById(R.id.todoReminderSnoozeSpinner);
+        mRemoveToDoButton = (Button) view.findViewById(R.id.toDoReminderRemoveButton);
+        mtoDoTextTextView = (TextView) view.findViewById(R.id.toDoReminderTextViewBody);
+        mSnoozeTextView = (TextView) view.findViewById(R.id.reminderViewSnoozeTextView);
+        mSnoozeSpinner = (MaterialSpinner) view.findViewById(R.id.todoReminderSnoozeSpinner);
 
 //        mtoDoTextTextView.setBackgroundColor(item.getTodoColor());
         mtoDoTextTextView.setText(mItem.getToDoText());
 
-        if(theme.equals(MainActivity.LIGHTTHEME)){
+        if (theme.equals(MainFragment.LIGHTTHEME)) {
             mSnoozeTextView.setTextColor(getResources().getColor(R.color.secondary_text));
-        }
-        else{
+        } else {
             mSnoozeTextView.setTextColor(Color.WHITE);
             mSnoozeTextView.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_snooze_white_24dp,0,0,0
+                    R.drawable.ic_snooze_white_24dp, 0, 0, 0
             );
         }
 
@@ -102,20 +110,24 @@ public class ReminderActivity extends AppCompatActivity{
 
 
 //        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, snoozeOptionsArray);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, snoozeOptionsArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_text_view, snoozeOptionsArray);
 //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         mSnoozeSpinner.setAdapter(adapter);
 //        mSnoozeSpinner.setSelection(0);
-
     }
 
-    private void closeApp(){
-        Intent i = new Intent(ReminderActivity.this, MainActivity.class);
+    @Override
+    protected int layoutRes() {
+        return R.layout.fragment_reminder;
+    }
+
+    private void closeApp() {
+        Intent i = new Intent(getContext(), MainActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        i.putExtra(EXIT, true);
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainFragment.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(EXIT, true);
         editor.apply();
@@ -123,29 +135,31 @@ public class ReminderActivity extends AppCompatActivity{
 
     }
 
-    @Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_reminder, menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu_reminder, menu);
         return true;
     }
-    private void changeOccurred(){
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
+
+    private void changeOccurred() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainFragment.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(MainActivity.CHANGE_OCCURED, true);
+        editor.putBoolean(MainFragment.CHANGE_OCCURED, true);
 //        editor.commit();
         editor.apply();
     }
 
-    private Date addTimeToDate(int mins){
-        app.send(this, "Action", "Snoozed", "For "+mins+" minutes");
+    private Date addTimeToDate(int mins) {
+        app.send(this, "Action", "Snoozed", "For " + mins + " minutes");
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.MINUTE, mins);
         return calendar.getTime();
     }
-    private int valueFromSpinner(){
-        switch (mSnoozeSpinner.getSelectedItemPosition()){
+
+    private int valueFromSpinner() {
+        switch (mSnoozeSpinner.getSelectedItemPosition()) {
             case 0:
                 return 10;
             case 1:
@@ -159,7 +173,7 @@ public class ReminderActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.toDoReminderDoneMenuItem:
                 Date date = addTimeToDate(valueFromSpinner());
                 mItem.setToDoDate(date);
@@ -175,34 +189,17 @@ public class ReminderActivity extends AppCompatActivity{
         }
     }
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        try{
-//            storeRetrieveData.saveToFile(mToDoItems);
-//        }
-//        catch (JSONException | IOException e){
-//            e.printStackTrace();
-//        }
-//    }
 
-    private void saveData(){
-        try{
+    private void saveData() {
+        try {
             storeRetrieveData.saveToFile(mToDoItems);
-        }
-        catch (JSONException | IOException e){
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        try{
-//            storeRetrieveData.saveToFile(mToDoItems);
-//        }
-//        catch (JSONException | IOException e){
-//            e.printStackTrace();
-//        }
+
+    public static ReminderFragment newInstance() {
+        return new ReminderFragment();
     }
 }
