@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimalno</string>
+    <string name="action_settings">Postavke</string>
+    <string name="no_to_dos">Nemaš nijedan Podsjetnik</string>
+    <string name="title">Naslov</string>
+    <string name="remind_me">Podsjeti Me</string>
+    <string name="choose_date">Datum</string>
+    <string name="choose_time">Vrijeme</string>
+    <string name="remind_date_and_time">Podsjetnik je postavljen za %1$s, %2$s %3$s</string>
+    <string name="about">O programu</string>
+    <string name="app_version">Verzija: %1$s</string>
+    <string name="contact_me">You can contact me at</string>
+    <string name="made_by">Stvorio Avjinder</string>
+    <string name="done_label">Učinjeno</string>
+    <string name="date_reminder_default">Danas</string>
+    <string name="date_error_check_again">Uneseni datum je prošao.</string>
+    <string name="night_mode">Noćni Mod</string>
+    <string name="night_mode_on_summary">Noćni mod je uključen</string>
+    <string name="night_mode_off_summary">Noćni mod je isključen</string>
+
+    <string-array name="snooze_options">
+        <item>10 Minuta</item>
+        <item>30 Minuta</item>
+        <item>1 Sat</item>
+    </string-array>
+
+    <string name="snooze">Odgodi</string>
+    <string name="remove">Makni</string>
+    <string name="todo_error">Unesi Podsjetnik</string>
+</resources>
