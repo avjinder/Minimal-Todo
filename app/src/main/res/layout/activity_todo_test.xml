@@ -52,6 +52,29 @@
 
                 </com.example.avjindersinghsekhon.minimaltodo.Utility.CustomTextInputLayout>
 
+                <com.example.avjindersinghsekhon.minimaltodo.Utility.CustomTextInputLayout
+                    app:hintTextAppearance="@style/FloatingLabelTextAppearance"
+                    android:id="@+id/toDoCustomTextInputDesc"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <EditText
+                        android:id="@+id/userToDoEditTextDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:gravity="start|bottom"
+                        android:hint="@string/description"
+                        android:inputType="textAutoCorrect|textCapSentences"
+                        android:lines="2"
+                        android:maxLines="3"
+                        android:textColor="@color/icons" />
+
+                </com.example.avjindersinghsekhon.minimaltodo.Utility.CustomTextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
