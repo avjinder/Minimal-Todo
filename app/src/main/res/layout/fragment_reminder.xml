@@ -10,17 +10,29 @@
     <!--Put all strings to string.xml-->
 
     <TextView
-        android:id="@+id/toDoReminderTextViewBody"
+    android:id="@+id/toDoReminderTextViewBody"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_below="@id/toolbar"
+    android:background="@color/primary"
+    android:ellipsize="middle"
+    android:gravity="center|start"
+    android:paddingLeft="16dp"
+    android:text="@string/example"
+    android:textColor="@color/icons"
+    android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/toDoReminderTextViewBodyDescription"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@id/toolbar"
-        android:background="@color/primary"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toDoReminderTextViewBody"
         android:ellipsize="middle"
         android:gravity="center|start"
         android:paddingLeft="16dp"
-        android:text="@string/example"
+        android:text="I will clean my room tomorrow in the mornig because is full of trash"
         android:textColor="@color/icons"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/toDoReminderRemoveButton"
@@ -35,8 +47,8 @@
         android:id="@+id/toDoReminderLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/toDoReminderRemoveButton"
-        android:layout_below="@id/toDoReminderTextViewBody"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:gravity="start"
         android:orientation="horizontal"
         android:paddingTop="24dp">
@@ -53,7 +65,7 @@
             android:gravity="start"
             android:padding="8dp"
             android:text="@string/snooze"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/todoReminderSnoozeSpinner"
@@ -62,8 +74,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="16dp"
             android:layout_weight="1.5"
-            app:ms_highlightColor="?attr/colorAccent"
-            />
+            app:ms_highlightColor="?attr/colorAccent" />
 
 
     </LinearLayout>

@@ -4,6 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="no_to_dos">You don\'t have any todos</string>
     <string name="title">Title</string>
+    <string name="description">Description</string>
     <string name="remind_me">Remind Me</string>
     <string name="choose_date">Date</string>
     <string name="choose_time">Time</string>
