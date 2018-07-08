@@ -32,6 +32,7 @@ Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
 * Finnish by [Miikka Andersson](https://github.com/miikande) <br>
 * French by [Nicola Spanti](http://www.nicola-spanti.info/)
 * Bulgarian by [Georgy Hristov](http://www.georgyhristov.xyz/)
+* Portuguese by [rosariopfernandes](https://github.com/rosariopfernandes) <br>
 
 ## Contributing
 Looking to contribute something to Minimal? [Here's how you can help](/Contributing.md).
