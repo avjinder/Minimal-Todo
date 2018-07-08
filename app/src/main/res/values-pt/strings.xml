@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="action_settings">Definições</string>
+    <string name="no_to_dos">Você ainda não tem nenhuma tarefa</string>
+    <string name="title">Título</string>
+    <string name="remind_me">Notificar Me</string>
+    <string name="choose_date">Data</string>
+    <string name="choose_time">Hora</string>
+    <string name="remind_date_and_time">Alarme marcado para %1$s, %2$s %3$s</string>
+    <string name="about">Sobre</string>
+    <string name="app_version">Versão: %1$s</string>
+    <string name="contact_me">Você pode me contactar através do: </string>
+    <string name="made_by">Criado por Avjinder</string>
+    <string name="done_label">Feito</string>
+    <string name="date_reminder_default">Hoje</string>
+    <string name="date_error_check_again">A data que você introduziu está no passado.</string>
+    <string name="night_mode">Modo Noturno</string>
+    <string name="night_mode_on_summary">Modo noturno ativado</string>
+    <string name="night_mode_off_summary">Modo noturno desativado</string>
+
+    <string-array name="snooze_options">
+        <item>10 Minutos</item>
+        <item>30 Minutos</item>
+        <item>1 Hora</item>
+    </string-array>
+
+    <string name="snooze">Adiar</string>
+    <string name="remove">Remover</string>
+    <string name="todo_error">Por favor introduza uma tarefa</string>
+</resources>
