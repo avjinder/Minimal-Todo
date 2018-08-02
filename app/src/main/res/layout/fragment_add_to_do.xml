@@ -15,18 +15,28 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/editTextParentLinearLayout"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_weight=".5"
-                android:background="@color/primary"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:src="@drawable/check">
+                android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/editTextParentLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_weight=".5"
+                    android:background="@color/primary"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:src="@drawable/camera"></ImageView>
 
-            </ImageView>
+                <ImageButton
+                    android:id="@+id/RemoveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:src="@android:drawable/btn_dialog" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/todoReminderAndDateContainerLayout"
@@ -57,7 +67,6 @@
                         android:textColor="@color/icons" />
 
                 </com.example.avjindersinghsekhon.minimaltodo.Utility.CustomTextInputLayout>
-
 
 
                 <LinearLayout

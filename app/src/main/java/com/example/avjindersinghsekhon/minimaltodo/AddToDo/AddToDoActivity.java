@@ -22,7 +22,6 @@ public class AddToDoActivity extends AppDefaultActivity {
     @NonNull
     @Override
     protected Fragment createInitialFragment() {
-        AddToDoFragment.AddLayoutInflater(getLayoutInflater());
         return AddToDoFragment.newInstance();
     }
 

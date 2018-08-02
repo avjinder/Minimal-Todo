@@ -6,9 +6,12 @@ import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -43,12 +46,19 @@ import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplicatio
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreImageData;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import org.json.JSONException;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.zip.Inflater;
@@ -88,9 +98,12 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     private boolean setTimeButtonClickedOnce = false;
     private LinearLayout mContainerLayout;
     private String theme;
-    private static LayoutInflater Inflater;
-    private static Context AppContext;
     AnalyticsApplication app;
+    Boolean isImageSet = false;
+    private Bitmap bitmap;
+    private StoreImageData storeImageData;
+    private ImageButton RemoveButton;
+    private Boolean isImagePresent = false;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -158,7 +171,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         mToDoSendFloatingActionButton = (FloatingActionButton) view.findViewById(R.id.makeToDoFloatingActionButton);
         mReminderTextView = (TextView) view.findViewById(R.id.newToDoDateTimeReminderTextView);
         ImageAdder = (ImageView) view.findViewById(R.id.editTextParentLinearLayout);
-
+        RemoveButton = (ImageButton) view.findViewById(R.id.RemoveButton);
 
         mContainerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +179,19 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                 hideKeyboard(mToDoTextBodyEditText);
             }
         });
+
+        // Adding Image To ImageView
+        if (!mUserEnteredText.equals("")){
+            storeImageData = new StoreImageData(getActivity());
+            Cursor cursor = storeImageData.getCursor();
+            while (cursor.moveToNext()){
+                if (cursor.getString(0).equals(mUserEnteredText)){
+                    bitmap = BitmapFactory.decodeByteArray(cursor.getBlob(1),0,cursor.getBlob(1).length);
+                    ImageAdder.setImageBitmap(bitmap);
+                    isImagePresent = true;
+                }
+            }
+        }
 
 
         if (mUserHasReminder && (mUserReminderDate != null)) {
@@ -199,6 +225,17 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                 }
 
 
+            }
+        });
+
+        RemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isImagePresent){
+                    storeImageData.DeleteData(mUserToDoItem.getToDoText());
+                }
+                ImageAdder.setImageDrawable(getResources().getDrawable(R.drawable.camera));
+                hideKeyboard(mToDoTextBodyEditText);
             }
         });
 
@@ -253,14 +290,27 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                 } else if (mUserReminderDate != null && mUserReminderDate.before(new Date())) {
                     app.send(this, "Action", "Date in the Past");
                     makeResult(RESULT_CANCELED);
+                    ImageAdderFunc();
                 } else {
                     app.send(this, "Action", "Make Todo");
                     makeResult(RESULT_OK);
                     getActivity().finish();
+                    ImageAdderFunc();
                 }
                 hideKeyboard(mToDoTextBodyEditText);
             }
+
+            private void ImageAdderFunc(){
+                if (isImageSet){
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG , 100 , byteArrayOutputStream);
+                    storeImageData = new StoreImageData(getActivity());
+                    long res = storeImageData.AddData(mUserEnteredText , byteArrayOutputStream.toByteArray());
+
+                }
+            }
         });
+
 
 
         mDateEditText = (EditText) view.findViewById(R.id.newTodoDateEditText);
@@ -385,9 +435,10 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==100 && resultCode==RESULT_OK){
-            Bitmap Image = (Bitmap) data.getExtras().get("data");
-            ImageAdder.setImageBitmap(Image);
+            bitmap = (Bitmap) data.getExtras().get("data");
+            ImageAdder.setImageBitmap(bitmap);
             ImageAdder.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            isImageSet = true;
         }
     }
 
@@ -685,12 +736,6 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     }
 
-    static void AddContext(Context context){
-        AppContext = context;
-    }
-    static void AddLayoutInflater(LayoutInflater layoutInflater){
-        Inflater = layoutInflater;
-    }
 
     @Override
     protected int layoutRes() {
