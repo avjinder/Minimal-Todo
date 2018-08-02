@@ -1,6 +1,8 @@
 package com.example.avjindersinghsekhon.minimaltodo.AddToDo;
 
 import android.animation.Animator;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -11,11 +13,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +25,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +41,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.zip.Inflater;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -51,6 +55,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     //    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
+    private ImageView ImageAdder;
 
     private EditText mDateEditText;
     private EditText mTimeEditText;
@@ -67,13 +72,14 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     private String mUserEnteredText;
     private boolean mUserHasReminder;
-    private Toolbar mToolbar;
     private Date mUserReminderDate;
     private int mUserColor;
     private boolean setDateButtonClickedOnce = false;
     private boolean setTimeButtonClickedOnce = false;
     private LinearLayout mContainerLayout;
     private String theme;
+    private static LayoutInflater Inflater;
+    private static Context AppContext;
     AnalyticsApplication app;
 
     @Override
@@ -100,9 +106,6 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         if (cross != null) {
             cross.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
         }
-
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setElevation(0);
@@ -144,6 +147,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 //        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton) view.findViewById(R.id.makeToDoFloatingActionButton);
         mReminderTextView = (TextView) view.findViewById(R.id.newToDoDateTimeReminderTextView);
+        ImageAdder = (ImageView) view.findViewById(R.id.editTextParentLinearLayout);
 
 
         mContainerLayout.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +177,14 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         mToDoTextBodyEditText.setSelection(mToDoTextBodyEditText.length());
 
+
+        ImageAdder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               
+
+            }
+        });
 
         mToDoTextBodyEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -638,6 +650,12 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     }
 
+    static void AddContext(Context context){
+        AppContext = context;
+    }
+    static void AddLayoutInflater(LayoutInflater layoutInflater){
+        Inflater = layoutInflater;
+    }
 
     @Override
     protected int layoutRes() {
