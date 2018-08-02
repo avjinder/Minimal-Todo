@@ -23,8 +23,7 @@
                 android:background="@color/primary"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:src="@drawable/check"
-                android:padding="10dp">
+                android:src="@drawable/check">
 
 
             </ImageView>

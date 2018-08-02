@@ -1,16 +1,25 @@
 package com.example.avjindersinghsekhon.minimaltodo.AddToDo;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInstaller;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
@@ -28,6 +37,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
@@ -181,7 +191,13 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         ImageAdder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               
+                if (ContextCompat.checkSelfPermission(getActivity() , Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent , 100);
+                }else{
+                    ActivityCompat.requestPermissions(getActivity() , new String[]{Manifest.permission.CAMERA} , 99);
+                }
+
 
             }
         });
@@ -363,6 +379,25 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 //            }
 //        });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100 && resultCode==RESULT_OK){
+            Bitmap Image = (Bitmap) data.getExtras().get("data");
+            ImageAdder.setImageBitmap(Image);
+            ImageAdder.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==99 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent , 100);
+        }
     }
 
     private void setDateAndTimeEditText() {
