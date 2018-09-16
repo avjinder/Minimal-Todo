@@ -23,7 +23,8 @@
             <ImageView
                 android:src="@drawable/empty_view_bg"
                 android:layout_width="100dp"
-                android:layout_height="100dp"/>
+                android:layout_height="100dp"
+                android:contentDescription="@null" />
 
             <TextView
                 android:text="@string/no_to_dos"
@@ -57,9 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:layout_anchor="@id/myCoordinatorLayout"
-            app:layout_anchorGravity="bottom|right|end"
-
+            android:layout_gravity="bottom|end"
             />
 
 

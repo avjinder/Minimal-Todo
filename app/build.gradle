@@ -9,12 +9,12 @@ android {
             storePassword ''
         }
     }
-    compileSdkVersion 23
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.avjindersinghsekhon.minimaltodo"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 27
         versionCode 3
         versionName "1.2"
     }
@@ -30,18 +30,18 @@ android {
     }
 }
 
+def support_version = '27.1.1'
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.google.android.gms:play-services-analytics:15.0.0'
-    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
-    compile 'com.github.ganfra:material-spinner:1.1.0'
-    compile 'com.wdullaer:materialdatetimepicker:1.5.1'
-    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-    compile 'com.github.ganfra:material-spinner:1.1.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:support-v13:23.4.0'
+    implementation 'com.google.android.gms:play-services-analytics:16.0.3'
+    implementation 'uk.co.chrisjenx:calligraphy:2.1.0'
+    implementation 'com.github.ganfra:material-spinner:1.1.0'
+    implementation 'com.wdullaer:materialdatetimepicker:1.5.1'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.github.ganfra:material-spinner:1.1.0'
+    implementation "com.android.support:recyclerview-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:support-v13:$support_version"
 }
 
 apply plugin: 'com.google.gms.google-services'
