@@ -168,6 +168,6 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
 
     private StoreRetrieveData getDataStorage() {
         Context context = getInstrumentation().getTargetContext();
-        return new StoreRetrieveData(context, MainActivity.FILENAME);
+        return new StoreRetrieveData(context, "ANY");
     }
 }
