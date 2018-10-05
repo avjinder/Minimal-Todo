@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="action_settings">Cài đặt</string>
+    <string name="no_to_dos">Bạn không có bất kỳ công việc nào để thực hiện</string>
+    <string name="title">Tiêu đề</string>
+    <string name="remind_me">Nhắc nhở tôi</string>
+    <string name="choose_date">Ngày</string>
+    <string name="choose_time">Giờ</string>
+    <string name="remind_date_and_time">Cài đặt nhắc nhở cho %1$s, %2$s %3$s</string>
+    <string name="about">Thông tin</string>
+    <string name="app_version">Phiên bản: %1$s</string>
+    <string name="contact_me">Bạn có thể liên lạc với tôi theo </string>
+    <string name="made_by">Được thực hiện bởi Avjinder</string>
+    <string name="done_label">Hoàn thành</string>
+    <string name="date_reminder_default">Hôm nay</string>
+    <string name="date_error_check_again">Ngày bạn nhập là trong quá khứ.</string>
+    <string name="night_mode">Chế độ ban đêm</string>
+    <string name="night_mode_on_summary">Chế độ ban đêm đã bật</string>
+    <string name="night_mode_off_summary">Chế độ ban đêm đã tắt</string>
+
+    <string-array name="snooze_options">
+        <item>10 Phút</item>
+        <item>30 Phút</item>
+        <item>1 Giờ</item>
+    </string-array>
+
+    <string name="snooze">Tạm thời nghỉ</string>
+    <string name="remove">Đã xóa</string>
+    <string name="todo_error">Vui lòng nhập một công việc</string>
+</resources>
