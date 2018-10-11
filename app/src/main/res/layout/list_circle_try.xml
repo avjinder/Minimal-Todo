@@ -5,19 +5,22 @@
               android:layout_marginBottom="1dp"
               android:gravity="center"
               android:orientation="horizontal"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/toDoListItemColorImageView"
         android:gravity="center"
         android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@null"
         android:layout_width="45dp"
         android:layout_height="45dp"/>
 
 
     <RelativeLayout
         android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_weight="5"
         android:layout_width="0dp"
         android:gravity="center"
@@ -32,7 +35,7 @@
             android:textColor="@color/secondary_text"
             android:ellipsize="end"
             android:textSize="16sp"
-            android:text="Clean your room"
+            tools:text="Clean your room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -40,7 +43,7 @@
         <TextView
             android:layout_below="@id/toDoListItemTextview"
             android:id="@+id/todoListItemTimeTextView"
-            android:text="27 Sept 2015, 22:30"
+            tools:text="27 Sept 2015, 22:30"
             android:textColor="?attr/colorAccent"
             android:textSize="12sp"
             android:gravity="start|center"
