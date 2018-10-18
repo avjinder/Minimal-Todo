@@ -2,6 +2,9 @@ package com.example.avjindersinghsekhon.minimaltodo.Reminder;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
@@ -20,6 +24,7 @@ import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreImageData;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.TodoNotificationService;
@@ -44,10 +49,14 @@ public class ReminderFragment extends AppDefaultFragment {
     private StoreRetrieveData storeRetrieveData;
     private ArrayList<ToDoItem> mToDoItems;
     private ToDoItem mItem;
+    private Button SnoozeButton;
     public static final String EXIT = "com.avjindersekhon.exit";
     private TextView mSnoozeTextView;
     String theme;
+    ImageView ImageReminder;
     AnalyticsApplication app;
+    boolean isImagePresent = false;
+    private StoreImageData storeImageData;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -83,9 +92,22 @@ public class ReminderFragment extends AppDefaultFragment {
         mtoDoTextTextView = (TextView) view.findViewById(R.id.toDoReminderTextViewBody);
         mSnoozeTextView = (TextView) view.findViewById(R.id.reminderViewSnoozeTextView);
         mSnoozeSpinner = (MaterialSpinner) view.findViewById(R.id.todoReminderSnoozeSpinner);
+        ImageReminder = (ImageView)view.findViewById(R.id.ImageReminder);
+        SnoozeButton = (Button)view.findViewById(R.id.SnoozeButton);
+        storeImageData = new StoreImageData(getActivity());
 
 //        mtoDoTextTextView.setBackgroundColor(item.getTodoColor());
         mtoDoTextTextView.setText(mItem.getToDoText());
+        if (!mItem.getToDoText().equals("")){
+            Cursor cursor = storeImageData.getCursor();
+            while (cursor.moveToNext()){
+                if (cursor.getString(0).equals(mItem.getToDoText())){
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(cursor.getBlob(1),0,cursor.getBlob(1).length);
+                    ImageReminder.setImageBitmap(bitmap);
+                    isImagePresent = true;
+                }
+            }
+        }
 
         if (theme.equals(MainFragment.LIGHTTHEME)) {
             mSnoozeTextView.setTextColor(getResources().getColor(R.color.secondary_text));
@@ -104,7 +126,24 @@ public class ReminderFragment extends AppDefaultFragment {
                 changeOccurred();
                 saveData();
                 closeApp();
+                if (isImagePresent){
+                    storeImageData.DeleteData(mItem.getToDoText());
+                }
 //                finish();
+            }
+        });
+
+        SnoozeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Date date = addTimeToDate(valueFromSpinner());
+                mItem.setToDoDate(date);
+                mItem.setHasReminder(true);
+                Log.d("OskarSchindler", "Date Changed to: " + date);
+                changeOccurred();
+                saveData();
+                closeApp();
+
             }
         });
 
@@ -171,23 +210,6 @@ public class ReminderFragment extends AppDefaultFragment {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.toDoReminderDoneMenuItem:
-                Date date = addTimeToDate(valueFromSpinner());
-                mItem.setToDoDate(date);
-                mItem.setHasReminder(true);
-                Log.d("OskarSchindler", "Date Changed to: " + date);
-                changeOccurred();
-                saveData();
-                closeApp();
-                //foo
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
 
     private void saveData() {

@@ -1,21 +1,35 @@
 package com.example.avjindersinghsekhon.minimaltodo.AddToDo;
 
+import android.Manifest;
 import android.animation.Animator;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInstaller;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,21 +37,31 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreImageData;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import org.json.JSONException;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.zip.Inflater;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -51,6 +75,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     //    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
+    private ImageView ImageAdder;
 
     private EditText mDateEditText;
     private EditText mTimeEditText;
@@ -67,7 +92,6 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     private String mUserEnteredText;
     private boolean mUserHasReminder;
-    private Toolbar mToolbar;
     private Date mUserReminderDate;
     private int mUserColor;
     private boolean setDateButtonClickedOnce = false;
@@ -75,6 +99,11 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     private LinearLayout mContainerLayout;
     private String theme;
     AnalyticsApplication app;
+    Boolean isImageSet = false;
+    private Bitmap bitmap;
+    private StoreImageData storeImageData;
+    private ImageButton RemoveButton;
+    private Boolean isImagePresent = false;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -100,9 +129,6 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         if (cross != null) {
             cross.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
         }
-
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setElevation(0);
@@ -144,7 +170,8 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 //        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton) view.findViewById(R.id.makeToDoFloatingActionButton);
         mReminderTextView = (TextView) view.findViewById(R.id.newToDoDateTimeReminderTextView);
-
+        ImageAdder = (ImageView) view.findViewById(R.id.editTextParentLinearLayout);
+        RemoveButton = (ImageButton) view.findViewById(R.id.RemoveButton);
 
         mContainerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +179,19 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                 hideKeyboard(mToDoTextBodyEditText);
             }
         });
+
+        // Adding Image To ImageView
+        if (!mUserEnteredText.equals("")){
+            storeImageData = new StoreImageData(getActivity());
+            Cursor cursor = storeImageData.getCursor();
+            while (cursor.moveToNext()){
+                if (cursor.getString(0).equals(mUserEnteredText)){
+                    bitmap = BitmapFactory.decodeByteArray(cursor.getBlob(1),0,cursor.getBlob(1).length);
+                    ImageAdder.setImageBitmap(bitmap);
+                    isImagePresent = true;
+                }
+            }
+        }
 
 
         if (mUserHasReminder && (mUserReminderDate != null)) {
@@ -173,6 +213,31 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         mToDoTextBodyEditText.setSelection(mToDoTextBodyEditText.length());
 
+
+        ImageAdder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getActivity() , Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent , 100);
+                }else{
+                    ActivityCompat.requestPermissions(getActivity() , new String[]{Manifest.permission.CAMERA} , 99);
+                }
+
+
+            }
+        });
+
+        RemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isImagePresent){
+                    storeImageData.DeleteData(mUserToDoItem.getToDoText());
+                }
+                ImageAdder.setImageDrawable(getResources().getDrawable(R.drawable.camera));
+                hideKeyboard(mToDoTextBodyEditText);
+            }
+        });
 
         mToDoTextBodyEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -225,14 +290,27 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                 } else if (mUserReminderDate != null && mUserReminderDate.before(new Date())) {
                     app.send(this, "Action", "Date in the Past");
                     makeResult(RESULT_CANCELED);
+                    ImageAdderFunc();
                 } else {
                     app.send(this, "Action", "Make Todo");
                     makeResult(RESULT_OK);
                     getActivity().finish();
+                    ImageAdderFunc();
                 }
                 hideKeyboard(mToDoTextBodyEditText);
             }
+
+            private void ImageAdderFunc(){
+                if (isImageSet){
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG , 100 , byteArrayOutputStream);
+                    storeImageData = new StoreImageData(getActivity());
+                    long res = storeImageData.AddData(mUserEnteredText , byteArrayOutputStream.toByteArray());
+
+                }
+            }
         });
+
 
 
         mDateEditText = (EditText) view.findViewById(R.id.newTodoDateEditText);
@@ -351,6 +429,26 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 //            }
 //        });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100 && resultCode==RESULT_OK){
+            bitmap = (Bitmap) data.getExtras().get("data");
+            ImageAdder.setImageBitmap(bitmap);
+            ImageAdder.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            isImageSet = true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==99 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent , 100);
+        }
     }
 
     private void setDateAndTimeEditText() {
