@@ -11,7 +11,7 @@ android {
         }
     }
     compileSdkVersion 23
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '25.0.3'
     defaultConfig {
         applicationId "com.avjindersinghsekhon.minimaltodo"
         minSdkVersion 16
