@@ -1,6 +1,9 @@
 package com.example.avjindersinghsekhon.minimaltodo.AddToDo;
 
 import android.animation.Animator;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -25,9 +28,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.content.ClipboardManager;
+import android.widget.Toast;
 
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
@@ -45,12 +51,18 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 public class AddToDoFragment extends AppDefaultFragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    private static final String TAG = "AddToDoFragment";
     private Date mLastEdited;
+
     private EditText mToDoTextBodyEditText;
+    private EditText mToDoTextBodyDescription;
+
     private SwitchCompat mToDoDateSwitch;
     //    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
+
+    private String CombinationText;
 
     private EditText mDateEditText;
     private EditText mTimeEditText;
@@ -59,6 +71,8 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     private Button mChooseDateButton;
     private Button mChooseTimeButton;
+    private Button mCopyClipboard;
+
     private ToDoItem mUserToDoItem;
     private FloatingActionButton mToDoSendFloatingActionButton;
     public static final String DATE_FORMAT = "MMM d, yyyy";
@@ -66,6 +80,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     public static final String DATE_FORMAT_TIME = "H:m";
 
     private String mUserEnteredText;
+    private String mUserEnteredDescription;
     private boolean mUserHasReminder;
     private Toolbar mToolbar;
     private Date mUserReminderDate;
@@ -116,6 +131,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         mUserToDoItem = (ToDoItem) getActivity().getIntent().getSerializableExtra(MainFragment.TODOITEM);
 
         mUserEnteredText = mUserToDoItem.getToDoText();
+        mUserEnteredDescription = mUserToDoItem.getmToDoDescription();
         mUserHasReminder = mUserToDoItem.hasReminder();
         mUserReminderDate = mUserToDoItem.getToDoDate();
         mUserColor = mUserToDoItem.getTodoColor();
@@ -137,19 +153,44 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         }
 
 
+
+        //Button for Copy to Clipboard
+        mCopyClipboard = (Button) view.findViewById(R.id.copyclipboard);
+
         mContainerLayout = (LinearLayout) view.findViewById(R.id.todoReminderAndDateContainerLayout);
         mUserDateSpinnerContainingLinearLayout = (LinearLayout) view.findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText) view.findViewById(R.id.userToDoEditText);
+        mToDoTextBodyDescription= (EditText) view.findViewById(R.id.userToDoDescription);
         mToDoDateSwitch = (SwitchCompat) view.findViewById(R.id.toDoHasDateSwitchCompat);
 //        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         mToDoSendFloatingActionButton = (FloatingActionButton) view.findViewById(R.id.makeToDoFloatingActionButton);
         mReminderTextView = (TextView) view.findViewById(R.id.newToDoDateTimeReminderTextView);
 
 
+        //OnClickListener for CopyClipboard Button
+        mCopyClipboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String toDoTextContainer = mToDoTextBodyEditText.getText().toString();
+                String toDoTextBodyDescriptionContainer = mToDoTextBodyDescription.getText().toString();
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                CombinationText = "Title : " + toDoTextContainer + "\nDescription : " + toDoTextBodyDescriptionContainer + "\n -Copied From MinimalToDo";
+                ClipData clip = ClipData.newPlainText("text", CombinationText);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getContext(), "Copied To Clipboard!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
+
         mContainerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hideKeyboard(mToDoTextBodyEditText);
+                hideKeyboard(mToDoTextBodyDescription);
             }
         });
 
@@ -168,6 +209,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 //        til.requestFocus();
         mToDoTextBodyEditText.requestFocus();
         mToDoTextBodyEditText.setText(mUserEnteredText);
+        mToDoTextBodyDescription.setText(mUserEnteredDescription);
         InputMethodManager imm = (InputMethodManager) this.getActivity().getSystemService(INPUT_METHOD_SERVICE);
 //        imm.showSoftInput(mToDoTextBodyEditText, InputMethodManager.SHOW_IMPLICIT);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -188,6 +230,23 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
             public void afterTextChanged(Editable s) {
             }
         });
+        mToDoTextBodyDescription.setText(mUserEnteredDescription);
+        mToDoTextBodyDescription.setSelection(mToDoTextBodyDescription.length());
+        mToDoTextBodyDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mUserEnteredDescription = s.toString();
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
 
 
 //        String lastSeen = formatDate(DATE_FORMAT, mLastEdited);
@@ -213,6 +272,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                 setDateAndTimeEditText();
                 setEnterDateLayoutVisibleWithAnimations(isChecked);
                 hideKeyboard(mToDoTextBodyEditText);
+                hideKeyboard(mToDoTextBodyDescription);
             }
         });
 
@@ -231,6 +291,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                     getActivity().finish();
                 }
                 hideKeyboard(mToDoTextBodyEditText);
+                hideKeyboard(mToDoTextBodyDescription);
             }
         });
 
@@ -524,13 +585,18 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     }
 
     public void makeResult(int result) {
+        Log.d(TAG, "makeResult - ok : in");
         Intent i = new Intent();
         if (mUserEnteredText.length() > 0) {
 
             String capitalizedString = Character.toUpperCase(mUserEnteredText.charAt(0)) + mUserEnteredText.substring(1);
             mUserToDoItem.setToDoText(capitalizedString);
+            Log.d(TAG, "Description: " + mUserEnteredDescription);
+            mUserToDoItem.setmToDoDescription(mUserEnteredDescription);
         } else {
             mUserToDoItem.setToDoText(mUserEnteredText);
+            Log.d(TAG, "Description: " + mUserEnteredDescription);
+            mUserToDoItem.setmToDoDescription(mUserEnteredDescription);
         }
 //        mUserToDoItem.setLastEdited(mLastEdited);
         if (mUserReminderDate != null) {
