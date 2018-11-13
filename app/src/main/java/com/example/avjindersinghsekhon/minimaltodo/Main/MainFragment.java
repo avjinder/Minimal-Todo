@@ -148,7 +148,7 @@ public class MainFragment extends AppDefaultFragment {
             public void onClick(View v) {
                 app.send(this, "Action", "FAB pressed");
                 Intent newTodo = new Intent(getContext(), AddToDoActivity.class);
-                ToDoItem item = new ToDoItem("", false, null);
+                ToDoItem item = new ToDoItem("","", false, null);
                 int color = ColorGenerator.MATERIAL.getRandomColor();
                 item.setTodoColor(color);
                 //noinspection ResourceType
@@ -424,7 +424,7 @@ public class MainFragment extends AppDefaultFragment {
 
     public void makeUpItems(ArrayList<ToDoItem> items, int len) {
         for (String testString : testStrings) {
-            ToDoItem item = new ToDoItem(testString, false, new Date());
+            ToDoItem item = new ToDoItem(testString,testString, false, new Date());
             //noinspection ResourceType
 //            item.setTodoColor(getResources().getString(R.color.red_secondary));
             items.add(item);

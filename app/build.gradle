@@ -11,6 +11,7 @@ android {
         }
     }
     compileSdkVersion 23
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.avjindersinghsekhon.minimaltodo"
         minSdkVersion 16
@@ -31,15 +32,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.android.gms:play-services-analytics:7.8.0'
-    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
-    compile 'com.github.ganfra:material-spinner:1.1.0'
-    compile 'com.wdullaer:materialdatetimepicker:1.5.1'
-    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-    compile 'com.github.ganfra:material-spinner:1.1.0'
-    compile 'com.android.support:recyclerview-v7:23.1.0'
-    compile 'com.android.support:design:23.1.0'
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:support-v13:23.1.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.android.gms:play-services-analytics:7.8.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.1.0'
+    implementation 'com.github.ganfra:material-spinner:1.1.0'
+    implementation 'com.wdullaer:materialdatetimepicker:1.5.1'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.github.ganfra:material-spinner:1.1.0'
+    implementation 'com.android.support:recyclerview-v7:23.1.0'
+    implementation 'com.android.support:design:23.1.0'
+    implementation 'com.android.support:appcompat-v7:23.1.0'
+    implementation 'com.android.support:support-v13:23.1.0'
 }
