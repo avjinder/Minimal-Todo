@@ -57,7 +57,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class MainFragment extends AppDefaultFragment {
     private RecyclerViewEmptySupport mRecyclerView;
     private FloatingActionButton mAddToDoItemFAB;
-    private ArrayList<ToDoItem> mToDoItemsArrayList;
+    private static ArrayList<ToDoItem> mToDoItemsArrayList;
     private CoordinatorLayout mCoordLayout;
     public static final String TODOITEM = "com.avjindersinghsekhon.com.avjindersinghsekhon.minimaltodo.MainActivity";
     private MainFragment.BasicListAdapter adapter;
@@ -222,6 +222,10 @@ public class MainFragment extends AppDefaultFragment {
 
     }
 
+    public static ArrayList<ToDoItem> getToDoItemsArrayList() {
+        return mToDoItemsArrayList;
+    }
+
     public static ArrayList<ToDoItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData) {
         ArrayList<ToDoItem> items = null;
 
@@ -310,7 +314,6 @@ public class MainFragment extends AppDefaultFragment {
         }
     }
 
-
     public void addThemeToSharedPreferences(String theme) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -351,6 +354,14 @@ public class MainFragment extends AppDefaultFragment {
                 Intent intent = new Intent(getContext(), SettingsActivity.class);
                 startActivity(intent);
                 return true;
+
+            case R.id.save:
+                try {
+                    Log.e("Save", "onOptionsItemSelected: save");
+                    storeRetrieveData.saveToFolder(mToDoItemsArrayList);
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
 
             default:
                 return super.onOptionsItemSelected(item);
