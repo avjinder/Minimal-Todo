@@ -1,24 +1,31 @@
 package com.example.avjindersinghsekhon.minimaltodo.Utility;
 
 import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+import static android.support.v7.widget.StaggeredGridLayoutManager.TAG;
+
 public class StoreRetrieveData {
     private Context mContext;
-    private String mFileName;
+    private static String mFileName;
 
     public StoreRetrieveData(Context context, String filename) {
         mContext = context;
@@ -34,10 +41,39 @@ public class StoreRetrieveData {
         return jsonArray;
     }
 
+    public static void saveToFolder(ArrayList<ToDoItem> items) throws JSONException, IOException {
+        String state = Environment.getExternalStorageState();
+
+        //external storage availability check
+        if (!Environment.MEDIA_MOUNTED.equals(state)) {
+            System.out.println("media unmounted");
+            Log.e("fail", "saveToFolder: unmounted");
+            return;
+        }
+
+        File file = new File(Environment.getExternalStorageDirectory(), mFileName);
+        FileOutputStream outputStream;
+
+        try {
+            file.createNewFile();
+            //second argument of FileOutputStream constructor indicates whether to append or create new file if one exists
+            outputStream = new FileOutputStream(file);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            outputStreamWriter.write(toJSONArray(items).toString());
+            outputStreamWriter.close();
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     public void saveToFile(ArrayList<ToDoItem> items) throws JSONException, IOException {
         FileOutputStream fileOutputStream;
         OutputStreamWriter outputStreamWriter;
         fileOutputStream = mContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
+
         outputStreamWriter = new OutputStreamWriter(fileOutputStream);
         outputStreamWriter.write(toJSONArray(items).toString());
         outputStreamWriter.close();

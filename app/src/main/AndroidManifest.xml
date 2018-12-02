@@ -4,6 +4,7 @@
 
     <uses-permission android:name="ANDROID.PERMISSION.INTERNET"/>
     <uses-permission android:name="ANDROID.PERMISSION.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!--We set theme to DarkTheme because when the app opens it shows
     a white screen if our theme here is LightTheme. The screen is shown for
@@ -50,6 +51,7 @@
             android:parentActivityName=".Main.MainActivity"
 
             />
+
 
     </application>
 

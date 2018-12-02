@@ -12,6 +12,11 @@
         app:showAsAction="never"
         />
 
+    <item android:id="@+id/save"
+        android:title="@string/save_settings"
+        app:showAsAction="never"
+        />
+
     <item android:title="@string/about"
         android:id="@+id/aboutMeMenuItem"
         app:showAsAction="never"
