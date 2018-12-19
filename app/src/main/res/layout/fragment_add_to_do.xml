@@ -80,136 +80,144 @@
 
             </com.example.avjindersinghsekhon.minimaltodo.Utility.CustomTextInputLayout>
 
-            <LinearLayout
-                android:id="@+id/todoReminderAndDateContainerLayout"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.5"
-                android:orientation="vertical">
-
+                android:layout_weight="1.5">
 
                 <LinearLayout
+                    android:id="@+id/todoReminderAndDateContainerLayout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginLeft="36dp"
-                    android:layout_marginRight="36dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight=".5"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/userToDoReminderIconImageButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".4"
-                        android:background="@android:color/transparent"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_add_alarm_grey_200_24dp" />
-
-                    <TextView
-                        android:id="@+id/userToDoRemindMeTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:paddingTop="8dp"
-                        android:text="@string/remind_me"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16sp" />
-
-                    <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/toDoHasDateSwitchCompat"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <Button
-                        android:id="@+id/copyclipboard"
-                        android:layout_width="0dp"
-                        android:layout_height="28dp"
-                        android:layout_margin="8dp"
-                        android:layout_weight=".37"
-                        android:background="@drawable/ic_content_copy_black_24dp"
-                        android:backgroundTint="@color/grey600"
-                        android:padding="8dp"
-                        android:visibility="visible" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/toDoEnterDateLinearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="36dp"
-                    android:layout_marginRight="36dp"
-                    android:layout_weight="1"
-                    android:animateLayoutChanges="true"
-                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <LinearLayout
 
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="top">
+                        android:layout_marginLeft="36dp"
+                        android:layout_marginRight="36dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_weight=".5"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-
-                        <EditText
-                            android:id="@+id/newTodoDateEditText"
+                        <ImageButton
+                            android:id="@+id/userToDoReminderIconImageButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1.5"
-                            android:editable="false"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
-                            android:gravity="center"
-                            android:textIsSelectable="false" />
+                            android:layout_weight=".4"
+                            android:background="@android:color/transparent"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_add_alarm_grey_200_24dp" />
 
                         <TextView
+                            android:id="@+id/userToDoRemindMeTextView"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight=".2"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:text="\@"
-                            android:textColor="?attr/colorAccent" />
+                            android:layout_weight="2"
+                            android:gravity="start"
+                            android:paddingBottom="8dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="8dp"
+                            android:text="@string/remind_me"
+                            android:textColor="@color/secondary_text"
+                            android:textSize="16sp" />
 
-                        <EditText
-                            android:id="@+id/newTodoTimeEditText"
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/toDoHasDateSwitchCompat"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:editable="false"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
                             android:gravity="center"
-                            android:textIsSelectable="false" />
+                            android:padding="8dp" />
 
+                        <Button
+                            android:id="@+id/copyclipboard"
+                            android:layout_width="0dp"
+                            android:layout_height="28dp"
+                            android:layout_margin="8dp"
+                            android:layout_weight=".37"
+                            android:background="@drawable/ic_content_copy_black_24dp"
+                            android:backgroundTint="@color/grey600"
+                            android:padding="8dp"
+                            android:visibility="visible" />
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/newToDoDateTimeReminderTextView"
+                    <LinearLayout
+                        android:id="@+id/toDoEnterDateLinearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="2"
-                        android:gravity="start"
-                        android:text="@string/remind_date_and_time"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="14sp" />
+                        android:layout_marginLeft="36dp"
+                        android:layout_marginRight="36dp"
+                        android:layout_weight="1"
+                        android:animateLayoutChanges="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="top">
+
+
+                            <EditText
+                                android:id="@+id/newTodoDateEditText"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:editable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:gravity="center"
+                                android:textIsSelectable="false" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".2"
+                                android:gravity="center"
+                                android:padding="4dp"
+                                android:text="\@"
+                                android:textColor="?attr/colorAccent" />
+
+                            <EditText
+                                android:id="@+id/newTodoTimeEditText"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:editable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:gravity="center"
+                                android:textIsSelectable="false" />
+
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/newToDoDateTimeReminderTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:gravity="start"
+                            android:text="@string/remind_date_and_time"
+                            android:textColor="@color/secondary_text"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
+            </ScrollView>
 
-            </LinearLayout>
+
 
         </LinearLayout>
 

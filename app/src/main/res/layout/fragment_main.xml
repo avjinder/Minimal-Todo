@@ -15,8 +15,9 @@
 
         <LinearLayout
             android:id="@+id/toDoEmptyView"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
