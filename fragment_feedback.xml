@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center|top"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/aboutImageView"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:text="@string/help_us"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/help"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aboutImageView"/>
+
+   <Button
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/attach_photo"
+       android:layout_below="@id/help"
+       android:id="@+id/attach_photo"
+       android:layout_marginBottom="16dp"
+       android:layout_centerHorizontal="true"
+       />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feedback"
+        android:layout_marginTop="16dp"
+        android:layout_above="@id/feedback_text"/>
+    <EditText
+        android:textSize="20sp"
+        android:layout_marginTop="16dp"
+        android:hint="Give us some feedback. "
+        android:layout_width="match_parent"
+        android:minLines="3"
+        android:gravity="top"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/attach_photo"
+        android:id="@+id/feedback_text"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/attachments"
+        android:layout_below="@id/feedback_text"
+        android:paddingTop="16dp"
+        android:id="@+id/attachments"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+       android:layout_below="@id/attachments"
+        android:id="@+id/imageView1"
+
+
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/attachments"
+        android:text="No attachments yet."
+        android:id="@+id/no_attachment_view"
+        android:padding="32dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/send_feedback"
+        android:id="@+id/send_email"/>
+
+</RelativeLayout>
