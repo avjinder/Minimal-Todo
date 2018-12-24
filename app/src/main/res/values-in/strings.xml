@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="no_to_dos">Anda tidak memiliki agenda</string>
+    <string name="title">Judul</string>
+    <string name="remind_me">Ingatkan Saya</string>
+    <string name="choose_date">Tanggal</string>
+    <string name="choose_time">Waktu</string>
+    <string name="remind_date_and_time">Pengingat diset pada %1$s, %2$s %3$s</string>
+    <string name="about">Tentang</string>
+    <string name="app_version">Versi: %1$s</string>
+    <string name="contact_me">Anda bisa menghubungi saya di</string>
+    <string name="made_by">Dibuat oleh Avjinder</string>
+    <string name="done_label">Selesai</string>
+    <string name="date_reminder_default">Hari Ini</string>
+    <string name="date_error_check_again">Tanggal yang anda masukkan telah berlalu</string>
+    <string name="night_mode">Mode Malam</string>
+    <string name="night_mode_on_summary">Mode malam diaktifkan</string>
+    <string name="night_mode_off_summary">Mode malam dinonaktifkan</string>
+    <string name="remove">Hapus</string>
+    <string name="snooze">Tunda pengingat</string>
+    <string name="todo_error">Tolong masukkan agenda anda</string>
+</resources>
