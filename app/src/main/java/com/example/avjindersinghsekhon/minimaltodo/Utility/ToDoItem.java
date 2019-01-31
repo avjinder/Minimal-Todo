@@ -35,6 +35,15 @@ public class ToDoItem implements Serializable {
         mTodoIdentifier = UUID.randomUUID();
     }
 
+    public ToDoItem(String todoBody, boolean hasReminder, Date todoDate){
+        mToDoText = todoBody;
+        mHasReminder = hasReminder;
+        mToDoDate = todoDate;
+        mTodoColor = 1677725;
+        mToDoDescription = "";
+        mTodoIdentifier = UUID.randomUUID();
+    }
+
     public ToDoItem(JSONObject jsonObject) throws JSONException {
         mToDoText = jsonObject.getString(TODOTEXT);
         mToDoDescription = jsonObject.getString(TODODESCRIPTION);

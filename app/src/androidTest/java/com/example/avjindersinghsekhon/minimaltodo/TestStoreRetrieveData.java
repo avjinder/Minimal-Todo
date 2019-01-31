@@ -27,6 +27,7 @@ import android.content.Context;
 import android.test.ActivityUnitTestCase;
 
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
 
@@ -42,7 +43,7 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
 
     private MainActivity mMainActivity;
     private ArrayList<ToDoItem> mOriginalData;
-    ArrayList<ToDoItem> mTestData;
+    private ArrayList<ToDoItem> mTestData;
 
     public TestStoreRetrieveData() {
         super(MainActivity.class);
@@ -168,6 +169,6 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
 
     private StoreRetrieveData getDataStorage() {
         Context context = getInstrumentation().getTargetContext();
-        return new StoreRetrieveData(context, MainActivity.FILENAME);
+        return new StoreRetrieveData(context, MainFragment.FILENAME);
     }
 }
