@@ -11,6 +11,7 @@ import java.util.UUID;
 
 public class DeleteNotificationService extends IntentService {
 
+    public static final String TAG = "DeleteNotificationService";
     private StoreRetrieveData storeRetrieveData;
     private ArrayList<ToDoItem> mToDoItems;
     private ToDoItem mItem;
