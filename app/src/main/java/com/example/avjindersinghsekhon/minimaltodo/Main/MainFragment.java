@@ -404,6 +404,7 @@ public class MainFragment extends AppDefaultFragment {
     private boolean doesPendingIntentExist(Intent i, int requestCode) {
         PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_NO_CREATE);
         return pi != null;
+        
     }
 
     private void createAlarm(Intent i, int requestCode, long timeInMillis) {
