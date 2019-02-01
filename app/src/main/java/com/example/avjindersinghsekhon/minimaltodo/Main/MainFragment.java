@@ -1,7 +1,9 @@
 package com.example.avjindersinghsekhon.minimaltodo.Main;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -35,6 +37,7 @@ import com.example.avjindersinghsekhon.minimaltodo.AddToDo.AddToDoFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
+import com.example.avjindersinghsekhon.minimaltodo.Reminder.ReminderActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Reminder.ReminderFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ItemTouchHelperClass;
@@ -49,6 +52,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.content.Context.ALARM_SERVICE;
@@ -60,6 +64,7 @@ public class MainFragment extends AppDefaultFragment {
     private ArrayList<ToDoItem> mToDoItemsArrayList;
     private CoordinatorLayout mCoordLayout;
     public static final String TODOITEM = "com.avjindersinghsekhon.com.avjindersinghsekhon.minimaltodo.MainActivity";
+    public static final String TAG = "MainFragment";
     private MainFragment.BasicListAdapter adapter;
     private static final int REQUEST_ID_TODO_ITEM = 100;
     private ToDoItem mJustDeletedToDoItem;
@@ -385,6 +390,8 @@ public class MainFragment extends AppDefaultFragment {
             if (!existed) {
                 addToDataStore(item);
             }
+//            });
+
 
 
         }
@@ -397,6 +404,7 @@ public class MainFragment extends AppDefaultFragment {
     private boolean doesPendingIntentExist(Intent i, int requestCode) {
         PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_NO_CREATE);
         return pi != null;
+        
     }
 
     private void createAlarm(Intent i, int requestCode, long timeInMillis) {
@@ -407,11 +415,23 @@ public class MainFragment extends AppDefaultFragment {
     }
 
     private void deleteAlarm(Intent i, int requestCode) {
+        Log.d(TAG, "deleteAlarm: called");
         if (doesPendingIntentExist(i, requestCode)) {
             PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_NO_CREATE);
             pi.cancel();
             getAlarmManager().cancel(pi);
             Log.d("OskarSchindler", "PI Cancelled " + doesPendingIntentExist(i, requestCode));
+        }
+    }
+
+    private void deleteNotification(UUID mTodoUUID) {
+        int NOTIFICATION_ID = mTodoUUID.hashCode();
+        Intent notificationIntent = new Intent(getContext(),ReminderActivity.class);
+        PendingIntent i = PendingIntent.getActivity(getContext(), NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_NO_CREATE);
+
+        if (i != null){
+            NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(NOTIFICATION_ID);
         }
     }
 
@@ -431,8 +451,8 @@ public class MainFragment extends AppDefaultFragment {
         }
 
     }
-
     public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter {
+
         private ArrayList<ToDoItem> items;
 
         @Override
@@ -451,6 +471,7 @@ public class MainFragment extends AppDefaultFragment {
 
         @Override
         public void onItemRemoved(final int position) {
+            Log.d(TAG, "onItemRemoved: position: "+position);
             //Remove this line if not using Google Analytics
             app.send(this, "Action", "Swiped Todo Away");
 
@@ -458,6 +479,7 @@ public class MainFragment extends AppDefaultFragment {
             mIndexOfDeletedToDoItem = position;
             Intent i = new Intent(getContext(), TodoNotificationService.class);
             deleteAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode());
+            deleteNotification(mJustDeletedToDoItem.getIdentifier());
             notifyItemRemoved(position);
 
 //            String toShow = (mJustDeletedToDoItem.getToDoText().length()>20)?mJustDeletedToDoItem.getToDoText().substring(0, 20)+"...":mJustDeletedToDoItem.getToDoText();
@@ -559,7 +581,6 @@ public class MainFragment extends AppDefaultFragment {
             this.items = items;
         }
 
-
         @SuppressWarnings("deprecation")
         public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -569,6 +590,7 @@ public class MainFragment extends AppDefaultFragment {
             //            TextView mColorTextView;
             ImageView mColorImageView;
             TextView mTimeTextView;
+
 //            int color = -1;
 
             public ViewHolder(View v) {
@@ -590,8 +612,8 @@ public class MainFragment extends AppDefaultFragment {
                 linearLayout = (LinearLayout) v.findViewById(R.id.listItemLinearLayout);
             }
 
-
         }
+
     }
 
     //Used when using custom fonts

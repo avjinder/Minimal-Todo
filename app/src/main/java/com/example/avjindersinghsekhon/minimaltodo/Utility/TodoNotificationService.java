@@ -18,6 +18,7 @@ public class TodoNotificationService extends IntentService {
     public static final String TODOUUID = "com.avjindersekhon.todonotificationserviceuuid";
     private String mTodoText;
     private UUID mTodoUUID;
+    private int mUUIDHash;
     private Context mContext;
 
     public TodoNotificationService() {
@@ -28,6 +29,7 @@ public class TodoNotificationService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         mTodoText = intent.getStringExtra(TODOTEXT);
         mTodoUUID = (UUID) intent.getSerializableExtra(TODOUUID);
+        mUUIDHash = mTodoUUID.hashCode();
 
         Log.d("OskarSchindler", "onHandleIntent called");
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -44,7 +46,7 @@ public class TodoNotificationService extends IntentService {
                 .setContentIntent(PendingIntent.getActivity(this, mTodoUUID.hashCode(), i, PendingIntent.FLAG_UPDATE_CURRENT))
                 .build();
 
-        manager.notify(100, notification);
+        manager.notify(mUUIDHash, notification);
 //        Uri defaultRingone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 //        MediaPlayer mp = new MediaPlayer();
 //        try{
