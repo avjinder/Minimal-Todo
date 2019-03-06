@@ -1,5 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+allprojects {
+   
+    configurations.all {
+        resolutionStrategy.force 'com.android.support:support-annotations:23.0.0'
+    }
+}
+
 buildscript {
     repositories {
         jcenter()

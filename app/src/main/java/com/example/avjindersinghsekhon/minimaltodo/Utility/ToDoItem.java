@@ -67,7 +67,7 @@ public class ToDoItem implements Serializable {
     }
 
 
-    public ToDoItem() {
+    public ToDoItem(String s, boolean b, Date date) {
         this("Clean my room","Sweep and Mop my Room", true, new Date());
     }
 
