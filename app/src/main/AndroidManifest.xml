@@ -15,6 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/CustomStyle.DarkTheme"
+         
         >
         <activity
             android:name=".Main.MainActivity"
@@ -31,6 +32,7 @@
         <activity android:name=".AddToDo.AddToDoActivity"
             android:screenOrientation="portrait"
             android:parentActivityName=".Main.MainActivity"
+                   android:windowSoftInputMode="adjustPan|adjustResize"
             />
 
         <activity android:name=".About.AboutActivity"
@@ -40,6 +42,7 @@
 
         <activity android:name=".Reminder.ReminderActivity"
             android:label="@string/app_name"
+                   android:windowSoftInputMode="adjustPan|adjustResize"
             />
 
         <service android:name=".Utility.TodoNotificationService"
