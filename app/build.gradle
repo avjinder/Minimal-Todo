@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     signingConfigs {
@@ -14,10 +16,11 @@ android {
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.avjindersinghsekhon.minimaltodo"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 23
         versionCode 3
         versionName "1.2"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -43,4 +46,12 @@ dependencies {
     implementation 'com.android.support:design:23.1.0'
     implementation 'com.android.support:appcompat-v7:23.1.0'
     implementation 'com.android.support:support-v13:23.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    androidTestImplementation 'junit:junit:4.12'
+
+    androidTestImplementation 'androidx.test:core:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation 'org.hamcrest:hamcrest-integration:1.3'
 }
