@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="action_settings">Nastavitve</string>
+    <string name="no_to_dos">Nimate opravkov</string>
+    <string name="title">Naziv</string>
+    <string name="remind_me">Opomni me</string>
+    <string name="choose_date">Datum</string>
+    <string name="choose_time">Čas</string>
+    <string name="remind_date_and_time">Opomnik nastavljen za %1$s, %2$s %3$s</string>
+    <string name="about">O nas</string>
+    <string name="app_version">Verzija: %1$s</string>
+    <string name="contact_me">Lahko me kontaktirate na</string>
+    <string name="made_by">Ustvaril Avjinder</string>
+    <string name="done_label">Storjeno</string>
+    <string name="date_reminder_default">Danes</string>
+    <string name="date_error_check_again">Vneseni datum je potekel.</string>
+    <string name="night_mode">Nočni način</string>
+    <string name="night_mode_on_summary">Nočni način vključen</string>
+    <string name="night_mode_off_summary">Nočni način izključen</string>
+    <string name="description">Opis</string>
+
+    <string-array name="snooze_options">
+        <item>10 Minut</item>
+        <item>30 Minut</item>
+        <item>1 Ura</item>
+    </string-array>
+
+    <string name="snooze">Dremež</string>
+    <string name="remove">Odstrani</string>
+    <string name="todo_error">Vnesite opravek</string>
+</resources>
