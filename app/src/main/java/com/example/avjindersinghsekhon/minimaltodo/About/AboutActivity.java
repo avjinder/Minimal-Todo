@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
+import com.example.avjindersinghsekhon.minimaltodo.MinimalToDo;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
@@ -26,7 +26,7 @@ public class AboutActivity extends AppDefaultActivity {
     private TextView contactMe;
     String theme;
     //    private UUID mId;
-    private AnalyticsApplication app;
+    private MinimalToDo app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

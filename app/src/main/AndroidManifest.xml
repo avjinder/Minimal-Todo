@@ -10,7 +10,7 @@
     about 1 second, but it's jarring if users have set Night Mode to true.
     -->
     <application
-        android:name=".Analytics.AnalyticsApplication"
+        android:name=".MinimalToDo"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

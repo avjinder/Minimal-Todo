@@ -28,12 +28,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.content.ClipboardManager;
 import android.widget.Toast;
 
-import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
+import com.example.avjindersinghsekhon.minimaltodo.MinimalToDo;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
-import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
@@ -89,12 +87,12 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     private boolean setTimeButtonClickedOnce = false;
     private LinearLayout mContainerLayout;
     private String theme;
-    AnalyticsApplication app;
+    MinimalToDo app;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        app = (AnalyticsApplication) getActivity().getApplication();
+        app = (MinimalToDo) getActivity().getApplication();
 //        setContentView(R.layout.new_to_do_layout);
         //Need references to these to change them during light/dark mode
         ImageButton reminderIconImageButton;
@@ -258,12 +256,6 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         mToDoDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    app.send(this, "Action", "Reminder Set");
-                } else {
-                    app.send(this, "Action", "Reminder Removed");
-
-                }
 
                 if (!isChecked) {
                     mUserReminderDate = null;
@@ -283,10 +275,8 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                 if (mToDoTextBodyEditText.length() <= 0) {
                     mToDoTextBodyEditText.setError(getString(R.string.todo_error));
                 } else if (mUserReminderDate != null && mUserReminderDate.before(new Date())) {
-                    app.send(this, "Action", "Date in the Past");
                     makeResult(RESULT_CANCELED);
                 } else {
-                    app.send(this, "Action", "Make Todo");
                     makeResult(RESULT_OK);
                     getActivity().finish();
                 }
@@ -618,7 +608,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (NavUtils.getParentActivityName(getActivity()) != null) {
-                    app.send(this, "Action", "Discard Todo");
+
                     makeResult(RESULT_CANCELED);
                     NavUtils.navigateUpFromSameTask(getActivity());
                 }

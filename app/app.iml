@@ -129,9 +129,7 @@
     <orderEntry type="library" name="Gradle: com.android.support:support-annotations:23.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.nineoldandroids:library:2.4.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.wdullaer:materialdatetimepicker:1.5.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-base:7.8.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ganfra:material-spinner:1.1.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-analytics:7.8.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v4:23.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: uk.co.chrisjenx:calligraphy:2.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v13:23.1.0@aar" level="project" />

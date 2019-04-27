@@ -6,20 +6,20 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceFragment;
 
-import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
+import com.example.avjindersinghsekhon.minimaltodo.MinimalToDo;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.PreferenceKeys;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-    AnalyticsApplication app;
+    MinimalToDo app;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_layout);
-        app = (AnalyticsApplication) getActivity().getApplication();
+        app = (MinimalToDo) getActivity().getApplication();
     }
 
     @Override
@@ -33,8 +33,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference) findPreference(preferenceKeys.night_mode_pref_key);
             if (checkBoxPreference.isChecked()) {
-                //Comment out this line if not using Google Analytics
-                app.send(this, "Settings", "Night Mode used");
                 themeEditor.putString(MainFragment.THEME_SAVED, MainFragment.DARKTHEME);
             } else {
                 themeEditor.putString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);

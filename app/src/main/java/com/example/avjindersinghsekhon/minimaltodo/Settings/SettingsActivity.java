@@ -10,24 +10,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
+import com.example.avjindersinghsekhon.minimaltodo.MinimalToDo;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    AnalyticsApplication app;
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        app.send(this);
-    }
+    MinimalToDo app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        app = (AnalyticsApplication) getApplication();
+        app = (MinimalToDo) getApplication();
         String theme = getSharedPreferences(MainFragment.THEME_PREFERENCES, MODE_PRIVATE).getString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);
         if (theme.equals(MainFragment.LIGHTTHEME)) {
             setTheme(R.style.CustomStyle_LightTheme);

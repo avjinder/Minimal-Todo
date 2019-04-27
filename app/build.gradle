@@ -33,7 +33,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.android.gms:play-services-analytics:7.8.0'
     implementation 'uk.co.chrisjenx:calligraphy:2.1.0'
     implementation 'com.github.ganfra:material-spinner:1.1.0'
     implementation 'com.wdullaer:materialdatetimepicker:1.5.1'
