@@ -20,10 +20,10 @@ import com.example.avjindersinghsekhon.minimaltodo.R;
 
 public class AboutActivity extends AppDefaultActivity {
 
-    private TextView mVersionTextView;
-    private String appVersion = "0.1";
+    private AboutContract.Presenter presenter;
+    private AboutFragment fragment;
+
     private Toolbar toolbar;
-    private TextView contactMe;
     String theme;
     //    private UUID mId;
     private MinimalToDo app;
@@ -48,12 +48,6 @@ public class AboutActivity extends AppDefaultActivity {
         if (backArrow != null) {
             backArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         }
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
-            appVersion = info.versionName;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,6 +55,8 @@ public class AboutActivity extends AppDefaultActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(backArrow);
         }
+
+        presenter = new AboutPresenter(fragment);
     }
 
     @Override
@@ -70,7 +66,8 @@ public class AboutActivity extends AppDefaultActivity {
 
     @NonNull
     protected Fragment createInitialFragment() {
-        return AboutFragment.newInstance();
+        fragment = AboutFragment.newInstance();
+        return fragment;
     }
 
     @Override

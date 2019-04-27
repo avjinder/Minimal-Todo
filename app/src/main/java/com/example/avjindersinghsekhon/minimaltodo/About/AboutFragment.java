@@ -7,41 +7,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.avjindersinghsekhon.minimaltodo.BuildConfig;
 import com.example.avjindersinghsekhon.minimaltodo.MinimalToDo;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 
-public class AboutFragment extends AppDefaultFragment {
+public class AboutFragment extends AppDefaultFragment implements AboutContract.View {
+
+    private View view;
+    private AboutContract.Presenter presenter;
 
     private TextView mVersionTextView;
-    private String appVersion = "0.1";
-    private Toolbar toolbar;
     private TextView contactMe;
-    private MinimalToDo app;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        app = (MinimalToDo) getActivity().getApplication();
-
-        mVersionTextView = (TextView) view.findViewById(R.id.aboutVersionTextView);
-        mVersionTextView.setText(String.format(getResources().getString(R.string.app_version), appVersion));
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-
-        contactMe = (TextView) view.findViewById(R.id.aboutContactMe);
-
-        contactMe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        this.view = view;
     }
 
     @LayoutRes
@@ -51,5 +34,27 @@ public class AboutFragment extends AppDefaultFragment {
 
     public static AboutFragment newInstance() {
         return new AboutFragment();
+    }
+
+    public void showVersion() {
+        mVersionTextView = (TextView) view.findViewById(R.id.aboutVersionTextView);
+        mVersionTextView.setText(String.format(getResources().getString(R.string.app_version), String.valueOf(BuildConfig.VERSION_CODE)));
+    }
+
+    public void setContactMe(){
+
+        contactMe = (TextView) view.findViewById(R.id.aboutContactMe);
+
+        contactMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+    }
+
+    @Override
+    public void setPresenter(AboutContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 }
