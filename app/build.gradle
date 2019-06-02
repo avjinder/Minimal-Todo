@@ -1,7 +1,47 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = '0.8.1' //Use latest version
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'test/**/*.*']
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec'
+    ])
+}
 
 android {
+        // ...
+
+    testOptions {
+
+        unitTests.returnDefaultValues = true
+
+        unitTests {
+            includeAndroidResources = true
+        }
+        jacoco {
+
+        }
+    }
+
     signingConfigs {
         release {
             keyAlias ''
@@ -13,13 +53,18 @@ android {
     compileSdkVersion 23
     buildToolsVersion '28.0.3'
     defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         applicationId "com.avjindersinghsekhon.minimaltodo"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 23
         versionCode 3
         versionName "1.2"
+
     }
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -32,6 +77,8 @@ android {
 }
 
 dependencies {
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    testImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.android.gms:play-services-analytics:7.8.0'
     implementation 'uk.co.chrisjenx:calligraphy:2.1.0'
@@ -43,4 +90,27 @@ dependencies {
     implementation 'com.android.support:design:23.1.0'
     implementation 'com.android.support:appcompat-v7:23.1.0'
     implementation 'com.android.support:support-v13:23.1.0'
+    androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:core:1.0.0'
+    // Optional -- Mockito framework
+    androidTestImplementation 'org.mockito:mockito-core:2.15.0'
+
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    // Optional -- Hamcrest library
+    androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
+    // Optional -- UI testing with Espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    // Optional -- UI testing with UI Automator
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.json:json:20171018'
+    testImplementation 'androidx.test:core:1.0.0'
+    testImplementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'com.android.support:appcompat-v7:23.0.0'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:2.15.0'
+    testImplementation 'androidx.test:runner:1.1.0'
+    testImplementation 'androidx.test:rules:1.1.0'
+    testImplementation 'org.robolectric:robolectric:4.0'
 }

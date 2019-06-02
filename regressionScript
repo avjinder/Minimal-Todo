@@ -1,0 +1,36 @@
+#!/bin/bash
+
+echo Regression tests suit 
+echo 'Number of Loops = ' $1
+echo 'EmailResultsPerson = ' $2
+
+for((i=1;i<=$1;i+=1));
+do
+echo 'Run test for ' $i 'time' 
+./gradlew testRelease 
+done
+echo All done
+
+
+
+if [ "$2" != "" ]; then
+   echo "Sending email to - " $2  
+ 
+   echo "Hello this is sending email using msmtp" | msmtp $2  
+   
+    #sendemail -l email.log     \
+    #-f "sowmya9029@gmail.com"   \
+    #-u "Email Subject 1"     \
+    #-t "shasow1129@gmail.com" \
+    #-s "smtp.gmail.com:587"  \
+    #-o tls=yes \
+    #-xu "sowmya9029@gmail.com" \
+    #-xp "***" \
+    #-m "test"
+   
+  # mail -s "Test Results" $2  <<< "how are you?"
+else
+    echo "There is no EmailResultsPerson"
+fi
+
+exec &> your_file.log

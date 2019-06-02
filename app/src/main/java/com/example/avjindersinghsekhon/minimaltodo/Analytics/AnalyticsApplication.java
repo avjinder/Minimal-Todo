@@ -19,13 +19,6 @@ public class AnalyticsApplication extends Application {
         if (mTracker == null) {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
 
-            /*R.xml.app_tracker contains my Analytics code
-            To use this, go to Google Analytics, and get
-            your code, create a file under res/xml , and save
-            your code as <string name="ga_trackingId">UX-XXXXXXXX-Y</string>
-            */
-
-            //mTracker = analytics.newTracker(R.xml.app_tracker);
             mTracker = analytics.newTracker(R.xml.global_tracker);
 //
             mTracker.setAppName("Minimal");

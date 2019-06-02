@@ -3,6 +3,7 @@ package com.example.avjindersinghsekhon.minimaltodo.Utility;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -12,7 +13,18 @@ import android.widget.EditText;
 
 public class CustomTextInputLayout extends TextInputLayout {
 
+    @VisibleForTesting
+    public boolean ismIsHintSet() {
+        return mIsHintSet;
+    }
+
     private boolean mIsHintSet;
+
+    @VisibleForTesting
+    public CharSequence getmHint() {
+        return mHint;
+    }
+
     private CharSequence mHint;
 
     public CustomTextInputLayout(Context context) {

@@ -15,7 +15,7 @@ public class ToDoItem implements Serializable {
     //    private Date mLastEdited;
     private int mTodoColor;
     private Date mToDoDate;
-    private UUID mTodoIdentifier;
+    public UUID mTodoIdentifier;
     //add description
     private static final String TODODESCRIPTION = "tododescription";
     private static final String TODOTEXT = "todotext";
@@ -42,10 +42,6 @@ public class ToDoItem implements Serializable {
         mTodoColor = jsonObject.getInt(TODOCOLOR);
 
         mTodoIdentifier = UUID.fromString(jsonObject.getString(TODOIDENTIFIER));
-
-//        if(jsonObject.has(TODOLASTEDITED)){
-//            mLastEdited = new Date(jsonObject.getLong(TODOLASTEDITED));
-//        }
         if (jsonObject.has(TODODATE)) {
             mToDoDate = new Date(jsonObject.getLong(TODODATE));
         }
@@ -56,18 +52,17 @@ public class ToDoItem implements Serializable {
         jsonObject.put(TODOTEXT, mToDoText);
         jsonObject.put(TODOREMINDER, mHasReminder);
         jsonObject.put(TODODESCRIPTION, mToDoDescription);
-//        jsonObject.put(TODOLASTEDITED, mLastEdited.getTime());
         if (mToDoDate != null) {
             jsonObject.put(TODODATE, mToDoDate.getTime());
         }
         jsonObject.put(TODOCOLOR, mTodoColor);
         jsonObject.put(TODOIDENTIFIER, mTodoIdentifier.toString());
 
+        System.out.print(jsonObject);
         return jsonObject;
     }
 
-
-    public ToDoItem() {
+    public ToDoItem(String s, boolean b, Date date) {
         this("Clean my room","Sweep and Mop my Room", true, new Date());
     }
 

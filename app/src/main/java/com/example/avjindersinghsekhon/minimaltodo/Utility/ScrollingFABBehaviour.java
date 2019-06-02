@@ -22,7 +22,6 @@ public class ScrollingFABBehaviour extends CoordinatorLayout.Behavior<FloatingAc
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
         return (dependency instanceof Snackbar.SnackbarLayout) || (dependency instanceof Toolbar);
-//        return (dependency instanceof Snackbar.SnackbarLayout);
     }
 
     @Override
@@ -31,19 +30,7 @@ public class ScrollingFABBehaviour extends CoordinatorLayout.Behavior<FloatingAc
             float finalVal = (float) parent.getHeight() - dependency.getY();
             child.setTranslationY(-finalVal);
         }
-//
-//        if(dependency instanceof RecyclerView){
-//            RecyclerView view = (RecyclerView)dependency;
-//            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams)child.getLayoutParams();
-//            int fabBottomMargin = lp.bottomMargin;
-//            final int distanceToScroll = child.getHeight() + fabBottomMargin;
-//
-//            final RecyclerView.LayoutManager rlp = (RecyclerView.LayoutManager)view.getLayoutManager();
-//            Log.d("OskarSchindler", "Height: "+rlp.getHeight());
-//
-//
-//
-//        }
+
         if (dependency instanceof Toolbar) {
             CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
             int fabBottomMargin = lp.bottomMargin;
