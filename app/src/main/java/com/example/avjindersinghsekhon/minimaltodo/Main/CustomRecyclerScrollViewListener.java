@@ -1,6 +1,6 @@
 package com.example.avjindersinghsekhon.minimaltodo.Main;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 
 public abstract class CustomRecyclerScrollViewListener extends RecyclerView.OnScrollListener {
