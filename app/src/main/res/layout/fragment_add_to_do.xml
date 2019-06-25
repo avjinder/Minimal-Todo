@@ -9,7 +9,7 @@
 
     <include layout="@layout/base_toolbar"/>
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -121,7 +121,7 @@
                         android:textColor="@color/secondary_text"
                         android:textSize="16sp" />
 
-                    <android.support.v7.widget.SwitchCompat
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/toDoHasDateSwitchCompat"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/makeToDoFloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -224,5 +224,5 @@
             app:layout_anchor="@id/editTextParentLinearLayout"
             app:layout_anchorGravity="bottom|right" />
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

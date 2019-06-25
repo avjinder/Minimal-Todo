@@ -24,13 +24,20 @@
 package com.example.avjindersinghsekhon.minimaltodo;
 
 import android.content.Context;
-import android.test.ActivityUnitTestCase;
+
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
+import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
 
+import org.junit.After;
+import org.junit.Assert;
+
 import org.json.JSONArray;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,29 +45,28 @@ import java.util.Date;
 /**
  * Test cases for StoreRetrieveData class
  */
-public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
+public class TestStoreRetrieveData{
 
     private MainActivity mMainActivity;
     private ArrayList<ToDoItem> mOriginalData;
     ArrayList<ToDoItem> mTestData;
 
+
     public TestStoreRetrieveData() {
-        super(MainActivity.class);
 
         // Create some test data
         mTestData = new ArrayList<>();
         for (int i = 1; i < 11; i++) {
             mTestData.add(new ToDoItem(
-                    "item" + i,
+                    "item" + i,"item Desc" + i,
                     false,
                     new Date()));
         }
     }
 
-    @Override
+    @Before
     protected void setUp() throws Exception {
-        super.setUp();
-        mMainActivity = getActivity();
+        mMainActivity = new MainActivity();
         mOriginalData = new ArrayList<>();
 
         // Save the original data and wipe out the storage
@@ -77,14 +83,12 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
             }
 
         } catch (Exception e) {
-            fail("Couldn't store data: " + e.getMessage());
+            Assert.fail("Couldn't store data: " + e.getMessage());
         }
     }
 
-    @Override
+    @After
     protected void tearDown() throws Exception {
-        super.tearDown();
-
         // Let's restore the data we might have wiped out during setUp()...
         StoreRetrieveData dataStorage = getDataStorage();
         dataStorage.saveToFile(mOriginalData);
@@ -93,6 +97,7 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
     /**
      * We should have an empty data storage at hand for the starters
      */
+    @Test
     public void testPreconditions() {
         StoreRetrieveData dataStorage = getDataStorage();
 
@@ -100,15 +105,16 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
         try {
             items = dataStorage.loadFromFile();
         } catch (Exception e) {
-            fail("Couldn't read from data storage: " + e.getMessage());
+            Assert.fail("Couldn't read from data storage: " + e.getMessage());
         }
 
-        assertEquals(0, items.size());
+        Assert.assertEquals(0, items.size());
     }
 
     /**
      * Write items to data storage and ensure those same items can be retrieved from the storage.
      */
+    @Test
     public void testWritingToAndReadingFromTheDataStorage() {
         StoreRetrieveData dataStorage = getDataStorage();
         ArrayList<ToDoItem> retrievedItems = new ArrayList<>();
@@ -117,18 +123,18 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
         try {
             dataStorage.saveToFile(mTestData);
         } catch (Exception e) {
-            fail("Couldn't store data: " + e.getMessage());
+            Assert.fail("Couldn't store data: " + e.getMessage());
         }
 
         // Read from storage
         try {
             retrievedItems = dataStorage.loadFromFile();
         } catch (Exception e) {
-            fail("Couldn't read from data storage: " + e.getMessage());
+            Assert.fail("Couldn't read from data storage: " + e.getMessage());
         }
 
         // We should have equal amount of items than what we just stored
-        assertEquals(mTestData.size(), retrievedItems.size());
+        Assert.assertEquals(mTestData.size(), retrievedItems.size());
 
         // The content should be same as well...
         for (ToDoItem retrievedItem : retrievedItems) {
@@ -149,7 +155,7 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
             }
 
             if (!found) {
-                fail("Content mis-match between test data and data retrieved from the storage!");
+                Assert.fail("Content mis-match between test data and data retrieved from the storage!");
             }
         }
     }
@@ -157,17 +163,18 @@ public class TestStoreRetrieveData extends ActivityUnitTestCase<MainActivity> {
     /**
      * Ensure JSONArray conversion works as intended
      */
+    @Test
     public void testArrayListToJsonArrayConversion() {
         try {
             JSONArray array = StoreRetrieveData.toJSONArray(mTestData);
-            assertEquals(mTestData.size(), array.length());
+            Assert.assertEquals(mTestData.size(), array.length());
         } catch (Exception e) {
-            fail("Exception thrown when converting to JSONArray: " + e.getMessage());
+            Assert.fail("Exception thrown when converting to JSONArray: " + e.getMessage());
         }
     }
 
     private StoreRetrieveData getDataStorage() {
-        Context context = getInstrumentation().getTargetContext();
-        return new StoreRetrieveData(context, MainActivity.FILENAME);
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        return new StoreRetrieveData(context, MainFragment.FILENAME);
     }
 }
