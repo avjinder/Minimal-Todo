@@ -1,18 +1,13 @@
 package com.example.avjindersinghsekhon.minimaltodo.Main;
 
 
-import android.content.Context;
-import android.provider.Contacts;
-import android.provider.ContactsContract;
-
-import androidx.test.InstrumentationRegistry;
+import androidx.test.espresso.Espresso;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
-import androidx.test.runner.AndroidJUnitRunner;
 
 import com.example.avjindersinghsekhon.minimaltodo.R;
 
-
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,24 +19,28 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 
 
 public class MainActivityTest_Nirja {
     @Rule
-    public ActivityTestRule mActivityRule = new ActivityTestRule(MainActivityTest_Nirja.class);
+    public ActivityTestRule mActivityRule = new ActivityTestRule(MainActivity.class);
 
-
-    @Test
-    public void useAppContext() throws Exception {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("com.example.avjindersinghsekhon.minimaltodo.Main",
-                appContext.getPackageName());
+    @Before
+    public void setUp() {
+        Espresso.closeSoftKeyboard();
     }
+
+    //Neeraja what's this test for? I don't think we need to test the constext of the App.
+//    @Test
+//    public void useAppContext() throws Exception {
+//        // Context of the app under test.
+//        Context appContext = InstrumentationRegistry.getTargetContext();
+//
+//        assertEquals("com.example.avjindersinghsekhon.minimaltodo",
+//                appContext.getPackageName());
+//    }
 
 
 
@@ -77,7 +76,6 @@ public class MainActivityTest_Nirja {
         onView(withId(R.id.toDoListItemTextview)).check(
                 matches(withText("This is a test.")));
     }
-
 
 }
 
