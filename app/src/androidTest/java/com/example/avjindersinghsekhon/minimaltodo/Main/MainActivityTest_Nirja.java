@@ -30,6 +30,10 @@ public class MainActivityTest_Nirja {
     @Before
     public void setUp() {
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.addToDoItemFAB))
+                // to check whether the plus button is visible to the user or not
+                .check(matches(isDisplayed()))
+                .perform(click());
     }
 
     //Neeraja what's this test for? I don't think we need to test the constext of the App.
@@ -43,12 +47,8 @@ public class MainActivityTest_Nirja {
 //    }
 
 
-
     @Test
     public void activityLaunch() {
-        onView(withId(R.id.addToDoItemFAB)).check(matches(isDisplayed()));
-        // to check whether the plus button is visible to the user or not
-        onView(withId(R.id.addToDoItemFAB)).perform(click());
         // to check whether the user able to click the button or not
         // then check whether after clicking the plus button First screen switches to second screen
         onView(withId(R.id.userToDoEditText)).check(matches(isDisplayed()));
@@ -73,6 +73,10 @@ public class MainActivityTest_Nirja {
                 typeText("This is also a test."));
 
         onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
+
+        // This is will cause the test to fail because
+        // this is not a reliable way to test data in a RecyclerView
+        //We need to use the Espresso API for a RecyclerView in order to check the data on RecyclerView
         onView(withId(R.id.toDoListItemTextview)).check(
                 matches(withText("This is a test.")));
     }
