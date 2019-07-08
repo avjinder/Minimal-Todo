@@ -7,7 +7,7 @@
     <string name="remind_me">Nhắc nhở tôi</string>
     <string name="choose_date">Ngày</string>
     <string name="choose_time">Giờ</string>
-    <string name="remind_date_and_time">Cài đặt nhắc nhở cho %1$s, %2$s %3$s</string>
+    <string name="remind_date_and_time">Cài đặt nhắc nhở cho %1$s, %2$s</string>
     <string name="about">Thông tin</string>
     <string name="app_version">Phiên bản: %1$s</string>
     <string name="contact_me">Bạn có thể liên lạc với tôi theo </string>
