@@ -74,14 +74,14 @@ public class MainActivityTest_Nirja {
         onView(withId(R.id.toDoRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(6,click()));
         // click the item to view the task
     }
-    @Test
-    public void Failing_test(){
-        onView(withId(R.id.addToDoItemFAB)).perform(click());
-        // click the add (+) button, to add a new todo list
-        onView(withId(R.id.userToDoEditText)).perform(
-                typeText("This is a test."));
-        onView(withId(R.id.userToDoEditText)).check(matches(withText("This is a failing test")));
-    }
+    //@Test
+   // public void Failing_test(){
+       // onView(withId(R.id.addToDoItemFAB)).perform(click());
+        //click the add (+) button, to add a new todo list
+       // onView(withId(R.id.userToDoEditText)).perform(
+               // typeText("This is a test."));
+        //onView(withId(R.id.userToDoEditText)).check(matches(withText("This is a failing test")));
+
 
 }
 
