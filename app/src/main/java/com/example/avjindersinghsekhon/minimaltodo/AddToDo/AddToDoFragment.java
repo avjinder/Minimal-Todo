@@ -74,7 +74,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     private ToDoItem mUserToDoItem;
     private FloatingActionButton mToDoSendFloatingActionButton;
-    public static final String DATE_FORMAT = "MMM d, yyyy";
+    public static final String DATE_FORMAT = "d MMM, yyyy";
     public static final String DATE_FORMAT_MONTH_DAY = "MMM d";
     public static final String DATE_FORMAT_TIME = "H:m";
 
@@ -428,7 +428,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     private void setDateAndTimeEditText() {
 
         if (mUserToDoItem.hasReminder() && mUserReminderDate != null) {
-            String userDate = formatDate("d MMM, yyyy", mUserReminderDate);
+            String userDate = formatDate(DATE_FORMAT, mUserReminderDate);
             String formatToUse;
             if (DateFormat.is24HourFormat(getContext())) {
                 formatToUse = "k:mm";
@@ -540,7 +540,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     }
 
     public void setDateEditText() {
-        String dateFormat = "d MMM, yyyy";
+        String dateFormat = DATE_FORMAT;
         mDateEditText.setText(formatDate(dateFormat, mUserReminderDate));
     }
 
@@ -576,7 +576,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     }
 
     static public String getFormattedDate(Date date, Context context) {
-        String dateString = formatDate("d MMM, yyyy", date);
+        String dateString = formatDate(DATE_FORMAT, date);
         boolean time24 = DateFormat.is24HourFormat(context);
         String timeString = formatDate(time24 ? "k:mm" : "h:mm a", date);
 
