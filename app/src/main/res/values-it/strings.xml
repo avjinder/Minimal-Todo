@@ -6,7 +6,7 @@
     <string name="remind_me">Promemoria</string>
     <string name="choose_date">Data</string>
     <string name="choose_time">Ora</string>
-    <string name="remind_date_and_time">Promemoria impostato per il giorno %1$s, %2$s %3$s</string>
+    <string name="remind_date_and_time">Promemoria impostato per il giorno %1$s, %2$s</string>
     <string name="about">Informazioni</string>
     <string name="app_version">Versione: %1$s</string>
     <string name="contact_me">Per contattare lo sviluppatore</string>
