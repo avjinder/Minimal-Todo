@@ -7,7 +7,7 @@
     <string name="remind_me">Remind Me</string>
     <string name="choose_date">Date</string>
     <string name="choose_time">Time</string>
-    <string name="remind_date_and_time">Reminder set for %1$s, %2$s %3$s</string>
+    <string name="remind_date_and_time">Reminder set for %1$s, %2$s</string>
     <string name="about">About</string>
     <string name="app_version">Version: %1$s</string>
     <string name="contact_me">You can contact me at</string>
@@ -29,4 +29,7 @@
     <string name="snooze">Snooze</string>
     <string name="remove">Remove</string>
     <string name="todo_error">Please enter a Todo</string>
+    <!-- The class name to the ScrollingChildBehavior required for AppBarLayout -->
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="at_for_time">\@</string>
 </resources>

@@ -8,7 +8,7 @@
     <string name="remind_me">Avísame</string>
     <string name="choose_date">Fecha</string>
     <string name="choose_time">Hora</string>
-    <string name="remind_date_and_time">Recordatorio el %1$s, %2$s %3$s</string>
+    <string name="remind_date_and_time">Recordatorio el %1$s, %2$s</string>
     <string name="about">Acerca de</string>
     <string name="app_version">Versión: %1$s</string>
     <string name="contact_me">Puedes contactarme en</string>

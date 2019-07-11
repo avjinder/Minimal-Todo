@@ -7,7 +7,7 @@
     <string name="remind_me">Ipaalala mo sa akin</string>
     <string name="choose_date">Petsa</string>
     <string name="choose_time">Oras</string>
-    <string name="remind_date_and_time">Itakda ang paalala sa %1$s, %2$s %3$s</string>
+    <string name="remind_date_and_time">Itakda ang paalala sa %1$s, %2$s</string>
     <string name="about">Tungkol</string>
     <string name="app_version">Bersyon: %1$s</string>
     <string name="contact_me">Maaari kang makipag-ugnay sa akin sa</string>

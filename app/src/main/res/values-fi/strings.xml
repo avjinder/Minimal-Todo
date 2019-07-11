@@ -7,7 +7,7 @@
     <string name="remind_me">Muistutus</string>
     <string name="choose_date">Päivämäärä</string>
     <string name="choose_time">Aika</string>
-    <string name="remind_date_and_time">Muistutus asetettu: %1$s, %2$s %3$s</string>
+    <string name="remind_date_and_time">Muistutus asetettu: %1$s, %2$s</string>
     <string name="about">Tietoja</string>
     <string name="app_version">Versio: %1$s</string>
     <string name="contact_me">Ota yhteyttä</string>

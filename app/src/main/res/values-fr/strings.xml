@@ -13,7 +13,7 @@
     <string name="remind_me">Rappelle moi</string>
     <string name="choose_date">Date</string>
     <string name="choose_time">Temps</string>
-    <string name="remind_date_and_time">Rappel défini pour %1$s, %2$s %3$s</string>
+    <string name="remind_date_and_time">Rappel défini pour %1$s, %2$s</string>
     <string name="about">À propos</string>
     <string name="app_version">Version : %1$s</string>
     <string name="contact_me">Vous pouvez me contacter à</string>

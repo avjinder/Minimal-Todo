@@ -1,4 +1,4 @@
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
@@ -9,7 +9,7 @@
 
     <include layout="@layout/base_toolbar"/>
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -93,7 +93,7 @@
                         android:textColor="@color/secondary_text"
                         android:textSize="16sp" />
 
-                    <android.support.v7.widget.SwitchCompat
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/toDoHasDateSwitchCompat"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                             android:layout_weight=".2"
                             android:gravity="center"
                             android:padding="4dp"
-                            android:text="\@"
+                            android:text="@string/at_for_time"
                             android:textColor="?attr/colorAccent" />
 
                         <EditText
@@ -174,7 +174,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/makeToDoFloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -184,5 +184,5 @@
             app:fabSize="normal"
             app:layout_anchor="@id/editTextParentLinearLayout"
             app:layout_anchorGravity="bottom|right" />
-    </android.support.design.widget.CoordinatorLayout>
-</LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
