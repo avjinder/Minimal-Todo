@@ -325,10 +325,6 @@ public class AddTodoItemScreenTest {
                 .check(matches(isDisplayed()))
                 .perform(click());
 
-
-//        onView(allOf(withId(R.id.month_text_view), withText("2019")))
-//                .perform(click());
-
         int mininumYear = 1900; // 1900 is the minimum year displayed in the YearPicker
         int pos = year - mininumYear;
         int yearsOffset = 2;
@@ -338,13 +334,35 @@ public class AddTodoItemScreenTest {
         cal.set(Calendar.YEAR, year + yearsOffset);
         Date dateSelected = cal.getTime();
 
+        // pick a year
         onData(instanceOf(String.class))
                 .inAdapterView(Matchers.<View>instanceOf(YearPickerView.class))
                 .atPosition(pos)
 //                .onChildView(withText("2021"))
                 .perform(click());
 
-        // pick the selected date
+        // pick a day
+//        onView(allOf(withContentDescription("10 July 2021"),
+//                isDescendantOfA(Matchers.<View>instanceOf(SimpleMonthView.class)
+////                , withText("July")
+//        )))
+//                .perform(scrollTo(), click());
+
+//        onView(allOf(instanceOf(SimpleDayPickerView.class),
+//                withChild(Matchers.<View>instanceOf(SimpleMonthView.class))
+////                , withText("July")
+//        ))
+//                .perform(scrollTo(), click());
+
+//        onData(instanceOf(MonthAdapter.CalendarDay.class))
+//                .inAdapterView(Matchers.<View>instanceOf(SimpleDayPickerView.class))
+////                .atPosition(22)
+//                .onChildView(allOf(withContentDescription("11 July 2021"),
+//                        isDescendantOfA(Matchers.<View>instanceOf(SimpleMonthView.class))))
+//                .perform(scrollTo())
+//        ;
+
+        // accept the selected date
         onView(allOf(withId(R.id.ok), isAssignableFrom(Button.class)))
                 // check button text is "Ok"
                 .check(matches(withText("OK")))
@@ -360,6 +378,8 @@ public class AddTodoItemScreenTest {
                 .check(matches(withText(getFormatDate(dateSelected))))
                 .check(matches(isDisplayed()));
     }
+
+
 
     @Test
     public void testPickTimeInPast() {
@@ -407,7 +427,6 @@ public class AddTodoItemScreenTest {
 
     private String getFormatDate(Date userReminderDate) {
         Log.d("TEST", "Imagined Date: " + userReminderDate);
-        String formatString = "d MMM, yyyy";
         return formatDate(AddToDoFragment.DATE_FORMAT, userReminderDate);
     }
 
