@@ -4,6 +4,7 @@ package com.example.avjindersinghsekhon.minimaltodo.Main;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.Button;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
@@ -16,13 +17,14 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -37,7 +39,7 @@ public class SaveWithReminderData {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    @Test
+//    @Test
     public void mainActivityTest2() {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
@@ -126,16 +128,24 @@ public class SaveWithReminderData {
             e.printStackTrace();
         }
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.ok), withText("OK"),
-                        childAtPosition(
-                                allOf(withId(R.id.done_background),
-                                        childAtPosition(
-                                                withId(R.id.time_picker_dialog),
-                                                1)),
-                                1),
-                        isDisplayed()));
-        appCompatButton.perform(click());
+//        ViewInteraction appCompatButton = onView(
+//                allOf(withId(R.id.ok), withText("OK"),
+//                        childAtPosition(
+//                                allOf(withId(R.id.done_background),
+//                                        childAtPosition(
+//                                                withId(R.id.time_picker_dialog),
+//                                                1)),
+//                                1),
+//                        isDisplayed()));
+//        appCompatButton.perform(click());
+
+        // accept the selected date
+        onView(allOf(withId(R.id.ok), isAssignableFrom(Button.class)))
+                // check button text is "Ok"
+                .check(matches(withText("OK")))
+                // check OK button is displayed to the user
+                .check(matches(isDisplayed()))
+                .perform(click());
 
         ViewInteraction floatingActionButton2 = onView(
                 allOf(withId(R.id.makeToDoFloatingActionButton),

@@ -39,7 +39,7 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class EditVerifyClosePageTest {
-    private static final String TITLE = "Test Title";
+    private static final String TITLE = "Test Title to Verify";
     private static final String DESCRIPTION = "Test Description";
 
     @Rule

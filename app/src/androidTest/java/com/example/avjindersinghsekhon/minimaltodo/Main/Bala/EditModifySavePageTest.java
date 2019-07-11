@@ -30,17 +30,14 @@ import static androidx.test.espresso.action.ViewActions.swipeLeft;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class EditModifySavePageTest {
-    private static final String TITLE = "Test Title";
+    private static final String TITLE = "Test Title to Save";
     private static final String DESCRIPTION = "Test Description";
     private static final String REPLACE_TITLE = "Replace Test Title";
     private static final String REPLACE_DESCRIPTION = "Replace Test Description";

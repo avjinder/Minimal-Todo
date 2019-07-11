@@ -22,6 +22,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/empty_todo_imageView"
                 android:src="@drawable/empty_view_bg"
                 android:layout_width="100dp"
                 android:layout_height="100dp"/>
