@@ -18,8 +18,8 @@ android {
         targetSdkVersion 28
         versionCode 3
         versionName "1.2"
-//        testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
-        testInstrumentationRunner = 'com.example.avjindersinghsekhon.minimaltodo.Util.CustomJUnitRunner'
+        testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
+//        testInstrumentationRunner = 'com.example.avjindersinghsekhon.minimaltodo.Util.CustomJUnitRunner'
 
     }
     buildTypes {
