@@ -74,7 +74,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     private ToDoItem mUserToDoItem;
     private FloatingActionButton mToDoSendFloatingActionButton;
-    public static final String DATE_FORMAT = "MMM d, yyyy";
+    public static final String DATE_FORMAT = "d MMM, yyyy";
     public static final String DATE_FORMAT_MONTH_DAY = "MMM d";
     public static final String DATE_FORMAT_TIME = "H:m";
 
@@ -413,10 +413,22 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     }
 
+    static public Date getAdjustedDate(Context context) {
+        boolean time24 = DateFormat.is24HourFormat(context);
+        Calendar cal = Calendar.getInstance();
+        if (time24) {
+            cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY) + 1);
+        } else {
+            cal.set(Calendar.HOUR, cal.get(Calendar.HOUR) + 1);
+        }
+        cal.set(Calendar.MINUTE, 0);
+        return cal.getTime();
+    }
+
     private void setDateAndTimeEditText() {
 
         if (mUserToDoItem.hasReminder() && mUserReminderDate != null) {
-            String userDate = formatDate("d MMM, yyyy", mUserReminderDate);
+            String userDate = formatDate(DATE_FORMAT, mUserReminderDate);
             String formatToUse;
             if (DateFormat.is24HourFormat(getContext())) {
                 formatToUse = "k:mm";
@@ -432,21 +444,10 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
             mDateEditText.setText(getString(R.string.date_reminder_default));
 //            mUserReminderDate = new Date();
             boolean time24 = DateFormat.is24HourFormat(getContext());
-            Calendar cal = Calendar.getInstance();
-            if (time24) {
-                cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY) + 1);
-            } else {
-                cal.set(Calendar.HOUR, cal.get(Calendar.HOUR) + 1);
-            }
-            cal.set(Calendar.MINUTE, 0);
-            mUserReminderDate = cal.getTime();
+            mUserReminderDate = getAdjustedDate(getContext());
+
             Log.d("OskarSchindler", "Imagined Date: " + mUserReminderDate);
-            String timeString;
-            if (time24) {
-                timeString = formatDate("k:mm", mUserReminderDate);
-            } else {
-                timeString = formatDate("h:mm a", mUserReminderDate);
-            }
+            String timeString = formatDate(time24 ? "k:mm" : "h:mm a", mUserReminderDate);
             mTimeEditText.setText(timeString);
 //            int hour = calendar.get(Calendar.HOUR_OF_DAY);
 //            if(hour<9){
@@ -539,7 +540,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     }
 
     public void setDateEditText() {
-        String dateFormat = "d MMM, yyyy";
+        String dateFormat = DATE_FORMAT;
         mDateEditText.setText(formatDate(dateFormat, mUserReminderDate));
     }
 
@@ -563,24 +564,27 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                 mReminderTextView.setTextColor(Color.RED);
                 return;
             }
-            Date date = mUserReminderDate;
-            String dateString = formatDate("d MMM, yyyy", date);
-            String timeString;
-            String amPmString = "";
 
-            if (DateFormat.is24HourFormat(getContext())) {
-                timeString = formatDate("k:mm", date);
-            } else {
-                timeString = formatDate("h:mm", date);
-                amPmString = formatDate("a", date);
-            }
-            String finalString = String.format(getResources().getString(R.string.remind_date_and_time), dateString, timeString, amPmString);
+            Date date = mUserReminderDate;
+            String finalString = getFormattedDate(date, getContext());
+
             mReminderTextView.setTextColor(getResources().getColor(R.color.secondary_text));
             mReminderTextView.setText(finalString);
         } else {
             mReminderTextView.setVisibility(View.INVISIBLE);
-
         }
+    }
+
+    static public String getFormattedDate(Date date, Context context) {
+        String dateString = formatDate(DATE_FORMAT, date);
+        boolean time24 = DateFormat.is24HourFormat(context);
+        String timeString = formatDate(time24 ? "k:mm" : "h:mm a", date);
+
+        String finalString = String.format(
+                context.getResources().getString(R.string.remind_date_and_time),
+                dateString, timeString);
+
+        return finalString;
     }
 
     public void makeResult(int result) {

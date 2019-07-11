@@ -18,7 +18,9 @@ android {
         targetSdkVersion 28
         versionCode 3
         versionName "1.2"
-        testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
+//        testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner = 'com.example.avjindersinghsekhon.minimaltodo.Util.CustomJUnitRunner'
+
     }
     buildTypes {
         release {
@@ -44,11 +46,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0', {
+
+    androidTestImplementation 'androidx.test:core:1.2.1-alpha01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
 
     }
-    androidTestImplementation ('com.android.support.test.espresso:espresso-contrib:2.0') {
+    androidTestImplementation ('com.android.support.test.espresso:espresso-contrib:3.0.2') {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
