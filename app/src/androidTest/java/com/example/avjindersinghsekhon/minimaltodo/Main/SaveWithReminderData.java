@@ -107,15 +107,15 @@ public class SaveWithReminderData {
             e.printStackTrace();
         }
 
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.newTodoTimeEditText), withText("3:00 AM"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.toDoEnterDateLinearLayout),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatEditText3.perform(click());
+//        ViewInteraction appCompatEditText3 = onView(
+//                allOf(withId(R.id.newTodoTimeEditText), withText("3:00 AM"),
+//                        childAtPosition(
+//                                childAtPosition(
+//                                        withId(R.id.toDoEnterDateLinearLayout),
+//                                        0),
+//                                2),
+//                        isDisplayed()));
+//        appCompatEditText3.perform(click());
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:

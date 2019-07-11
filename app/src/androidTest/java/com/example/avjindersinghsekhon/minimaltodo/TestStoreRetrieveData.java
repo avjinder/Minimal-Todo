@@ -65,7 +65,7 @@ public class TestStoreRetrieveData{
     }
 
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         mMainActivity = new MainActivity();
         mOriginalData = new ArrayList<>();
 
@@ -88,7 +88,7 @@ public class TestStoreRetrieveData{
     }
 
     @After
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         // Let's restore the data we might have wiped out during setUp()...
         StoreRetrieveData dataStorage = getDataStorage();
         dataStorage.saveToFile(mOriginalData);

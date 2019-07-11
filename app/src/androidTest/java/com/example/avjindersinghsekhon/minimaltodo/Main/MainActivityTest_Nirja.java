@@ -2,18 +2,11 @@
 package com.example.avjindersinghsekhon.minimaltodo.Main;
 
 
-import android.content.Context;
-import android.provider.Contacts;
-import android.provider.ContactsContract;
-
-import androidx.test.InstrumentationRegistry;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
-import androidx.test.runner.AndroidJUnitRunner;
 
 import com.example.avjindersinghsekhon.minimaltodo.R;
-
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,8 +18,6 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 
@@ -69,9 +60,9 @@ public class MainActivityTest_Nirja {
         //describe the task to be performed
         onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
         //click the floating button to save the task
-        onView(withId(R.id.toDoRecyclerView)).perform(RecyclerViewActions.scrollToPosition(6));
+        onView(withId(R.id.toDoRecyclerView)).perform(RecyclerViewActions.scrollToPosition(0));
         // Scroll to view item at a particular location
-        onView(withId(R.id.toDoRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(6,click()));
+        onView(withId(R.id.toDoRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
         // click the item to view the task
     }
     //@Test
