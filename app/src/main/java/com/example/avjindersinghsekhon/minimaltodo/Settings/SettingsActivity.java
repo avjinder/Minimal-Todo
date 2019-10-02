@@ -40,7 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final Drawable backArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        final Drawable backArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
         if (backArrow != null) {
             backArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
