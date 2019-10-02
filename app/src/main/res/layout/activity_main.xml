@@ -14,7 +14,6 @@
         >
 
         <include layout="@layout/base_toolbar"/>
-
-        <include layout="@layout/layout_fragment_container"/>
     </android.support.design.widget.AppBarLayout>
+    <include layout="@layout/layout_fragment_container"/>
 </LinearLayout>

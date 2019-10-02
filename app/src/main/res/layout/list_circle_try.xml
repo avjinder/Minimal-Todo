@@ -5,7 +5,7 @@
               android:layout_marginBottom="1dp"
               android:gravity="center"
               android:orientation="horizontal"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
