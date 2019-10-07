@@ -29,4 +29,6 @@
     <string name="snooze">Snooze</string>
     <string name="remove">Remove</string>
     <string name="todo_error">Please enter a Todo</string>
+    <string name="sendFeedback">sendFeedback</string>
+    <string name="RateUs">Rate us</string>
 </resources>
