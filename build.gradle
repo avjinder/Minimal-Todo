@@ -23,7 +23,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0'
     }
 }
 
