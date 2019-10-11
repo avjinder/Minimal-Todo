@@ -12,9 +12,14 @@
         app:showAsAction="never"
         />
 
+    <item android:title="@string/RateUs"
+        android:id="@+id/rateUsMeMenuItem"
+        app:showAsAction="never"
+        />
     <item android:title="@string/about"
         android:id="@+id/aboutMeMenuItem"
         app:showAsAction="never"
         />
+
 
 </menu>
