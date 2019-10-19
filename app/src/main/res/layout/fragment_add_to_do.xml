@@ -22,7 +22,7 @@
                 android:id="@+id/editTextParentLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".5"
+                android:layout_weight=".8"
                 android:background="?attr/colorPrimary"
                 android:gravity="center"
                 android:orientation="vertical">
