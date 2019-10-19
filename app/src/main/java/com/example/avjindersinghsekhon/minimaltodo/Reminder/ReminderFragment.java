@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
@@ -85,7 +86,14 @@ public class ReminderFragment extends AppDefaultFragment {
         mSnoozeSpinner = (MaterialSpinner) view.findViewById(R.id.todoReminderSnoozeSpinner);
 
 //        mtoDoTextTextView.setBackgroundColor(item.getTodoColor());
-        mtoDoTextTextView.setText(mItem.getToDoText());
+        if (mItem != null) {
+            mtoDoTextTextView.setText(mItem.getToDoText());
+        } else {
+            Toast.makeText(getContext(), getContext().getString(R.string.clicked_deleted_task_error_msg), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+        }
 
         if (theme.equals(MainFragment.LIGHTTHEME)) {
             mSnoozeTextView.setTextColor(getResources().getColor(R.color.secondary_text));

@@ -29,4 +29,5 @@
     <string name="snooze">Snooze</string>
     <string name="remove">Remove</string>
     <string name="todo_error">Please enter a Todo</string>
+    <string name="clicked_deleted_task_error_msg">Task not found :(</string>
 </resources>
