@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minimal</string>
+    <string name="action_settings">Настройки</string>
+    <string name="no_to_dos">У вас нет напоминаний</string>
+    <string name="title">Заголовок</string>
+    <string name="remind_me">Напомнить мне</string>
+    <string name="choose_date">Дата</string>
+    <string name="choose_time">Время</string>
+    <string name="remind_date_and_time">Напоминание установлено на %1$s, %2$s %3$s</string>
+    <string name="about">О приложении</string>
+    <string name="app_version">Версия: %1$s</string>
+    <string name="contact_me">Вы можете связаться со мной по</string>
+    <string name="made_by">Создатель Avjinder</string>
+    <string name="done_label">Готово</string>
+    <string name="date_reminder_default">Сегодня</string>
+    <string name="date_error_check_again">Вы ввели некорректную дату</string>
+    <string name="night_mode">Ночной Режим</string>
+    <string name="night_mode_on_summary">Ночной режим включён</string>
+    <string name="night_mode_off_summary">Ночной режим выключен</string>
+    <string name="description">Описание</string>
+
+    <string-array name="snooze_options">
+        <item>10 Минут</item>
+        <item>30 Минут</item>
+        <item>1 Час</item>
+    </string-array>
+
+    <string name="snooze">Отложить</string>
+    <string name="remove">Удалить</string>
+    <string name="todo_error">Пожалуйста, введите напоминание</string>
+</resources>
