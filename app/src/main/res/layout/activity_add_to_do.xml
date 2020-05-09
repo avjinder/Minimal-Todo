@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_width="match_parent"
+
     >
 
     <include layout="@layout/layout_fragment_container"/>
