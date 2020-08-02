@@ -1,5 +1,6 @@
 package com.example.avjindersinghsekhon.minimaltodo.About;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -11,6 +12,8 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
@@ -27,6 +30,7 @@ public class AboutActivity extends AppDefaultActivity {
     String theme;
     //    private UUID mId;
     private AnalyticsApplication app;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +65,14 @@ public class AboutActivity extends AppDefaultActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(backArrow);
         }
+
+
+
     }
 
     @Override
     protected int contentViewLayoutRes() {
+
         return R.layout.about_layout;
     }
 
@@ -75,14 +83,39 @@ public class AboutActivity extends AppDefaultActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (NavUtils.getParentActivityName(this) != null) {
                     NavUtils.navigateUpFromSameTask(this);
                 }
+
+                return true;
+            case R.id.button:
+                Intent intent=new Intent(this, Feedback.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
+    public  void openFeedback(View view){
+        if (view.getId()==R.id.button){
+
+                    Intent intent=new Intent(this, Feedback.class);
+                    startActivity(intent);
+
+
+
+
+
+        }
+ }
+
+
+
+
 }
