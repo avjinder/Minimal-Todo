@@ -25,6 +25,7 @@ public class MainActivity extends AppDefaultActivity {
         }
     }
 
+
     @Override
     protected int contentViewLayoutRes() {
         return R.layout.activity_main;
@@ -39,6 +40,7 @@ public class MainActivity extends AppDefaultActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -69,6 +71,8 @@ public class MainActivity extends AppDefaultActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
+
+
 
             default:
                 return super.onOptionsItemSelected(item);

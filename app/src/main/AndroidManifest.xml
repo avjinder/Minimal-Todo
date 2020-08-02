@@ -19,7 +19,7 @@
         <activity
             android:name=".Main.MainActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,7 @@
         </activity>
 
         <activity android:name=".AddToDo.AddToDoActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:parentActivityName=".Main.MainActivity"
             />
 
@@ -37,6 +37,10 @@
             android:label="@string/app_name"
             android:parentActivityName=".Main.MainActivity"
             />
+        <activity android:name=".About.Feedback">
+            android:label="@string/app_name"
+
+        </activity>
 
         <activity android:name=".Reminder.ReminderActivity"
             android:label="@string/app_name"
@@ -50,6 +54,7 @@
             android:parentActivityName=".Main.MainActivity"
 
             />
+
 
     </application>
 

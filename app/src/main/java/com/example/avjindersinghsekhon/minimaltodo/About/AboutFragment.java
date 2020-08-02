@@ -45,12 +45,16 @@ public class AboutFragment extends AppDefaultFragment {
         });
     }
 
+
+
     @LayoutRes
     protected int layoutRes() {
         return R.layout.fragment_about;
+
     }
 
     public static AboutFragment newInstance() {
         return new AboutFragment();
     }
 }
+
