@@ -22,14 +22,30 @@
         android:textColor="@color/icons"
         android:textSize="20sp"/>
 
+
     <Button
-        android:id="@+id/toDoReminderRemoveButton"
-        android:layout_width="match_parent"
+        android:id="@+id/toDoReminderSnoozeButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-2dp"
+        android:background="@drawable/button_pressed_background"
+        android:text="@string/snooze"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/toDoReminderRemoveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/button_pressed_background"
         android:text="@string/remove"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:id="@+id/toDoReminderLinearLayout"
@@ -67,6 +83,7 @@
 
 
     </LinearLayout>
+
 
 
 </RelativeLayout>

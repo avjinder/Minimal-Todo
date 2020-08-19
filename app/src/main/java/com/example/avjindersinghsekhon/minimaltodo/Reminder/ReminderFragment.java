@@ -149,33 +149,92 @@ public class ReminderFragment extends AppDefaultFragment {
         editor.apply();
     }
 
-    private Date addTimeToDate(int mins) {
-        app.send(this, "Action", "Snoozed", "For " + mins + " minutes");
+    private Date setNewTimeAndDate(int spinnerPosition) {
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.MINUTE, mins);
+        switch (spinnerPosition){
+            case 0: {
+                calendar.setTime(date);
+                calendar.add(Calendar.MINUTE, 10);
+                break;
+            }
+            case 1: {
+                calendar.setTime(date);
+                calendar.add(Calendar.MINUTE, 30);
+                break;
+            }
+            case 2: {
+                calendar.setTime(date);
+                calendar.add(Calendar.MINUTE, 60);
+                break;
+            }
+            case 3: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 24);
+                break;
+            }
+            case 4: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 24);
+                calendar.set(Calendar.HOUR_OF_DAY, 8);
+                calendar.set(Calendar.MINUTE, 0);
+                break;
+            }
+            case 5: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 24);
+                calendar.set(Calendar.HOUR_OF_DAY, 12);
+                calendar.set(Calendar.MINUTE, 0);
+                break;
+            }
+            case 6: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 24);
+                calendar.set(Calendar.HOUR_OF_DAY, 18);
+                calendar.set(Calendar.MINUTE, 0);
+                break;
+            }
+            case 7: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 48);
+                break;
+            }
+            case 8: {
+                calendar = giveNextWeekday(Calendar.FRIDAY);
+                calendar.setTime(date);
+            }
+            case 9: {
+                calendar = giveNextWeekday(Calendar.MONDAY);
+                calendar.setTime(date);
+            }
+
+        }
+
+      //  app.send(this, "Action", "Snoozed", "For " + mins + " minutes");
+
+
         return calendar.getTime();
     }
 
     private int valueFromSpinner() {
-        switch (mSnoozeSpinner.getSelectedItemPosition()) {
-            case 0:
-                return 10;
-            case 1:
-                return 30;
-            case 2:
-                return 60;
-            default:
-                return 0;
-        }
+        return mSnoozeSpinner.getSelectedItemPosition();
+    }
+
+    private Calendar giveNextWeekday (int weekday) {
+        Calendar today = Calendar.getInstance();
+        int dayOfCurrentWeek = today.get(Calendar.DAY_OF_WEEK);
+        int daysUntilWeekday = weekday - dayOfCurrentWeek;
+        if (daysUntilWeekday == 0) daysUntilWeekday = 7;
+        Calendar nextWeekday = (Calendar)today.clone();
+        nextWeekday.add(Calendar.DAY_OF_WEEK, daysUntilWeekday);
+        return nextWeekday;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.toDoReminderDoneMenuItem:
-                Date date = addTimeToDate(valueFromSpinner());
+                Date date = setNewTimeAndDate(valueFromSpinner());
                 mItem.setToDoDate(date);
                 mItem.setHasReminder(true);
                 Log.d("OskarSchindler", "Date Changed to: " + date);
