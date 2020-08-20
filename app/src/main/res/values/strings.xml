@@ -31,6 +31,7 @@
         <item>Later this Week</item>
         <item>This Weekend</item>
         <item>Upcoming Week</item>
+        <item></item>
     </string-array>
 
     <string name="snooze">Snooze</string>
