@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import java.util.UUID;
 import fr.ganfra.materialspinner.MaterialSpinner;
 
 import static android.content.Context.MODE_PRIVATE;
+import static java.lang.Math.abs;
 
 public class ReminderFragment extends AppDefaultFragment {
     private TextView mtoDoTextTextView;
@@ -46,6 +49,7 @@ public class ReminderFragment extends AppDefaultFragment {
     private ToDoItem mItem;
     public static final String EXIT = "com.avjindersekhon.exit";
     private TextView mSnoozeTextView;
+    private boolean mSpinnerInitialized;
     String theme;
     AnalyticsApplication app;
 
@@ -66,7 +70,7 @@ public class ReminderFragment extends AppDefaultFragment {
 
         ((AppCompatActivity) getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
 
-
+        mSpinnerInitialized = false;
         Intent i = getActivity().getIntent();
         UUID id = (UUID) i.getSerializableExtra(TodoNotificationService.TODOUUID);
         mItem = null;
@@ -78,7 +82,6 @@ public class ReminderFragment extends AppDefaultFragment {
         }
 
         snoozeOptionsArray = getResources().getStringArray(R.array.snooze_options);
-
         mRemoveToDoButton = (Button) view.findViewById(R.id.toDoReminderRemoveButton);
         mtoDoTextTextView = (TextView) view.findViewById(R.id.toDoReminderTextViewBody);
         mSnoozeTextView = (TextView) view.findViewById(R.id.reminderViewSnoozeTextView);
@@ -103,8 +106,29 @@ public class ReminderFragment extends AppDefaultFragment {
                 mToDoItems.remove(mItem);
                 changeOccurred();
                 saveData();
+            }
+        });
+
+        mSnoozeSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!mSpinnerInitialized) {
+                    mSpinnerInitialized = true;
+                    return;
+                }
+                Date date = setNewTimeAndDate(i);
+                mItem.setToDoDate(date);
+                mItem.setHasReminder(true);
+                Log.d("OskarSchindler", "Date Changed to: " + date);
+                changeOccurred();
+                saveData();
                 closeApp();
-//                finish();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -115,7 +139,12 @@ public class ReminderFragment extends AppDefaultFragment {
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         mSnoozeSpinner.setAdapter(adapter);
-//        mSnoozeSpinner.setSelection(0);
+        mSnoozeSpinner.setSelection(mSnoozeSpinner.getCount()-1);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -149,45 +178,92 @@ public class ReminderFragment extends AppDefaultFragment {
         editor.apply();
     }
 
-    private Date addTimeToDate(int mins) {
-        app.send(this, "Action", "Snoozed", "For " + mins + " minutes");
+    private Date setNewTimeAndDate(int spinnerPosition) {
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.MINUTE, mins);
+        switch (spinnerPosition){
+            case 0: {
+                calendar.setTime(date);
+                calendar.add(Calendar.MINUTE, 10);
+                break;
+            }
+            case 1: {
+                calendar.setTime(date);
+                calendar.add(Calendar.MINUTE, 30);
+                break;
+            }
+            case 2: {
+                calendar.setTime(date);
+                calendar.add(Calendar.MINUTE, 60);
+                break;
+            }
+            case 3: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 24);
+                break;
+            }
+            case 4: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 24);
+                calendar.set(Calendar.HOUR_OF_DAY, 8);
+                calendar.set(Calendar.MINUTE, 0);
+                break;
+            }
+            case 5: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 24);
+                calendar.set(Calendar.HOUR_OF_DAY, 12);
+                calendar.set(Calendar.MINUTE, 0);
+                break;
+            }
+            case 6: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 24);
+                calendar.set(Calendar.HOUR_OF_DAY, 18);
+                calendar.set(Calendar.MINUTE, 0);
+                break;
+            }
+            case 7: {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, 48);
+                break;
+            }
+            case 8: {
+                calendar = giveNextWeekday(Calendar.FRIDAY);
+                break;
+            }
+            case 9: {
+                calendar = giveNextWeekday(Calendar.MONDAY);
+                break;
+            }
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + spinnerPosition);
+        }
+
+       app.send(this, "Action", "Snoozed");
+
+
         return calendar.getTime();
     }
 
     private int valueFromSpinner() {
-        switch (mSnoozeSpinner.getSelectedItemPosition()) {
-            case 0:
-                return 10;
-            case 1:
-                return 30;
-            case 2:
-                return 60;
-            default:
-                return 0;
-        }
+        return mSnoozeSpinner.getSelectedItemPosition();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.toDoReminderDoneMenuItem:
-                Date date = addTimeToDate(valueFromSpinner());
-                mItem.setToDoDate(date);
-                mItem.setHasReminder(true);
-                Log.d("OskarSchindler", "Date Changed to: " + date);
-                changeOccurred();
-                saveData();
-                closeApp();
-                //foo
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    private Calendar giveNextWeekday (int weekday) {
+        Calendar today = Calendar.getInstance();
+        Date date = new Date();
+        today.setTime(date);
+        int dayOfCurrentWeek = today.get(Calendar.DAY_OF_WEEK);
+        int daysUntilWeekday = abs(weekday - dayOfCurrentWeek);
+        if (weekday < dayOfCurrentWeek ) daysUntilWeekday = 7 - daysUntilWeekday;
+        if (daysUntilWeekday == 0) daysUntilWeekday = 7;
+        Calendar nextWeekday = (Calendar)today.clone();
+        nextWeekday.add(Calendar.DAY_OF_WEEK, daysUntilWeekday);
+        return nextWeekday;
     }
+
 
 
     private void saveData() {

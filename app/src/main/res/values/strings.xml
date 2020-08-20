@@ -24,6 +24,14 @@
         <item>10 Minutes</item>
         <item>30 Minutes</item>
         <item>1 Hour</item>
+        <item>Tomorrow</item>
+        <item>Tomorrow Morning</item>
+        <item>Tomorrow Afternoon</item>
+        <item>Tomorrow Evening</item>
+        <item>Later this Week</item>
+        <item>This Weekend</item>
+        <item>Upcoming Week</item>
+        <item></item>
     </string-array>
 
     <string name="snooze">Snooze</string>
