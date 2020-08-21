@@ -185,6 +185,8 @@ public class MainFragment extends AppDefaultFragment {
         mRecyclerView = (RecyclerViewEmptySupport) view.findViewById(R.id.toDoRecyclerView);
         if (theme.equals(LIGHTTHEME)) {
             mRecyclerView.setBackgroundColor(getResources().getColor(R.color.primary_lightest));
+        }else{
+            mRecyclerView.setBackgroundColor(getResources().getColor(R.color.mdtp_dark_gray));
         }
         mRecyclerView.setEmptyView(view.findViewById(R.id.toDoEmptyView));
         mRecyclerView.setHasFixedSize(true);
