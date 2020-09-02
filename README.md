@@ -25,6 +25,8 @@ A fully Material ToDo app with minimal features, just enough to be useful.
 
 ## App Icon
 Designed by [Christopher Gundersen](cgundersen2020@gmail.com)
+## Forker by
+Ruben Catshoek
 ## Translations
 * Spanish by [nanopc](https://github.com/nanopc) <br>
 * German by [kaiwinter](https://github.com/kaiwinter) <br>
