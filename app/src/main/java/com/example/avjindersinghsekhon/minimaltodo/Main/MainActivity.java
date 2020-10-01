@@ -23,7 +23,7 @@ public class MainActivity extends AppDefaultActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
-    }
+    }////
 
     @Override
     protected int contentViewLayoutRes() {
