@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.avjindersinghsekhon.minimaltodo"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 30
         versionCode 3
         versionName "1.2"
     }
