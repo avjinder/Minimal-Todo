@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="0dp"
@@ -15,6 +15,7 @@
 
         <include layout="@layout/base_toolbar"/>
 
-        <include layout="@layout/layout_fragment_container"/>
-    </android.support.design.widget.AppBarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <include layout="@layout/layout_fragment_container"/>
 </LinearLayout>

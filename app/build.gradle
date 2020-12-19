@@ -10,12 +10,12 @@ android {
             storePassword ''
         }
     }
-    compileSdkVersion 23
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
     defaultConfig {
         applicationId "com.avjindersinghsekhon.minimaltodo"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 30
         versionCode 3
         versionName "1.2"
     }
@@ -39,8 +39,9 @@ dependencies {
     implementation 'com.wdullaer:materialdatetimepicker:1.5.1'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.github.ganfra:material-spinner:1.1.0'
-    implementation 'com.android.support:recyclerview-v7:23.1.0'
-    implementation 'com.android.support:design:23.1.0'
-    implementation 'com.android.support:appcompat-v7:23.1.0'
-    implementation 'com.android.support:support-v13:23.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
 }
