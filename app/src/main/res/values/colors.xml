@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="amber">#FFC107</color>
+    <color name="amber">#c4f403</color>
     <color name="red_primary">#D32F2F</color>
     <color name="red_secondary">#F44336</color>
     <color name="divider_color">#B6B6B6</color>
     <color name="light_primary_color">#FFCDD2</color>
 
-    <color name="primary">#3F51B5</color>
-    <color name="primary_dark">#303F9F</color>
+    <color name="primary">#03A9F4</color>
+    <color name="primary_dark">#03A9F4</color>
     <color name="primary_light">#C5CAE9</color>
     <color name="accent">#03A9F4</color>
     <!--<color name="accent">#FF9100</color>-->
