@@ -10,6 +10,7 @@ import com.example.avjindersinghsekhon.minimaltodo.R;
 public class AddToDoActivity extends AppDefaultActivity {
     @SuppressWarnings("deprecation")
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
