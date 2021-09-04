@@ -45,11 +45,13 @@
 
 
         <com.example.avjindersinghsekhon.minimaltodo.Utility.RecyclerViewEmptySupport
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/toDoRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+            android:layout_height="match_parent"
+            android:background="#00856868"
+            app:layout_anchor="@+id/toDoEmptyView"
+            app:layout_anchorGravity="center"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.design.widget.FloatingActionButton
             android:src="@drawable/ic_add_white_24dp"

@@ -318,14 +318,19 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
+
                 DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(AddToDoFragment.this, year, month, day);
                 if (theme.equals(MainFragment.DARKTHEME)) {
                     datePickerDialog.setThemeDark(true);
                 }
+
+
                 datePickerDialog.show(getActivity().getFragmentManager(), "DateFragment");
 
             }
         });
+
+
 
 
         mTimeEditText.setOnClickListener(new View.OnClickListener() {

@@ -14,13 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_below="@id/toolbar"
-        android:background="@color/primary"
+        android:background="@color/amber"
         android:ellipsize="middle"
         android:gravity="center|start"
         android:paddingLeft="16dp"
         android:text="@string/example"
         android:textColor="@color/icons"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/toDoReminderRemoveButton"
