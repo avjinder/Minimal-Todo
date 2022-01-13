@@ -1,7 +1,7 @@
 [Minimal-Todo](https://github.com/avjinder/Minimal-Todo) - Material To-Do App 
 ==================================================
 
-Welcome, so you are thinking about contributing to Minimal-Todo? Awesome, this is a great place to start.
+Welcome, so you are thinking about contributing to Minimal-Todo? Awesome, this is a great place to start (most certainly not).
 
 Get in Touch
 ------------
