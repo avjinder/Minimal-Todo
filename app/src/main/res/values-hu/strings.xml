@@ -2,12 +2,12 @@
 <resources>
     <string name="app_name">Minimal</string>
     <string name="action_settings">Beállítások</string>
-    <string name="no_to_dos">You don\'t have any todos</string>
+    <string name="no_to_dos">Nincsenek feladataid</string>
     <string name="title">Cím</string>
     <string name="remind_me">Emlékeztess</string>
     <string name="choose_date">Dátum</string>
     <string name="choose_time">Idő</string>
-    <string name="remind_date_and_time">Reminder set for %1$s, %2$s %3$s</string>
+    <string name="remind_date_and_time">Emlékeztető beállítva %1$s, %2$s %3$s</string>
     <string name="about">About</string>
     <string name="app_version">Verzió: %1$s</string>
     <string name="contact_me">Kapcsolatba léphetsz velem itt:</string>
@@ -26,7 +26,7 @@
         <item>1 Óra</item>
     </string-array>
 
-    <string name="snooze">Snooze</string>
-    <string name="remove">Remove</string>
-    <string name="todo_error">Please enter a Todo</string>
+    <string name="snooze">Szundít</string>
+    <string name="remove">Eltávolítás</string>
+    <string name="todo_error">Adj meg egy feladatot!</string>
 </resources>
