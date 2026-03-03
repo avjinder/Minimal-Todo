@@ -25,7 +25,10 @@
                 android:layout_weight=".5"
                 android:background="?attr/colorPrimary"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center"
+                android:id="@+id/emptyListLinearLayout"
+            >
 
 
                 <com.example.avjindersinghsekhon.minimaltodo.Utility.CustomTextInputLayout
