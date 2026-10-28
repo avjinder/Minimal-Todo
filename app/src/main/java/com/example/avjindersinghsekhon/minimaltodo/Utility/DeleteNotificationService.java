@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class DeleteNotificationService extends IntentService {
 
-    private StoreRetrieveData storeRetrieveData;
+    private ToDoFileStore toDoFileStore;
     private ArrayList<ToDoItem> mToDoItems;
     private ToDoItem mItem;
 
@@ -21,7 +21,7 @@ public class DeleteNotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        storeRetrieveData = new StoreRetrieveData(this, MainFragment.FILENAME);
+        toDoFileStore = new ToDoFileStore(this, MainFragment.FILENAME);
         UUID todoID = (UUID) intent.getSerializableExtra(TodoNotificationService.TODOUUID);
 
         mToDoItems = loadData();
@@ -46,13 +46,13 @@ public class DeleteNotificationService extends IntentService {
     private void dataChanged() {
         SharedPreferences sharedPreferences = getSharedPreferences(MainFragment.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(MainFragment.CHANGE_OCCURED, true);
+        editor.putBoolean(MainFragment.CHANGE_OCCURRED, true);
         editor.apply();
     }
 
     private void saveData() {
         try {
-            storeRetrieveData.saveToFile(mToDoItems);
+            toDoFileStore.saveToFile(mToDoItems);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,7 +66,7 @@ public class DeleteNotificationService extends IntentService {
 
     private ArrayList<ToDoItem> loadData() {
         try {
-            return storeRetrieveData.loadFromFile();
+            return toDoFileStore.loadFromFile();
         } catch (Exception e) {
             e.printStackTrace();
         }

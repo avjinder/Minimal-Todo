@@ -17,8 +17,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -29,17 +27,15 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.example.avjindersinghsekhon.minimaltodo.About.AboutActivity;
 import com.example.avjindersinghsekhon.minimaltodo.AddToDo.AddToDoActivity;
 import com.example.avjindersinghsekhon.minimaltodo.AddToDo.AddToDoFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Reminder.ReminderFragment;
-import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ItemTouchHelperClass;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.RecyclerViewEmptySupport;
-import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoFileStore;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.TodoNotificationService;
 
@@ -67,11 +63,11 @@ public class MainFragment extends AppDefaultFragment {
     public static final String DATE_TIME_FORMAT_12_HOUR = "MMM d, yyyy  h:mm a";
     public static final String DATE_TIME_FORMAT_24_HOUR = "MMM d, yyyy  k:mm";
     public static final String FILENAME = "todoitems.json";
-    private StoreRetrieveData storeRetrieveData;
+    private ToDoFileStore toDoFileStore;
     public ItemTouchHelper itemTouchHelper;
     private CustomRecyclerScrollViewListener customRecyclerScrollViewListener;
     public static final String SHARED_PREF_DATA_SET_CHANGED = "com.avjindersekhon.datasetchanged";
-    public static final String CHANGE_OCCURED = "com.avjinder.changeoccured";
+    public static final String CHANGE_OCCURRED = "com.avjinder.changeoccured";
     private int mTheme = -1;
     private String theme = "name_of_the_theme";
     public static final String THEME_PREFERENCES = "com.avjindersekhon.themepref";
@@ -109,20 +105,20 @@ public class MainFragment extends AppDefaultFragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(CHANGE_OCCURED, false);
+        editor.putBoolean(CHANGE_OCCURRED, false);
         editor.apply();
 
-        storeRetrieveData = new StoreRetrieveData(getContext(), FILENAME);
-        mToDoItemsArrayList = getLocallyStoredData(storeRetrieveData);
+        toDoFileStore = new ToDoFileStore(getContext(), FILENAME);
+        mToDoItemsArrayList = getLocallyStoredData(toDoFileStore);
         adapter = new MainFragment.BasicListAdapter(mToDoItemsArrayList);
         setAlarms();
 
 
 //        adapter.notifyDataSetChanged();
-//        storeRetrieveData = new StoreRetrieveData(this, FILENAME);
+//        toDoFileStore = new ToDoFileStore(this, FILENAME);
 //
 //        try {
-//            mToDoItemsArrayList = storeRetrieveData.loadFromFile();
+//            mToDoItemsArrayList = toDoFileStore.loadFromFile();
 ////            Log.d("OskarSchindler", "Arraylist Length: "+mToDoItemsArrayList.size());
 //        } catch (IOException | JSONException e) {
 ////            Log.d("OskarSchindler", "IOException received");
@@ -222,11 +218,11 @@ public class MainFragment extends AppDefaultFragment {
 
     }
 
-    public static ArrayList<ToDoItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData) {
+    public static ArrayList<ToDoItem> getLocallyStoredData(ToDoFileStore toDoFileStore) {
         ArrayList<ToDoItem> items = null;
 
         try {
-            items = storeRetrieveData.loadFromFile();
+            items = toDoFileStore.loadFromFile();
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -277,15 +273,15 @@ public class MainFragment extends AppDefaultFragment {
         app = (AnalyticsApplication) getActivity().getApplication();
         super.onStart();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(CHANGE_OCCURED, false)) {
+        if (sharedPreferences.getBoolean(CHANGE_OCCURRED, false)) {
 
-            mToDoItemsArrayList = getLocallyStoredData(storeRetrieveData);
+            mToDoItemsArrayList = getLocallyStoredData(toDoFileStore);
             adapter = new MainFragment.BasicListAdapter(mToDoItemsArrayList);
             mRecyclerView.setAdapter(adapter);
             setAlarms();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(CHANGE_OCCURED, false);
+            editor.putBoolean(CHANGE_OCCURRED, false);
 //            editor.commit();
             editor.apply();
 
@@ -318,44 +314,6 @@ public class MainFragment extends AppDefaultFragment {
         editor.apply();
     }
 
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.aboutMeMenuItem:
-                Intent i = new Intent(getContext(), AboutActivity.class);
-                startActivity(i);
-                return true;
-//            case R.id.switch_themes:
-//                if(mTheme == R.style.CustomStyle_DarkTheme){
-//                    addThemeToSharedPreferences(LIGHTTHEME);
-//                }
-//                else{
-//                    addThemeToSharedPreferences(DARKTHEME);
-//                }
-//
-////                if(mTheme == R.style.CustomStyle_DarkTheme){
-////                    mTheme = R.style.CustomStyle_LightTheme;
-////                }
-////                else{
-////                    mTheme = R.style.CustomStyle_DarkTheme;
-////                }
-//                this.recreate();
-//                return true;
-            case R.id.preferences:
-                Intent intent = new Intent(getContext(), SettingsActivity.class);
-                startActivity(intent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -390,17 +348,13 @@ public class MainFragment extends AppDefaultFragment {
         }
     }
 
-    private AlarmManager getAlarmManager() {
-        return (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
-    }
-
     private boolean doesPendingIntentExist(Intent i, int requestCode) {
         PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_NO_CREATE);
         return pi != null;
     }
 
     private void createAlarm(Intent i, int requestCode, long timeInMillis) {
-        AlarmManager am = getAlarmManager();
+        AlarmManager am = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
         PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
         am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pi);
 //        Log.d("OskarSchindler", "createAlarm "+requestCode+" time: "+timeInMillis+" PI "+pi.toString());
@@ -410,7 +364,8 @@ public class MainFragment extends AppDefaultFragment {
         if (doesPendingIntentExist(i, requestCode)) {
             PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_NO_CREATE);
             pi.cancel();
-            getAlarmManager().cancel(pi);
+            AlarmManager am = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+            am.cancel(pi);
             Log.d("OskarSchindler", "PI Cancelled " + doesPendingIntentExist(i, requestCode));
         }
     }
@@ -602,7 +557,7 @@ public class MainFragment extends AppDefaultFragment {
 
     private void saveDate() {
         try {
-            storeRetrieveData.saveToFile(mToDoItemsArrayList);
+            toDoFileStore.saveToFile(mToDoItemsArrayList);
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
@@ -613,7 +568,7 @@ public class MainFragment extends AppDefaultFragment {
     public void onPause() {
         super.onPause();
         try {
-            storeRetrieveData.saveToFile(mToDoItemsArrayList);
+            toDoFileStore.saveToFile(mToDoItemsArrayList);
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }

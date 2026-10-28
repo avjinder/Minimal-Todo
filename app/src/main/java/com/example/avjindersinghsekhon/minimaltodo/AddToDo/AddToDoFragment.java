@@ -59,7 +59,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     private SwitchCompat mToDoDateSwitch;
     //    private TextView mLastSeenTextView;
-    private LinearLayout mUserDateSpinnerContainingLinearLayout;
+    private LinearLayout mReminderDateContainer;
     private TextView mReminderTextView;
 
     private String CombinationText;
@@ -158,7 +158,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         mCopyClipboard = (Button) view.findViewById(R.id.copyclipboard);
 
         mContainerLayout = (LinearLayout) view.findViewById(R.id.todoReminderAndDateContainerLayout);
-        mUserDateSpinnerContainingLinearLayout = (LinearLayout) view.findViewById(R.id.toDoEnterDateLinearLayout);
+        mReminderDateContainer = (LinearLayout) view.findViewById(R.id.toDoEnterDateLinearLayout);
         mToDoTextBodyEditText = (EditText) view.findViewById(R.id.userToDoEditText);
         mToDoTextBodyDescription= (EditText) view.findViewById(R.id.userToDoDescription);
         mToDoDateSwitch = (SwitchCompat) view.findViewById(R.id.toDoHasDateSwitchCompat);
@@ -196,7 +196,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
 
         if (mUserHasReminder && (mUserReminderDate != null)) {
-//            mUserDateSpinnerContainingLinearLayout.setVisibility(View.VISIBLE);
+//            mReminderDateContainer.setVisibility(View.VISIBLE);
             setReminderTextView();
             setEnterDateLayoutVisibleWithAnimations(true);
         }
@@ -647,20 +647,20 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     public void setEnterDateLayoutVisible(boolean checked) {
         if (checked) {
-            mUserDateSpinnerContainingLinearLayout.setVisibility(View.VISIBLE);
+            mReminderDateContainer.setVisibility(View.VISIBLE);
         } else {
-            mUserDateSpinnerContainingLinearLayout.setVisibility(View.INVISIBLE);
+            mReminderDateContainer.setVisibility(View.INVISIBLE);
         }
     }
 
     public void setEnterDateLayoutVisibleWithAnimations(boolean checked) {
         if (checked) {
             setReminderTextView();
-            mUserDateSpinnerContainingLinearLayout.animate().alpha(1.0f).setDuration(500).setListener(
+            mReminderDateContainer.animate().alpha(1.0f).setDuration(500).setListener(
                     new Animator.AnimatorListener() {
                         @Override
                         public void onAnimationStart(Animator animation) {
-                            mUserDateSpinnerContainingLinearLayout.setVisibility(View.VISIBLE);
+                            mReminderDateContainer.setVisibility(View.VISIBLE);
                         }
 
                         @Override
@@ -677,7 +677,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
                     }
             );
         } else {
-            mUserDateSpinnerContainingLinearLayout.animate().alpha(0.0f).setDuration(500).setListener(
+            mReminderDateContainer.animate().alpha(0.0f).setDuration(500).setListener(
                     new Animator.AnimatorListener() {
                         @Override
                         public void onAnimationStart(Animator animation) {
@@ -686,7 +686,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            mUserDateSpinnerContainingLinearLayout.setVisibility(View.INVISIBLE);
+                            mReminderDateContainer.setVisibility(View.INVISIBLE);
                         }
 
                         @Override

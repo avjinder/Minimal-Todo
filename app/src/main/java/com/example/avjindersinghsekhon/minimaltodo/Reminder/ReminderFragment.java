@@ -20,7 +20,7 @@ import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainActivity;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
-import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
+import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoFileStore;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ToDoItem;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.TodoNotificationService;
 
@@ -41,7 +41,7 @@ public class ReminderFragment extends AppDefaultFragment {
     private Button mRemoveToDoButton;
     private MaterialSpinner mSnoozeSpinner;
     private String[] snoozeOptionsArray;
-    private StoreRetrieveData storeRetrieveData;
+    private ToDoFileStore toDoFileStore;
     private ArrayList<ToDoItem> mToDoItems;
     private ToDoItem mItem;
     public static final String EXIT = "com.avjindersekhon.exit";
@@ -61,8 +61,8 @@ public class ReminderFragment extends AppDefaultFragment {
         } else {
             getActivity().setTheme(R.style.CustomStyle_DarkTheme);
         }
-        storeRetrieveData = new StoreRetrieveData(getContext(), MainFragment.FILENAME);
-        mToDoItems = MainFragment.getLocallyStoredData(storeRetrieveData);
+        toDoFileStore = new ToDoFileStore(getContext(), MainFragment.FILENAME);
+        mToDoItems = MainFragment.getLocallyStoredData(toDoFileStore);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
 
@@ -144,7 +144,7 @@ public class ReminderFragment extends AppDefaultFragment {
     private void changeOccurred() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainFragment.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(MainFragment.CHANGE_OCCURED, true);
+        editor.putBoolean(MainFragment.CHANGE_OCCURRED, true);
 //        editor.commit();
         editor.apply();
     }
@@ -159,16 +159,12 @@ public class ReminderFragment extends AppDefaultFragment {
     }
 
     private int valueFromSpinner() {
-        switch (mSnoozeSpinner.getSelectedItemPosition()) {
-            case 0:
-                return 10;
-            case 1:
-                return 30;
-            case 2:
-                return 60;
-            default:
-                return 0;
+        int[] snoozeMinutes = getResources().getIntArray(R.array.snooze_minutes);
+        int position = mSnoozeSpinner.getSelectedItemPosition();
+        if (position < 0 || position >= snoozeMinutes.length) {
+            return 0;
         }
+        return snoozeMinutes[position];
     }
 
     @Override
@@ -192,7 +188,7 @@ public class ReminderFragment extends AppDefaultFragment {
 
     private void saveData() {
         try {
-            storeRetrieveData.saveToFile(mToDoItems);
+            toDoFileStore.saveToFile(mToDoItems);
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
